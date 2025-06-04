@@ -1,5 +1,5 @@
 {
-    "name": "BEPUphysics",
+    "name": "BEPUphysicsAdapater",
     "rootNamespace": "",
     "references": [
         "GUID:203e4808001323946949b88b3699bd8c"
