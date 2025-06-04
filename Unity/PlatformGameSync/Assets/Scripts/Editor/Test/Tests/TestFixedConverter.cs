@@ -13,7 +13,7 @@ public class TestFixedConverter {
     [Test]
     public void TestV3_1() {
         UVector3 unityV3 = new UVector3(1.11f, 2.22f, 3.33f);
-        var fv3 = unityV3.ToFVector3();
+        var fv3 = unityV3.ToFixedVector3();
         // Debug.Log($"{fv3.X} {fv3.Y} {fv3.Z}");
 
 
@@ -26,7 +26,7 @@ public class TestFixedConverter {
     [Test]
     public void TestV3_2() {
         FVector3 fv3 = new FVector3((Fix64)1.11f, (Fix64)2.22f, (Fix64)3.33f);
-        UVector3 uv3 = fv3.ToUVector3();
+        UVector3 uv3 = fv3.ToUnityVector3();
         Assert.IsTrue(Mathf.Approximately(uv3.x, (float)fv3.X));
         Assert.IsTrue(Mathf.Approximately(uv3.y, (float)fv3.Y));
         Assert.IsTrue(Mathf.Approximately(uv3.z, (float)fv3.Z));
@@ -36,7 +36,7 @@ public class TestFixedConverter {
     [Test]
     public void TestV2_1() {
         UVector2 unityV2 = new UVector2(1.11f, 2.22f);
-        var fv2 = unityV2.ToFVector2();
+        var fv2 = unityV2.ToFixedVector2();
         // Debug.Log($"{fv2.X} {fv2.Y} ");
 
         Assert.IsTrue(Mathf.Approximately(unityV2.x, (float)fv2.X));
@@ -47,7 +47,7 @@ public class TestFixedConverter {
     [Test]
     public void TestV2_2() {
         FVector2 fv2 = new FVector2((Fix64)1.11f, (Fix64)2.22f);
-        UVector2 uv2 = fv2.ToUVector2();
+        UVector2 uv2 = fv2.ToUnityVector2();
         Assert.IsTrue(Mathf.Approximately(uv2.x, (float)fv2.X));
         Assert.IsTrue(Mathf.Approximately(uv2.y, (float)fv2.Y));
     }
@@ -55,7 +55,7 @@ public class TestFixedConverter {
     [Test]
     public void TestQ_1() {
         var uq = new UQuaternion(1.11f, 2.22f, 3.33f, 4.44f);
-        var fq = uq.ToFQuaternion();
+        var fq = uq.ToFixedQuaternion();
         Assert.IsTrue(Mathf.Approximately(uq.x, (float)fq.X));
         Assert.IsTrue(Mathf.Approximately(uq.y, (float)fq.Y));
         Assert.IsTrue(Mathf.Approximately(uq.z, (float)fq.Z));
@@ -66,7 +66,7 @@ public class TestFixedConverter {
     [Test]
     public void TestQ_2() {
         var fq = new FQuaternion((Fix64)1.11f, (Fix64)2.22f, (Fix64)3.33f, (Fix64)4.44f);
-        var uq = fq.ToUQuaternion();
+        var uq = fq.ToUnityQuaternion();
         Assert.IsTrue(Mathf.Approximately(uq.x, (float)fq.X));
         Assert.IsTrue(Mathf.Approximately(uq.y, (float)fq.Y));
         Assert.IsTrue(Mathf.Approximately(uq.z, (float)fq.Z));

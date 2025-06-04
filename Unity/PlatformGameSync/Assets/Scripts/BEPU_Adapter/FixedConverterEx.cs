@@ -11,7 +11,7 @@ public static class FixedConverterEx {
     // BEPUphysics v1 (Fix64) uses a specific internal representation.
     // Fix64.ToFloat() and Fix64.FromFloat() are the correct conversion methods.
 
-    public static UVector3 ToUVector3(this FVector3 bepuVector) {
+    public static UVector3 ToUnityVector3(this FVector3 bepuVector) {
         return new UVector3(
             (float)bepuVector.X,
             (float)bepuVector.Y,
@@ -19,7 +19,7 @@ public static class FixedConverterEx {
         );
     }
 
-    public static FVector3 ToFVector3(this UVector3 unityVector) {
+    public static FVector3 ToFixedVector3(this UVector3 unityVector) {
         return new FVector3(
             (Fix64)(unityVector.x),
             (Fix64)(unityVector.y),
@@ -27,21 +27,21 @@ public static class FixedConverterEx {
         );
     }
 
-    public static UVector2 ToUVector2(this FVector2 bepuVector) {
+    public static UVector2 ToUnityVector2(this FVector2 bepuVector) {
         return new UVector2(
             (float)bepuVector.X,
             (float)bepuVector.Y
         );
     }
 
-    public static FVector2 ToFVector2(this UVector2 unityVector) {
+    public static FVector2 ToFixedVector2(this UVector2 unityVector) {
         return new FVector2(
             (Fix64)(unityVector.x),
             (Fix64)(unityVector.y)
         );
     }
 
-    public static UQuaternion ToUQuaternion(this FQuaternion bepuQuaternion) {
+    public static UQuaternion ToUnityQuaternion(this FQuaternion bepuQuaternion) {
         return new UQuaternion(
             (float)bepuQuaternion.X,
             (float)bepuQuaternion.Y,
@@ -50,7 +50,7 @@ public static class FixedConverterEx {
         );
     }
 
-    public static FQuaternion ToFQuaternion(this UQuaternion unityQuaternion) {
+    public static FQuaternion ToFixedQuaternion(this UQuaternion unityQuaternion) {
         return new FQuaternion(
             (Fix64)unityQuaternion.x,
             (Fix64)unityQuaternion.y,
