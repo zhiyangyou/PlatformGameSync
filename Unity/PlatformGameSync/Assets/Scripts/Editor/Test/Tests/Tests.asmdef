@@ -4,7 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "BEPUPhysicsintV1"
+        "BEPUPhysicsintV1",
+        "BEPUphysicsAdapater"
     ],
     "includePlatforms": [
         "Editor"
