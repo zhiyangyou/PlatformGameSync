@@ -696,6 +696,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Server: ALLOWUNSAFE
+    Standalone: ALLOWUNSAFE
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
