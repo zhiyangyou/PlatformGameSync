@@ -178,6 +178,13 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
         SyncPosAndRotation_ToTransform();
     }
 
+#if UNITY_EDITOR
+
+    private void OnValidate() {
+        SyncAllAttrsToEntity();
+    }
+#endif
+
     #endregion
 
     #region abstract
