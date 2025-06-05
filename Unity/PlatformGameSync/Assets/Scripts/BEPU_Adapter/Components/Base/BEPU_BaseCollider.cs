@@ -129,16 +129,16 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
 
 
     public virtual void SyncAllAttrsToEntity() {
-        // 物理材质球同步 
         (materialSo ? materialSo.Data : DefaultAttr.DefaultMaterial).SyncToBEPUMat(material);
-
         entity.CollisionInformation.CollisionRules.Personal = isTrigger ? CollisionRule.NoSolver : _defaultCollisionRule;
         // Debug.LogError($"entityType :{entityType} {this.gameObject.name}");
         switch (entityType) {
             case BEPU_EEntityType.Kinematic:
                 entity.BecomeKinematic();
+                useGravity = false;
                 break;
             case BEPU_EEntityType.Dyanmic:
+                useGravity = true;
                 var defaultMass = this.mass == 0f ? 1f : this.mass;
                 entity.BecomeDynamic((Fix64)defaultMass, entity.AutoLocalInertiaTensor((Fix64)mass));
                 break;
