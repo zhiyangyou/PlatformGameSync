@@ -1110,11 +1110,20 @@ namespace BEPUphysics.Entities
 #endif
         }
 
+        protected virtual Vector3 GetRotationIncrement(Fix64 dt) {
+            Vector3.Multiply(ref angularVelocity, dt * F64.C0p5, out var increment);
+            return increment;
+        }
+        
+        protected virtual Vector3 GetPosIncrement(Fix64 dt) {
+            Vector3.Multiply(ref linearVelocity, dt, out var increment);
+            return increment;
+        }
+        
         void IPositionUpdateable.PreUpdatePosition(Fix64 dt)
         {
             Vector3 increment;
-
-            Vector3.Multiply(ref angularVelocity, dt * F64.C0p5, out increment);
+            increment = GetRotationIncrement(dt);
             var multiplier = new Quaternion(increment.X, increment.Y, increment.Z, F64.C0);
             Quaternion.Multiply(ref multiplier, ref orientation, out multiplier);
             Quaternion.Add(ref orientation, ref multiplier, out orientation);
@@ -1125,7 +1134,7 @@ namespace BEPUphysics.Entities
             //Only do the linear motion if this object doesn't obey CCD.
             if (PositionUpdateMode == PositionUpdateMode.Discrete)
             {
-                Vector3.Multiply(ref linearVelocity, dt, out increment);
+                increment = GetPosIncrement(dt);
                 Vector3.Add(ref position, ref increment, out position);
 
                 collisionInformation.UpdateWorldTransform(ref position, ref orientation);

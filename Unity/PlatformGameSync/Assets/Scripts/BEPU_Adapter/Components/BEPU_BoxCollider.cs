@@ -74,10 +74,42 @@ public partial class BEPU_BoxCollider : BEPU_BaseCollider {
         }
     }
 
+    public float Mass {
+        get => mass;
+        set {
+            mass = value;
+            SyncAttrsToEntity();
+        }
+    }
 
-    private Entity _entity;
+    public float Drag {
+        get => drag;
+        set {
+            drag = value;
+            SyncAttrsToEntity();
+        }
+    }
 
-    public override Entity entity {
+    public float AngularDrag {
+        get => angularDrag;
+        set {
+            angularDrag = value;
+            SyncAttrsToEntity();
+        }
+    }
+
+    public bool UseGravity {
+        get => useGravity;
+        set {
+            useGravity = value;
+            SyncAttrsToEntity();
+        }
+    }
+
+
+    private BEPU_CustomEntity _entity;
+
+    public override BEPU_CustomEntity entity {
         get {
             if (_entity == null) {
                 _entity = new(boxShape);
@@ -149,16 +181,29 @@ public partial class BEPU_BoxCollider : BEPU_BaseCollider {
         boxShape.Height = this.Height;
         boxShape.Length = this.Length;
         entity.CollisionInformation.CollisionRules.Personal = isTrigger ? CollisionRule.NoSolver : _defaultCollisionRule;
+        // Debug.LogError($"entityType :{entityType} {this.gameObject.name}");
         switch (entityType) {
             case BEPU_EEntityType.Kinematic:
                 entity.BecomeKinematic();
                 break;
             case BEPU_EEntityType.Dyanmic:
-                entity.BecomeDynamic((Fix64)this.mass, entity.AutoLocalInertiaTensor((Fix64)mass));
+                var defaultMass = this.mass == 0f ? 1f : this.mass;
+                entity.BecomeDynamic((Fix64)defaultMass, entity.AutoLocalInertiaTensor((Fix64)mass));
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
+        entity.Mass = (Fix64)mass;
+        entity.LinearDamping = (Fix64)drag;
+        entity.AngularDamping = (Fix64)angularDrag;
+        entity.Gravity = useGravity ? null : BEPUutilities.Vector3.Zero; // null代表使用默认的重力加速度值
+
+        entity.freezePos_X = this.freezePos_X;
+        entity.freezePos_Y = this.freezePos_Y;
+        entity.freezePos_Z = this.freezePos_Z;
+        entity.freezeRotation_X = this.freezeRotation_X;
+        entity.freezeRotation_Y = this.freezeRotation_Y;
+        entity.freezeRotation_Z = this.freezeRotation_Z;
 
         SyncPosAndRotation_ToPhysics();
     }

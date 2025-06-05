@@ -199,13 +199,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312154555}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.12378881, y: -0.16357175, z: -0.020692931, w: 0.97851545}
-  m_LocalPosition: {x: 0, y: 19.91, z: 0}
+  m_LocalRotation: {x: -0.12550645, y: 0, z: 0, w: 0.99209285}
+  m_LocalPosition: {x: 0, y: 19.91, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1172632415}
-  m_LocalEulerAnglesHint: {x: -14.42, y: -18.98, z: 0}
+  m_LocalEulerAnglesHint: {x: -14.42, y: 0, z: 0}
 --- !u!114 &312154560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,7 +459,7 @@ MonoBehaviour:
   size: {x: 1, y: 1, z: 1}
   materialSo: {fileID: 0}
   entityType: 0
-  mass: 1
+  mass: 0
   drag: 0
   angularDrag: 0
   useGravity: 1
@@ -666,8 +666,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dynamicCubePrefab: {fileID: 312154555}
   groundTransform: {fileID: 1035897558}
-  numberOfCubes: 200
-  cubeSpawnHeight: 10
+  numberOfCubes: 100
+  cubeSpawnHeight: 20
 --- !u!4 &1383126130
 Transform:
   m_ObjectHideFlags: 0

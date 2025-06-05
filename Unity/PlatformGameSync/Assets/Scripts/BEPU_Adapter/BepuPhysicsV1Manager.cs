@@ -52,6 +52,8 @@ public class BepuPhysicsV1Manager : MonoBehaviour {
         }
 
         BEPU_BoxCollider collider = groundTransform.gameObject.GetOrAddComponnet<BEPU_BoxCollider>();
+
+        collider.EntityType = BEPU_EEntityType.Kinematic;
         _physicsSyncs.Add(collider);
         _physicsWorld.AddEntity(collider);
     }
