@@ -80,6 +80,16 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         EditorGUILayout.PropertyField(isTrigger);
         EditorGUILayout.PropertyField(materialSo);
         EditorGUILayout.PropertyField(centerProp);
+        EditorGUILayout.LabelField("FreezePos:");
+        EditorGUILayout.PropertyField(freezePos_X);
+        EditorGUILayout.PropertyField(freezePos_Y);
+        EditorGUILayout.PropertyField(freezePos_Z);
+        EditorGUILayout.LabelField("FreezeRotation:");
+
+        EditorGUILayout.PropertyField(freezeRotation_X);
+        EditorGUILayout.PropertyField(freezeRotation_Y);
+        EditorGUILayout.PropertyField(freezeRotation_Z);
+
         EditorGUILayout.PropertyField(entityType);
     }
 
@@ -87,7 +97,6 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         BEPU_EEntityType type = (BEPU_EEntityType)((int)entityType.enumValueIndex);
         if (type == BEPU_EEntityType.Dyanmic) {
             EditorGUILayout.LabelField("刚体属性");
-
             EditorGUILayout.PropertyField(mass);
             EditorGUILayout.PropertyField(drag);
             EditorGUILayout.PropertyField(angularDrag);
@@ -95,16 +104,6 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
             if (useGravity.boolValue) {
                 EditorGUILayout.PropertyField(gravityScale);
             }
-
-            EditorGUILayout.LabelField("FreezePos:");
-            EditorGUILayout.PropertyField(freezePos_X);
-            EditorGUILayout.PropertyField(freezePos_Y);
-            EditorGUILayout.PropertyField(freezePos_Z);
-            EditorGUILayout.LabelField("FreezeRotation:");
-
-            EditorGUILayout.PropertyField(freezeRotation_X);
-            EditorGUILayout.PropertyField(freezeRotation_Y);
-            EditorGUILayout.PropertyField(freezeRotation_Z);
         }
         else {
             EditorGUILayout.LabelField("None (没有刚体属性)");
