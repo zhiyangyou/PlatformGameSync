@@ -1,6 +1,7 @@
 ﻿using System;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.CollisionShapes.ConvexShapes;
+using BEPUphysics.PositionUpdating;
 using FixMath.NET;
 using UnityEngine;
 using Material = BEPUphysics.Materials.Material;
@@ -49,6 +50,7 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
         get {
             if (_entity == null) {
                 _entity = new(entityShape);
+                // _entity.PositionUpdateMode = PositionUpdateMode.Continuous;
                 _entity.Material = material;
                 _defaultCollisionRule = _entity.CollisionInformation.CollisionRules.Personal;
             }
@@ -164,7 +166,7 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
 
     protected virtual void SyncPosAndRotation_ToTransform() {
         if (Application.isPlaying) {
-            transform.position = entity.Position.ToUnityVector3() + center;
+            transform.position = entity.Position.ToUnityVector3() - center;
             transform.rotation = entity.Orientation.ToUnityQuaternion();
         }
     }
