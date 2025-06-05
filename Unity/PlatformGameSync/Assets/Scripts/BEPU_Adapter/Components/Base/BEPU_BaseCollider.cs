@@ -15,9 +15,10 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
     // 刚体属性
     [SerializeField] protected BEPU_EEntityType entityType = BEPU_EEntityType.Dyanmic;
     [SerializeField] protected float mass = 1f;
-    [SerializeField] protected float drag = 0f; // 移动时空气阻力
+    [SerializeField] [Range(0f, 1f)] protected float drag = 0f; // 移动时空气阻力
     [SerializeField] protected float angularDrag = 0f; // 旋转时的阻力
     [SerializeField] protected bool useGravity = true; // 使用重力
+    [SerializeField] protected float gravityScale = 1f; // 使用重力
     [SerializeField] protected bool freezePos_X = false;
     [SerializeField] protected bool freezePos_Y = false;
     [SerializeField] protected bool freezePos_Z = false;
@@ -136,10 +137,8 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
         switch (entityType) {
             case BEPU_EEntityType.Kinematic:
                 entity.BecomeKinematic();
-                useGravity = false;
                 break;
             case BEPU_EEntityType.Dyanmic:
-                useGravity = true;
                 var defaultMass = this.mass == 0f ? 1f : this.mass;
                 entity.BecomeDynamic((Fix64)defaultMass, entity.AutoLocalInertiaTensor((Fix64)mass));
                 break;
@@ -149,8 +148,9 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
         entity.Mass = (Fix64)mass;
         entity.LinearDamping = (Fix64)drag;
         entity.AngularDamping = (Fix64)angularDrag;
-        entity.Gravity = useGravity ? null : BEPUutilities.Vector3.Zero; // null代表使用默认的重力加速度值
-
+        entity.Gravity = useGravity
+            ? (BEPU_PhysicsManager.Instance.SpaceGravity * (Fix64)gravityScale)
+            : BEPUutilities.Vector3.Zero; // null代表使用默认的重力加速度值
         entity.freezePos_X = this.freezePos_X;
         entity.freezePos_Y = this.freezePos_Y;
         entity.freezePos_Z = this.freezePos_Z;

@@ -5,21 +5,24 @@ using Space = BEPUphysics.Space;
 using Vector3 = BEPUutilities.Vector3;
 
 public class BEPU_PhysicsManager : GoSingleton<BEPU_PhysicsManager> {
-    private static readonly Vector3 gravity = new((Fix64)0, (Fix64)(-9.81f), (Fix64)0);
+    public static readonly Vector3 DefaultGravity = new((Fix64)0, (Fix64)(-9.81f), (Fix64)0);
     private Space _bepuSpace { get; set; }
 
     public bool NeedAutoUpdate = true;
 
     private bool _hasInit = false;
 
+    public Vector3 SpaceGravity => Application.isPlaying ? _bepuSpace.ForceUpdater.Gravity : DefaultGravity;
+
     public override void Init() {
         if (!_hasInit) {
             _hasInit = true;
             Debug.Log("Editor下 BEPU 物理引擎Space被创建");
             _bepuSpace = new Space();
-            _bepuSpace.ForceUpdater.Gravity = gravity;
+            _bepuSpace.ForceUpdater.Gravity = DefaultGravity;
         }
     }
+
 
     public void UpdatePhysicsWorld() {
         _bepuSpace.Update();

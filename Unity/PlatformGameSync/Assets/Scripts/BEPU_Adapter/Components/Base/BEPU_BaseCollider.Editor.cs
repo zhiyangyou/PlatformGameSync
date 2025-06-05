@@ -22,6 +22,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
     private SerializedProperty drag;
     private SerializedProperty angularDrag;
     private SerializedProperty useGravity;
+    private SerializedProperty gravityScale;
     private SerializedProperty freezePos_X;
     private SerializedProperty freezePos_Y;
     private SerializedProperty freezePos_Z;
@@ -47,6 +48,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         drag = serializedObject.FindProperty("drag");
         angularDrag = serializedObject.FindProperty("angularDrag");
         useGravity = serializedObject.FindProperty("useGravity");
+        gravityScale = serializedObject.FindProperty("gravityScale");
         freezePos_X = serializedObject.FindProperty("freezePos_X");
         freezePos_Y = serializedObject.FindProperty("freezePos_Y");
         freezePos_Z = serializedObject.FindProperty("freezePos_Z");
@@ -90,6 +92,9 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
             EditorGUILayout.PropertyField(drag);
             EditorGUILayout.PropertyField(angularDrag);
             EditorGUILayout.PropertyField(useGravity);
+            if (useGravity.boolValue) {
+                EditorGUILayout.PropertyField(gravityScale);
+            }
 
             EditorGUILayout.LabelField("FreezePos:");
             EditorGUILayout.PropertyField(freezePos_X);

@@ -367,6 +367,7 @@ MonoBehaviour:
   drag: 0
   angularDrag: 0
   useGravity: 0
+  gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 0
@@ -473,6 +474,7 @@ MonoBehaviour:
   drag: 0
   angularDrag: 0
   useGravity: 1
+  gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 0
