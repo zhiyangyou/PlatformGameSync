@@ -21,12 +21,12 @@ public partial class BEPU_SphereCollider : BEPU_BaseCollider {
 
 
     protected override void SyncAttrsToEntity() {
-        sphereShape.Radius = (Fix64)this.radiu;
+        sphereShape.Radius = RealRadiu;
     }
 
     protected override ConvexShape entityShape => sphereShape;
 
-    public Fix64 RealRadiu => (Fix64)(radiu * transform.lossyScale.x);
+    public Fix64 RealRadiu => (Fix64)(radiu * Mathf.Max(Mathf.Max(transform.lossyScale.x, transform.lossyScale.y), transform.lossyScale.z));
 
     #endregion
 }
