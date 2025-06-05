@@ -9,6 +9,7 @@ public class ManyBEPUObjs : MonoBehaviour {
 
     [Header("Scene Objects")] public GameObject dynamicCubePrefab; // Assign a Unity Cube Prefab here
     public GameObject sphereObj; // Assign a Unity Cube Prefab here
+    public GameObject capsuleObj; // Assign a Unity Cube Prefab here
     public Transform groundTransform; // Assign a Unity Plane/Cube for visual ground
 
     [Header("Simulation Settings")] public int numberOfCubes = 10;
@@ -19,24 +20,14 @@ public class ManyBEPUObjs : MonoBehaviour {
     #region life-cycle
 
     private void Awake() {
-        CreateGround();
         CreateDynamicObjs<BEPU_BoxCollider>(dynamicCubePrefab);
         CreateDynamicObjs<BEPU_SphereCollider>(sphereObj);
+        CreateDynamicObjs<BEPU_CapsuleCollider>(capsuleObj);
     }
 
     #endregion
 
     #region private
-
-    void CreateGround() {
-        if (groundTransform == null) {
-            Debug.LogError("Ground Transform not assigned in BepuPhysicsV1Manager!");
-            return;
-        }
-
-        BEPU_BoxCollider collider = groundTransform.gameObject.GetOrAddComponnet<BEPU_BoxCollider>();
-        collider.EntityType = BEPU_EEntityType.Kinematic;
-    }
 
     void CreateDynamicObjs<T>(GameObject goTemplate) where T : BEPU_BaseCollider {
         if (goTemplate == null) {

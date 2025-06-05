@@ -136,6 +136,7 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
         // Debug.LogError($"entityType :{entityType} {this.gameObject.name}");
         switch (entityType) {
             case BEPU_EEntityType.Kinematic:
+                // Debug.LogError("暂时没玩明白这个是什么意思--.  暂时不处理");
                 entity.BecomeKinematic();
                 break;
             case BEPU_EEntityType.Dyanmic:
