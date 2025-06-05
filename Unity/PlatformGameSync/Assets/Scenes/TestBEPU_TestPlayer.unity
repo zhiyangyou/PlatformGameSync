@@ -132,8 +132,9 @@ GameObject:
   m_Component:
   - component: {fileID: 269063531}
   - component: {fileID: 269063532}
+  - component: {fileID: 269063533}
   m_Layer: 0
-  m_Name: SpriteRender
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,8 +148,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269063530}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.24, y: 1.58, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -206,6 +207,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &269063533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269063530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.48, y: -0.18, z: 0}
+  isTrigger: 0
+  materialSo: {fileID: 0}
+  entityType: 1
+  mass: 1
+  drag: 0
+  angularDrag: 0
+  useGravity: 1
+  gravityScale: 3
+  freezePos_X: 0
+  freezePos_Y: 0
+  freezePos_Z: 1
+  freezeRotation_X: 1
+  freezeRotation_Y: 1
+  freezeRotation_Z: 1
+  size: {x: 0.97, y: 2.29, z: 1}
 --- !u!1 &487468942
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +263,7 @@ Transform:
   m_GameObject: {fileID: 487468942}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3, y: 27.597002, z: 0}
+  m_LocalPosition: {x: -2.96, y: 2.7999992, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -369,9 +398,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d50cd64ecf405381d657d07fa5a48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 1145390267}
+  sphereCollider: {fileID: 269063533}
   moveSpeed: 3
-  jumpForce: 9
+  jumpForce: 14
 --- !u!1 &733155237
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +429,7 @@ Transform:
   m_GameObject: {fileID: 733155237}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -5.37, y: 27.6, z: 0}
+  m_LocalPosition: {x: -5.33, y: 2.8029976, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -606,7 +635,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 0.06, z: 100}
+  m_LocalScale: {x: 15, y: 0.5, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 605771591}
@@ -762,7 +791,7 @@ Transform:
   m_GameObject: {fileID: 1145390265}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.76, y: 1.946, z: 0}
+  m_LocalPosition: {x: 1.1, y: 1.946, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -874,7 +903,7 @@ Transform:
   m_GameObject: {fileID: 1219074852}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.34, y: 27.597002, z: 0}
+  m_LocalPosition: {x: -1.3, y: 2.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

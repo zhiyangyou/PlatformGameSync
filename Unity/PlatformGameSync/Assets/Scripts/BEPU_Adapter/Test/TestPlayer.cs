@@ -5,7 +5,7 @@ using Vector3 = BEPUutilities.Vector3;
 
 
 public class TestPlayer : MonoBehaviour {
-    public BEPU_SphereCollider sphereCollider;
+    public BEPU_BaseCollider sphereCollider;
 
     public float moveSpeed = 3f;
     public float jumpForce = 8f;
