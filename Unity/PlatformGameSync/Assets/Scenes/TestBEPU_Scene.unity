@@ -200,7 +200,7 @@ Transform:
   m_GameObject: {fileID: 312154555}
   serializedVersion: 2
   m_LocalRotation: {x: -0.12550645, y: 0, z: 0, w: 0.99209285}
-  m_LocalPosition: {x: 0, y: 19.91, z: 0.01}
+  m_LocalPosition: {x: 1.6, y: 20.973, z: -0.266}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -218,9 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrigger: 0
   center: {x: 0, y: 0, z: 0}
-  size: {x: 1, y: 1, z: 1}
+  isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 1
   mass: 1
@@ -229,10 +228,11 @@ MonoBehaviour:
   useGravity: 1
   freezePos_X: 0
   freezePos_Y: 0
-  freezePos_Z: 0
-  freezeRotation_X: 0
-  freezeRotation_Y: 0
-  freezeRotation_Z: 0
+  freezePos_Z: 1
+  freezeRotation_X: 1
+  freezeRotation_Y: 1
+  freezeRotation_Z: 1
+  size: {x: 1, y: 1, z: 1}
 --- !u!1 &605771590
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,11 +454,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrigger: 0
   center: {x: 0, y: 0, z: 0}
-  size: {x: 1, y: 1, z: 1}
+  isTrigger: 0
   materialSo: {fileID: 0}
-  entityType: 0
+  entityType: 1
   mass: 0
   drag: 0
   angularDrag: 0
@@ -469,6 +468,7 @@ MonoBehaviour:
   freezeRotation_X: 1
   freezeRotation_Y: 1
   freezeRotation_Z: 1
+  size: {x: 1, y: 1, z: 1}
 --- !u!1 &1172632414
 GameObject:
   m_ObjectHideFlags: 0

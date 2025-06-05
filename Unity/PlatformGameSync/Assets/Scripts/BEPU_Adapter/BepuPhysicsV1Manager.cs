@@ -1,10 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using BEPUphysics.Entities;
-using BEPUphysics.CollisionShapes.ConvexShapes;
 using FixMath.NET;
-using Space = BEPUphysics.Space;
-using FVector3 = BEPUutilities.Vector3;
 using UVector3 = UnityEngine.Vector3;
 using UQuaternion = UnityEngine.Quaternion;
 
@@ -18,7 +14,6 @@ public class BepuPhysicsV1Manager : MonoBehaviour {
     public float cubeSpawnHeight = 10f;
 
 
-    private List<BEPU_BoxCollider> _physicsSyncs = new();
     private BEPU_PhysicsManager _physicsWorld = null;
 
     #endregion
@@ -38,7 +33,6 @@ public class BepuPhysicsV1Manager : MonoBehaviour {
 
     private void OnDestroy() {
         _physicsWorld = null;
-        _physicsSyncs.Clear();
     }
 
     #endregion
@@ -52,9 +46,7 @@ public class BepuPhysicsV1Manager : MonoBehaviour {
         }
 
         BEPU_BoxCollider collider = groundTransform.gameObject.GetOrAddComponnet<BEPU_BoxCollider>();
-
         collider.EntityType = BEPU_EEntityType.Kinematic;
-        _physicsSyncs.Add(collider);
         _physicsWorld.AddEntity(collider);
     }
 
@@ -62,17 +54,16 @@ public class BepuPhysicsV1Manager : MonoBehaviour {
         if (dynamicCubePrefab == null) {
             Debug.LogError("Dynamic Cube Prefab not assigned in BepuPhysicsV1Manager!");
             return;
-        }
-        Fix64 mass = Fix64.One; // Mass of 1
-        Debug.LogError("TODO Mass刚体属性");
+        } 
+       
         for (int i = 0; i < numberOfCubes; i++) {
             UVector3 initPos = new(Random.Range(-3f, 3f), cubeSpawnHeight + Random.Range(0f, 2f), Random.Range(-3f, 3f));
             UQuaternion initRotation = new UQuaternion((Random.Range(-3f, 3f)), Random.Range(-3f, 3f), Random.Range(-3f, 3f), Random.Range(-3f, 3f));
             GameObject goCube = Instantiate(dynamicCubePrefab, initPos, initRotation);
             goCube.name = $"BepuCube_{i}";
             BEPU_BoxCollider collider = goCube.GetOrAddComponnet<BEPU_BoxCollider>();
+            collider.Mass = Random.Range(1f, 5f);
             _physicsWorld.AddEntity(collider);
-            _physicsSyncs.Add(collider);
         }
     }
 
