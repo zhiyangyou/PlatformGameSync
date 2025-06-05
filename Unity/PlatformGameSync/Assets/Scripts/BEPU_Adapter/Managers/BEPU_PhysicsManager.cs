@@ -20,27 +20,43 @@ public class BEPU_PhysicsManager : GoSingleton<BEPU_PhysicsManager> {
             Debug.Log("Editor下 BEPU 物理引擎Space被创建");
             _bepuSpace = new Space();
             _bepuSpace.ForceUpdater.Gravity = DefaultGravity;
+            // _bepuSpace.SimulationSettings.CollisionDetection.AllowContactGenerationBetweenKinematics = true;
+            // _bepuSpace.SimulationSettings.CollisionDetection.UseFullCCDResolution = true;
         }
     }
 
 
-    public void UpdatePhysicsWorld() {
-        _bepuSpace.Update();
+    public void UpdatePhysicsWorld(float dt) {
+        _bepuSpace.Update((Fix64)dt);
     }
 
     public void AddEntity(BEPU_BaseCollider collider) {
         _bepuSpace.Add(collider.entity);
     }
 
+#if true
     private void FixedUpdate() {
         if (NeedAutoUpdate
 #if UNITY_EDITOR
             && Application.isPlaying
 #endif
            ) {
-            UpdatePhysicsWorld();
+            UpdatePhysicsWorld(Time.fixedDeltaTime);
         }
     }
+
+#else
+    private void Update() {
+        if (NeedAutoUpdate
+#if UNITY_EDITOR
+            && Application.isPlaying
+#endif
+           ) {
+            UpdatePhysicsWorld(Time.deltaTime);
+        }
+    }
+#endif
+
 
     private void OnDestroy() {
         this._bepuSpace = null;
