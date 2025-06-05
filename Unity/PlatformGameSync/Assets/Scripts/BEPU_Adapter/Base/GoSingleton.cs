@@ -9,10 +9,17 @@ public abstract class GoSingleton<T> : MonoBehaviour where T : Component {
         get {
             if (_instance == null) {
                 GameObject go = new GameObject();
-                GameObject.DontDestroyOnLoad(go);
+                if (Application.isPlaying) {
+                    GameObject.DontDestroyOnLoad(go);
+                }
+                go.name = typeof(T).Name;
+                go.hideFlags &= HideFlags.DontSaveInEditor;
+                if (!Application.isPlaying) {
+                    go.hideFlags &= HideFlags.HideInHierarchy;
+                  
+                }
                 T t = go.AddComponent<T>();
                 (t as GoSingleton<T>)!.Init();
-                go.name = typeof(T).Name;
                 _instance = t;
             }
             return _instance;

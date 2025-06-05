@@ -13,7 +13,7 @@ public partial class BEPU_BoxCollider : BEPU_BaseCollider {
         get { return size; }
         set {
             size = value;
-            SyncAttrsToEntity();
+            SyncAllAttrsToEntity();
         }
     }
 

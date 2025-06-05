@@ -11,7 +11,7 @@ public partial class BEPU_SphereCollider : BEPU_BaseCollider {
         get => radiu;
         set {
             radiu = value;
-            SyncAttrsToEntity();
+            SyncAllAttrsToEntity();
         }
     }
 

@@ -4,7 +4,7 @@ using FixMath.NET;
 using UVector3 = UnityEngine.Vector3;
 using UQuaternion = UnityEngine.Quaternion;
 
-public class BepuPhysicsTester : MonoBehaviour {
+public class ManyBEPUObjs : MonoBehaviour {
     #region 属性和字段
 
     [Header("Scene Objects")] public GameObject dynamicCubePrefab; // Assign a Unity Cube Prefab here
@@ -14,27 +14,14 @@ public class BepuPhysicsTester : MonoBehaviour {
     [Header("Simulation Settings")] public int numberOfCubes = 10;
     public float cubeSpawnHeight = 10f;
 
-
-    private BEPU_PhysicsManager _physicsWorld = null;
-
     #endregion
 
     #region life-cycle
 
     private void Awake() {
-        _physicsWorld = BEPU_PhysicsManager.Instance;
         CreateGround();
         CreateDynamicObjs<BEPU_BoxCollider>(dynamicCubePrefab);
         CreateDynamicObjs<BEPU_SphereCollider>(sphereObj);
-    }
-
-
-    void FixedUpdate() {
-        _physicsWorld.UpdatePhysicsWorld();
-    }
-
-    private void OnDestroy() {
-        _physicsWorld = null;
     }
 
     #endregion
@@ -49,7 +36,6 @@ public class BepuPhysicsTester : MonoBehaviour {
 
         BEPU_BoxCollider collider = groundTransform.gameObject.GetOrAddComponnet<BEPU_BoxCollider>();
         collider.EntityType = BEPU_EEntityType.Kinematic;
-        _physicsWorld.AddEntity(collider);
     }
 
     void CreateDynamicObjs<T>(GameObject goTemplate) where T : BEPU_BaseCollider {
@@ -64,7 +50,6 @@ public class BepuPhysicsTester : MonoBehaviour {
             goObj.name = $"{goTemplate.name}_{i}";
             T collider = goObj.GetOrAddComponnet<T>();
             collider.Mass = Random.Range(1f, 5f);
-            _physicsWorld.AddEntity(collider);
         }
     }
 

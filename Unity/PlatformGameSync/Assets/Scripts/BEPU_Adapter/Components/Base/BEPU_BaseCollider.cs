@@ -59,7 +59,7 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
         get => center;
         set {
             center = value;
-            SyncAttrsToEntity();
+            SyncAllAttrsToEntity();
         }
     }
 
@@ -124,7 +124,8 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
     #region protected
 
     private void Awake() {
-        SyncAttrsToEntity();
+        SyncAllAttrsToEntity();
+        BEPU_PhysicsManager.Instance.AddEntity(this);
     }
 
 
