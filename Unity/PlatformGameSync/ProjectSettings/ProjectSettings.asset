@@ -696,7 +696,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Server: ALLOWUNSAFE
-    Standalone: ALLOWUNSAFE
+    Standalone: ALLOWUNSAFE;CHECKMATH
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

@@ -1,11 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using BEPUutilities;
 using FixMath.NET;
 using NUnit.Framework;
 using UnityEngine;
 
 
 public class TestBUPEFix64 {
+    [Test]
+    public void Fix64_Print() {
+        // 好像也不会溢出
+
+        Debug.Log($"{(float)F64.C0p5}");
+    }
+
     [Test]
     public void Fix64_Overflow() {
         // 好像也不会溢出
