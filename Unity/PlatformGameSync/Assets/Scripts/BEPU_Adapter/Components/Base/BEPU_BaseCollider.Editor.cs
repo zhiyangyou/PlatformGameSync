@@ -4,15 +4,12 @@ using UnityEngine;
 
 // [CustomEditor(typeof(BEPU_BaseCollider))]
 // [CanEditMultipleObjects]
-public class BEPU_BaseColliderEditor : Editor {
+public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_BaseCollider {
     #region 属性和字段
 
-    private bool _editMode = false;
     public const string kStrFloatFormat = "F2";
 
-
-    private const float HandleSize = 0.05f;
-    private BEPU_BaseCollider _collider;
+    protected TCollider collider;
 
     private SerializedProperty centerProp;
 
@@ -40,7 +37,7 @@ public class BEPU_BaseColliderEditor : Editor {
     #region override
 
     protected void DoInit() {
-        _collider = target as BEPU_BaseCollider;
+        collider = target as TCollider;
         centerProp = serializedObject.FindProperty("center");
         isTrigger = serializedObject.FindProperty("isTrigger");
         materialSo = serializedObject.FindProperty("materialSo");
@@ -57,9 +54,9 @@ public class BEPU_BaseColliderEditor : Editor {
         freezeRotation_Y = serializedObject.FindProperty("freezeRotation_Y");
         freezeRotation_Z = serializedObject.FindProperty("freezeRotation_Z");
 
-        _curTransform = _collider.transform;
+        _curTransform = collider.transform;
         _listenerTransformChanged = new ListenerTransformChanged(_curTransform, OnTransformChanged);
-        _collider.SyncAllAttrsToEntity();
+        collider.SyncAllAttrsToEntity();
     }
 
 
@@ -111,9 +108,9 @@ public class BEPU_BaseColliderEditor : Editor {
 
     protected virtual void DrawDebugAttrs() {
         EditorGUI.BeginDisabledGroup(true);
-        var entity = _collider.entity;
+        var entity = collider.entity;
         var mat = entity.Material;
-        EditorGUILayout.LabelField($"Physics位置:({((float)_collider.entity.Position.X).ToString(kStrFloatFormat)} , {((float)_collider.entity.Position.Y).ToString(kStrFloatFormat)} , {((float)_collider.entity.Position.Z).ToString(kStrFloatFormat)})");
+        EditorGUILayout.LabelField($"Physics位置:({((float)collider.entity.Position.X).ToString(kStrFloatFormat)} , {((float)collider.entity.Position.Y).ToString(kStrFloatFormat)} , {((float)collider.entity.Position.Z).ToString(kStrFloatFormat)})");
         EditorGUILayout.LabelField($"GameObject位置:({_curTransform.position.x.ToString(kStrFloatFormat)} , {_curTransform.position.y.ToString(kStrFloatFormat)} , {(_curTransform.position.z).ToString(kStrFloatFormat)})");
         EditorGUILayout.LabelField($"动摩擦:{((float)mat.KineticFriction).ToString(kStrFloatFormat)} 静摩擦:{((float)mat.StaticFriction).ToString(kStrFloatFormat)} 弹性:{((float)mat.Bounciness).ToString(kStrFloatFormat)}");
         EditorGUI.EndDisabledGroup();
@@ -124,7 +121,7 @@ public class BEPU_BaseColliderEditor : Editor {
     #region private
 
     private void OnTransformChanged() {
-        _collider.SyncAllAttrsToEntity();
+        collider.SyncAllAttrsToEntity();
     }
 
     #endregion

@@ -123,7 +123,10 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
 
     #region protected
 
-    protected void Awake() { }
+    private void Awake() {
+        SyncAttrsToEntity();
+    }
+
 
     public virtual void SyncAllAttrsToEntity() {
         // 物理材质球同步 

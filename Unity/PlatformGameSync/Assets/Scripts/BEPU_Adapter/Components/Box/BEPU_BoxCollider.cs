@@ -1,5 +1,3 @@
-using System;
-using BEPUphysics.CollisionRuleManagement;
 using UnityEngine;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using FixMath.NET;
@@ -36,18 +34,6 @@ public partial class BEPU_BoxCollider : BEPU_BaseCollider {
     public Fix64 Width => (Fix64)(size.x * transform.lossyScale.x);
     public Fix64 Height => (Fix64)(size.y * transform.lossyScale.y);
     public Fix64 Length => (Fix64)(size.z * transform.lossyScale.z);
-
-    #endregion
-
-    #region life-cycle
-
-    private void Awake() {
-        SyncAttrsToEntity();
-    }
-
-    #endregion
-
-    #region private
 
     #endregion
 }
