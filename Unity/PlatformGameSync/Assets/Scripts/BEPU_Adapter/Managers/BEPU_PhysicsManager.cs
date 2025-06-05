@@ -1,4 +1,5 @@
-﻿using FixMath.NET;
+﻿using System;
+using FixMath.NET;
 using UnityEngine;
 using Space = BEPUphysics.Space;
 using Vector3 = BEPUutilities.Vector3;
@@ -9,10 +10,15 @@ public class BEPU_PhysicsManager : GoSingleton<BEPU_PhysicsManager> {
 
     public bool NeedAutoUpdate = true;
 
+    private bool _hasInit = false;
+
     public override void Init() {
-        Debug.Log("Editor下 BEPU 物理引擎Space被创建");
-        _bepuSpace = new Space();
-        _bepuSpace.ForceUpdater.Gravity = gravity;
+        if (!_hasInit) {
+            _hasInit = true;
+            Debug.Log("Editor下 BEPU 物理引擎Space被创建");
+            _bepuSpace = new Space();
+            _bepuSpace.ForceUpdater.Gravity = gravity;
+        }
     }
 
     public void UpdatePhysicsWorld() {
@@ -31,5 +37,9 @@ public class BEPU_PhysicsManager : GoSingleton<BEPU_PhysicsManager> {
            ) {
             UpdatePhysicsWorld();
         }
+    }
+
+    private void OnDestroy() {
+        this._bepuSpace = null;
     }
 }
