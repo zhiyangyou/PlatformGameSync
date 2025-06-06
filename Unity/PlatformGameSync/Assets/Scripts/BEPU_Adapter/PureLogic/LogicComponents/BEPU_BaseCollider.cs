@@ -5,7 +5,10 @@ using FixMath.NET;
 using UnityEngine;
 using Material = BEPUphysics.Materials.Material;
 
- 
+public interface IColliderUpdater {
+    public void OnBeforeUpdate();
+    public void OnAfterUpdate();
+}
 
 public abstract partial class BEPU_BaseCollider : MonoBehaviour, IColliderUpdater {
     #region 属性和字段
