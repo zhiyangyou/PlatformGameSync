@@ -91,9 +91,11 @@ namespace BEPUutilities
         /// Gets a string representation of the vector.
         /// </summary>
         /// <returns>String representing the vector.</returns>
-        public override string ToString()
-        {
-            return "{" + X + ", " + Y + ", " + Z + "}";
+        public override string ToString() {
+            var strX = $"{((float)X).ToString("F2")}";
+            var strY = $"{((float)Y).ToString("F2")}";
+            var strZ = $"{((float)Z).ToString("F2")}";
+            return "(" + strX + ", " + strY + ", " + strZ + ")";
         }
 
         /// <summary>

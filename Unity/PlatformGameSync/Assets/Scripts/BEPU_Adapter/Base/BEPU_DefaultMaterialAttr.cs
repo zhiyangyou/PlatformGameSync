@@ -6,8 +6,8 @@
             if (_defaultMaterial == null) {
                 _defaultMaterial = new BEPU_PhysicMaterial();
                 _defaultMaterial.Bounciness = 0f;
-                _defaultMaterial.KineticFriction = 0.1f;
-                _defaultMaterial.StaticFriction = 0.1f;
+                _defaultMaterial.KineticFriction = 0f;
+                _defaultMaterial.StaticFriction = 0f;
             }
             return _defaultMaterial;
         }

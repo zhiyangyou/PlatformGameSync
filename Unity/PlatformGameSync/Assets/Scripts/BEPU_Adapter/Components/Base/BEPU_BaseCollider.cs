@@ -1,12 +1,16 @@
 ﻿using System;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.CollisionShapes.ConvexShapes;
-using BEPUphysics.PositionUpdating;
 using FixMath.NET;
 using UnityEngine;
 using Material = BEPUphysics.Materials.Material;
 
-public abstract class BEPU_BaseCollider : MonoBehaviour {
+public interface IColliderUpdater {
+    public void OnBeforeUpdate();
+    public void OnAfterUpdate();
+}
+
+public abstract partial class BEPU_BaseCollider : MonoBehaviour, IColliderUpdater {
     #region 属性和字段
 
     [SerializeField] private Vector3 center = Vector3.zero;
@@ -128,7 +132,10 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
 
     private void Awake() {
         SyncAllAttrsToEntity();
-        BEPU_PhysicsManager.Instance.AddEntity(this);
+        if (Application.isPlaying) {
+            BEPU_PhysicsManager.Instance.AddEntity(this);
+        }
+        InitInterpolateState();
     }
 
 
@@ -164,22 +171,23 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
         SyncPosAndRotation_ToPhysics();
     }
 
-    protected virtual void SyncPosAndRotation_ToTransform() {
+    public virtual void SyncPosAndRotation_ToTransform() {
+        SyncPosAndRotation_ToTransform(entity.Position.ToUnityVector3(), entity.Orientation.ToUnityQuaternion());
+    }
+
+    public virtual void SyncPosAndRotation_ToTransform(Vector3 entityPos, Quaternion EntityRot) {
         if (Application.isPlaying) {
-            transform.position = entity.Position.ToUnityVector3() - center;
-            transform.rotation = entity.Orientation.ToUnityQuaternion();
+            transform.position = entityPos - center;
+            transform.rotation = EntityRot;
         }
     }
 
 
-    protected virtual void SyncPosAndRotation_ToPhysics() {
+    public virtual void SyncPosAndRotation_ToPhysics() {
         entity.Position = (transform.position + center).ToFixedVector3();
         entity.Orientation = transform.rotation.ToFixedQuaternion();
     }
 
-    void LateUpdate() {
-        SyncPosAndRotation_ToTransform();
-    }
 
 #if UNITY_EDITOR
 
@@ -188,10 +196,19 @@ public abstract class BEPU_BaseCollider : MonoBehaviour {
     }
 #endif
 
+
+    private void OnDestroy() {
+        if (Application.isPlaying) {
+            BEPU_PhysicsManager.Instance.RemoveEntity(this);
+        }
+        OnRelease();
+    }
+
     #endregion
 
-    #region abstract
+    #region virtual
 
+    protected virtual void OnRelease() { }
     protected abstract void SyncAttrsToEntity();
     protected abstract ConvexShape entityShape { get; }
 

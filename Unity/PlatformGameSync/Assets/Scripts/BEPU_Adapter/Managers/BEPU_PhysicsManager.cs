@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FixMath.NET;
 using UnityEngine;
 using Space = BEPUphysics.Space;
@@ -12,6 +13,7 @@ public class BEPU_PhysicsManager : GoSingleton<BEPU_PhysicsManager> {
 
     private bool _hasInit = false;
 
+    private HashSet<BEPU_BaseCollider> _setAllColliders = new();
     public Vector3 SpaceGravity => Application.isPlaying ? _bepuSpace.ForceUpdater.Gravity : DefaultGravity;
 
     public override void Init() {
@@ -19,46 +21,53 @@ public class BEPU_PhysicsManager : GoSingleton<BEPU_PhysicsManager> {
             _hasInit = true;
             Debug.Log("Editor下 BEPU 物理引擎Space被创建");
             _bepuSpace = new Space();
-            _bepuSpace.ForceUpdater.Gravity = DefaultGravity;
-            // _bepuSpace.SimulationSettings.CollisionDetection.AllowContactGenerationBetweenKinematics = true;
-            // _bepuSpace.SimulationSettings.CollisionDetection.UseFullCCDResolution = true;
+            _bepuSpace.ForceUpdater.Gravity = DefaultGravity; 
         }
     }
 
 
-    public void UpdatePhysicsWorld(float dt) {
-        _bepuSpace.Update((Fix64)dt);
+    public void UpdatePhysicsWorld(Fix64 dt) {
+        foreach (var collider in _setAllColliders) {
+            try {
+                collider.OnBeforeUpdate();
+            }
+            catch (Exception e) {
+                Debug.LogError("OnBeforeUpdate 回调报错");
+                Debug.LogException(e);
+            }
+        }
+        _bepuSpace.Update(dt);
+        foreach (var collider in _setAllColliders) {
+            try {
+                collider.OnAfterUpdate();
+            }
+            catch (Exception e) {
+                Debug.LogError("OnBeforeUpdate 回调报错");
+                Debug.LogException(e);
+            }
+        }
     }
 
     public void AddEntity(BEPU_BaseCollider collider) {
-        _bepuSpace.Add(collider.entity);
-    }
-
-#if true
-    private void FixedUpdate() {
-        if (NeedAutoUpdate
-#if UNITY_EDITOR
-            && Application.isPlaying
-#endif
-           ) {
-            UpdatePhysicsWorld(Time.fixedDeltaTime);
+        if (_setAllColliders.Add(collider)) {
+            _bepuSpace.Add(collider.entity);
+        }
+        else {
+            Debug.LogError($"AddEntity 失败, 因为重复了");
         }
     }
 
-#else
-    private void Update() {
-        if (NeedAutoUpdate
-#if UNITY_EDITOR
-            && Application.isPlaying
-#endif
-           ) {
-            UpdatePhysicsWorld(Time.deltaTime);
+    public void RemoveEntity(BEPU_BaseCollider collider) {
+        if (_setAllColliders.Remove(collider)) {
+            _bepuSpace.Remove(collider.entity);
+        }
+        else {
+            Debug.LogError($"RemoveEntity 失败, Entity并没有加入到Space中 go:{collider.gameObject.name}");
         }
     }
-#endif
 
-
-    private void OnDestroy() {
+    
+    private void OnRelease() {
         this._bepuSpace = null;
     }
 }
