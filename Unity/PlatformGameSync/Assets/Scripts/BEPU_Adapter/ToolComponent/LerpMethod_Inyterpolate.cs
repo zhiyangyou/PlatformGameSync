@@ -2,13 +2,15 @@
 
 using UnityEngine;
 using BEPUphysics.Entities;
-using FixMath.NET; // Or whatever namespace Entity is in
+using FixMath.NET;
+using Quaternion = BEPUutilities.Quaternion;
+using Vector3 = BEPUutilities.Vector3; // Or whatever namespace Entity is in
 
 
 /// <summary>
 /// 渲染会始终滞后于真实的物体物理的位置, 一直处于追赶的状态
 /// </summary>
-public class LerpMethod_Inyterpolate {
+public class LerpMethod_Inyterpolate : ILerpMethod {
     public Entity PhysicsEntity { get; set; }
     BEPU_BaseCollider _collider { get; set; }
 
@@ -53,6 +55,10 @@ public class LerpMethod_Inyterpolate {
         // if (_collider.gameObject.name == "Player") {
         //     Debug.LogError($"Frame:{Time.frameCount} next <<<<< target:{_targetPositionFP}");
         // }
+    }
+
+    public (Vector3 interPos, Quaternion interRotation) UpdateLearp() {
+        return (default, default);
     }
 
     public (BEPUutilities.Vector3 interPos, BEPUutilities.Quaternion interRotation) DoLerp(Fix64 alpha) // alpha is a value from 0 to 1
