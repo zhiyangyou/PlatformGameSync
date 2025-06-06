@@ -8,11 +8,13 @@ using Vector3 = BEPUutilities.Vector3; // Or whatever namespace Entity is in
 
 
 /// <summary>
-/// 渲染会始终滞后于真实的物体物理的位置, 一直处于追赶的状态
+/// 渲染会始终滞后于真实的物体物理的位置, 渲染会一直处于追赶真实的物理位置的状态
 /// </summary>
-public class LerpMethod_Inyterpolate : ILerpMethod {
-    public Entity PhysicsEntity { get; set; }
-    BEPU_BaseCollider _collider { get; set; }
+public class LerpMethod_Interpolate : ILerpMethod {
+    private Fix64 _physicsTimeStep = Fix64.Zero;
+    private Fix64 _accumulator = Fix64.Zero;
+    private Entity PhysicsEntity { get; set; }
+    private BEPU_BaseCollider _collider { get; set; }
 
     // Stores the transform from the PREVIOUS physics update (fixed-point)
     private BEPUutilities.Vector3 _previousPositionFP;
@@ -23,7 +25,11 @@ public class LerpMethod_Inyterpolate : ILerpMethod {
     private BEPUutilities.Quaternion _targetOrientationFP;
 
     // Called once after the entity is created and linked
-    public void Init(Entity entity, BEPU_BaseCollider baseCollider) {
+    public Fix64 LerpAccumulator => _accumulator;
+
+
+    public void Init(Entity entity, BEPU_BaseCollider baseCollider, Fix64 physicsTimeStep) {
+        _physicsTimeStep = physicsTimeStep;
         _collider = baseCollider;
         PhysicsEntity = entity;
         if (PhysicsEntity == null) {
@@ -41,36 +47,33 @@ public class LerpMethod_Inyterpolate : ILerpMethod {
 
     public void StoreCurState() {
         if (PhysicsEntity == null) return;
+        _accumulator = Fix64.Zero;
         _previousPositionFP = _targetPositionFP;
         _previousOrientationFP = _targetOrientationFP;
-        // if (_collider.gameObject.name == "Player") {
-        //     Debug.LogError($"Frame:{Time.frameCount} store >>>>> previous:{_previousPositionFP}");
-        // }
     }
 
     public void StoreNextSTate() {
         if (PhysicsEntity == null) return;
         _targetPositionFP = PhysicsEntity.Position;
         _targetOrientationFP = PhysicsEntity.Orientation;
-        // if (_collider.gameObject.name == "Player") {
-        //     Debug.LogError($"Frame:{Time.frameCount} next <<<<< target:{_targetPositionFP}");
-        // }
     }
 
     public (Vector3 interPos, Quaternion interRotation) UpdateLearp() {
-        return (default, default);
+        _accumulator += (Fix64)Time.deltaTime;
+
+        Fix64 alpha = _accumulator / _physicsTimeStep;
+        var newAlpha = Mathf.Clamp01((float)alpha);
+        alpha = (Fix64)newAlpha;
+        return DoLerp(alpha);
     }
 
-    public (BEPUutilities.Vector3 interPos, BEPUutilities.Quaternion interRotation) DoLerp(Fix64 alpha) // alpha is a value from 0 to 1
+    private (BEPUutilities.Vector3 interPos, BEPUutilities.Quaternion interRotation) DoLerp(Fix64 alpha) // alpha is a value from 0 to 1
     {
         if (PhysicsEntity == null) return (default, default);
 
         var retPos = BEPUutilities.Vector3.Lerp(_previousPositionFP, _targetPositionFP, alpha);
         BEPUutilities.Quaternion.Slerp(ref _previousOrientationFP, ref _targetOrientationFP, alpha, out var retRot);
-        // if (_collider.gameObject.name == "Player") {
-        //     var strAlpha = ((float)alpha).ToString("F2");
-        //     Debug.LogError($"Frame:{Time.frameCount} alpha:{strAlpha} p1:{_previousPositionFP} p2:{_targetPositionFP} retPos:{retPos}");
-        // }
+
         return (retPos, retRot);
     }
 }
