@@ -177,6 +177,8 @@ GameObject:
   - component: {fileID: 269063531}
   - component: {fileID: 269063532}
   - component: {fileID: 269063533}
+  - component: {fileID: 269063534}
+  - component: {fileID: 269063535}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -192,8 +194,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269063530}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 2, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.64, y: 1.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -263,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: -0.48, y: -0.18, z: 0}
+  center: {x: 0, y: -0.12, z: 0}
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 1
@@ -278,7 +280,46 @@ MonoBehaviour:
   freezeRotation_X: 1
   freezeRotation_Y: 1
   freezeRotation_Z: 1
-  size: {x: 0.97, y: 2.29, z: 1}
+  size: {x: 1.43, y: 2.29, z: 1}
+--- !u!95 &269063534
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269063530}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2cc37f65944ddc449b87a6efcf4ab73f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &269063535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269063530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d50cd64ecf405381d657d07fa5a48f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collider: {fileID: 0}
+  _animator: {fileID: 0}
+  _spRender: {fileID: 0}
+  moveSpeed: 3
+  jumpForce: 14
+  _facingRight: 0
 --- !u!1 &487468942
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +442,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 605771591}
-  - component: {fileID: 605771592}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -430,21 +470,6 @@ Transform:
   - {fileID: 733155238}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &605771592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605771590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81d50cd64ecf405381d657d07fa5a48f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 269063533}
-  moveSpeed: 3
-  jumpForce: 14
 --- !u!1 &733155237
 GameObject:
   m_ObjectHideFlags: 0
