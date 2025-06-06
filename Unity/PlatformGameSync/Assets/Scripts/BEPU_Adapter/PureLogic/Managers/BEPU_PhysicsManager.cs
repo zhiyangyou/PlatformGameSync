@@ -5,7 +5,7 @@ using UnityEngine;
 using Space = BEPUphysics.Space;
 using Vector3 = BEPUutilities.Vector3;
 
-public class BEPU_PhysicsManager : GoSingleton<BEPU_PhysicsManager> {
+public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
     public static readonly Vector3 DefaultGravity = new((Fix64)0, (Fix64)(-9.81f), (Fix64)0);
     private Space _bepuSpace { get; set; }
 
