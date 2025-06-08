@@ -410,6 +410,14 @@ namespace BEPUutilities
             }
         }
 
+        public static Vector3 One
+        {
+            get
+            {
+                return new Vector3(Fix64.One, Fix64.One, Fix64.One);
+            }
+        }
+        
         /// <summary>
         /// Gets the up vector (0,1,0).
         /// </summary>
