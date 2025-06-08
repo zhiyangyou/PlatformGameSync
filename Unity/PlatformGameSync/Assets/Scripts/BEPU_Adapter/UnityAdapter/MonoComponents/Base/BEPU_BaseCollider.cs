@@ -7,7 +7,7 @@ using Material = BEPUphysics.Materials.Material;
 
  
 
-public abstract partial class BEPU_BaseCollider : MonoBehaviour, IColliderUpdater {
+public abstract class BEPU_BaseCollider : MonoBehaviour {
     #region 属性和字段
 
     [SerializeField] private Vector3 center = Vector3.zero;

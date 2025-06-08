@@ -15,7 +15,7 @@ public class LerpMethod_Interpolate : ILerpMethod {
     private Fix64 _physicsTimeStep = Fix64.Zero;
     private Fix64 _accumulator = Fix64.Zero;
     private Entity PhysicsEntity { get; set; }
-    private BEPU_BaseCollider _collider { get; set; }
+    private BEPU_BaseColliderLogic _collider { get; set; }
 
     // Stores the transform from the PREVIOUS physics update (fixed-point)
     private BEPUutilities.Vector3 _previousPositionFP;
@@ -29,7 +29,7 @@ public class LerpMethod_Interpolate : ILerpMethod {
     public Fix64 LerpAccumulator => _accumulator;
 
 
-    public void Init(Entity entity, BEPU_BaseCollider baseCollider, Fix64 physicsTimeStep) {
+    public void Init(Entity entity, BEPU_BaseColliderLogic baseCollider, Fix64 physicsTimeStep) {
         _physicsTimeStep = physicsTimeStep;
         _collider = baseCollider;
         PhysicsEntity = entity;
@@ -42,9 +42,10 @@ public class LerpMethod_Interpolate : ILerpMethod {
         _targetOrientationFP = PhysicsEntity.Orientation;
         _previousPositionFP = _targetPositionFP;
         _previousOrientationFP = _targetOrientationFP;
-
-        _collider.SyncPosAndRotation_ToTransform();
+        
     }
+
+ 
 
     public void StoreCurState() {
         if (PhysicsEntity == null) return;

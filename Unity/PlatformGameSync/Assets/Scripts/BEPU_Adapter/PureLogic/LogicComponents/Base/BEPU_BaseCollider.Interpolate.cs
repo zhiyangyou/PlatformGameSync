@@ -1,7 +1,7 @@
 // 处理插值的事情
 
 
-public abstract partial class BEPU_BaseCollider {
+public abstract partial class BEPU_BaseColliderLogic {
     private ILerpMethod _lerpper;
 
     void InitInterpolateState() {
@@ -9,11 +9,11 @@ public abstract partial class BEPU_BaseCollider {
         _lerpper.Init(this.entity, this, BEPU_PhysicsUpdater.PhysicsTimeStep);
     }
 
-    void LateUpdate() // Unity's Update, runs every rendered frame
+    public void DoPositionInterpolateUpdate() // Unity's Update, runs every rendered frame
     {
         if (_lerpper == null) return;
         var (interPos, interRotation) = _lerpper.UpdateLearp();
-        SyncPosAndRotation_ToTransform(interPos.ToUnityVector3(), interRotation.ToUnityQuaternion());
+        _syncEntityPosAndRotationToRenderer?.Invoke(interPos, interRotation);
     }
 
     public void OnBeforeUpdate() {
@@ -23,6 +23,6 @@ public abstract partial class BEPU_BaseCollider {
 
     public void OnAfterUpdate() {
         if (_lerpper == null) return;
-        _lerpper.StoreNextSTate();
+        _lerpper.StoreNextSTate();  
     }
 }

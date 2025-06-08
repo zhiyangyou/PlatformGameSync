@@ -1,5 +1,8 @@
-﻿using BEPUphysics.CollisionRuleManagement;
+﻿using System;
+using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.CollisionShapes.ConvexShapes;
+using BEPUphysics.Materials;
+using BEPUutilities;
 using FixMath.NET;
 
 public interface IColliderUpdater {
@@ -7,26 +10,17 @@ public interface IColliderUpdater {
     public void OnAfterUpdate();
 }
 
-public partial class BEPU_BaseColliderLogic : IColliderUpdater {
+public partial class BEPU_BaseColliderLogic : IColliderUpdater, IDisposable {
     #region 属性和字段
 
-    private Vector3 center = Vector3.zero;
+    private Action _syncRenderPosAndRotationToEntity;
+    private Action<Vector3, Quaternion> _syncEntityPosAndRotationToRenderer;
     protected bool isTrigger;
     protected BEPU_EEntityType entityType = BEPU_EEntityType.Dyanmic;
-    protected float mass = 1f;
-    protected float drag = 0f; // 移动时空气阻力
-    protected float angularDrag = 0f; // 旋转时的阻力
     protected bool useGravity = true; // 使用重力
     protected float gravityScale = 1f; // 使用重力
-    protected bool freezePos_X = false;
-    protected bool freezePos_Y = false;
-    protected bool freezePos_Z = false;
-    protected bool freezeRotation_X = false;
-    protected bool freezeRotation_Y = false;
-    protected bool freezeRotation_Z = false;
-
     private CollisionRule _defaultCollisionRule = CollisionRule.Defer;
-
+    public string name { get; private set; }
 
     private Material _material;
 
@@ -34,7 +28,9 @@ public partial class BEPU_BaseColliderLogic : IColliderUpdater {
         get {
             if (_material == null) {
                 _material = new Material();
-                (materialSo ? materialSo.Data : DefaultAttr.DefaultMaterial).SyncToBEPUMat(_material);
+                _material.Bounciness = (Fix64.Zero);
+                _material.KineticFriction = (Fix64.Zero);
+                _material.StaticFriction = (Fix64.Zero);
             }
             return _material;
         }
@@ -56,162 +52,79 @@ public partial class BEPU_BaseColliderLogic : IColliderUpdater {
         }
     }
 
-    public Vector3 Center {
-        get => center;
-        set {
-            center = value;
-            SyncAllAttrsToEntity();
-        }
-    }
-
-    public bool IsTrigger {
-        get => isTrigger;
-        set {
-            isTrigger = value;
-            SyncAllAttrsToEntity();
-        }
-    }
-
-    public BEPU_PhysicMaterialSO MaterialSo {
-        get => materialSo;
-        set {
-            materialSo = value;
-            SyncAllAttrsToEntity();
-        }
-    }
-
-    public BEPU_EEntityType EntityType {
-        get => entityType;
-        set {
-            entityType = value;
-            SyncAllAttrsToEntity();
-        }
-    }
-
-    public float Mass {
-        get => mass;
-        set {
-            mass = value;
-            SyncAllAttrsToEntity();
-        }
-    }
-
-    public float Drag {
-        get => drag;
-        set {
-            drag = value;
-            SyncAllAttrsToEntity();
-        }
-    }
-
-    public float AngularDrag {
-        get => angularDrag;
-        set {
-            angularDrag = value;
-            SyncAllAttrsToEntity();
-        }
-    }
-
-    public bool UseGravity {
-        get => useGravity;
-        set {
-            useGravity = value;
-            SyncAllAttrsToEntity();
-        }
-    }
-
     #endregion
 
-    #region protected
+    #region public
 
-    private void Awake() {
+    private BEPU_BaseColliderLogic() { }
+
+    public BEPU_BaseColliderLogic(string name, Action syncRenderPosAndRotationToEntity, Action<Vector3, Quaternion> syncEntityPosAndRotationToRenderer) {
+        this.name = name;
+        _syncRenderPosAndRotationToEntity = syncRenderPosAndRotationToEntity;
+        _syncEntityPosAndRotationToRenderer = syncEntityPosAndRotationToRenderer;
         SyncAllAttrsToEntity();
-        if (Application.isPlaying) {
-            BEPU_PhysicsManager.Instance.AddEntity(this);
-        }
+        BEPU_PhysicsManager.Instance.AddEntity(this);
         InitInterpolateState();
     }
 
-
     public virtual void SyncAllAttrsToEntity() {
-        (materialSo ? materialSo.Data : DefaultAttr.DefaultMaterial).SyncToBEPUMat(material);
         entity.CollisionInformation.CollisionRules.Personal = isTrigger ? CollisionRule.NoSolver : _defaultCollisionRule;
-        // Debug.LogError($"entityType :{entityType} {this.gameObject.name}");
         switch (entityType) {
             case BEPU_EEntityType.Kinematic:
                 // Debug.LogError("暂时没玩明白这个是什么意思--.  暂时不处理");
                 entity.BecomeKinematic();
                 break;
             case BEPU_EEntityType.Dyanmic:
-                var defaultMass = this.mass == 0f ? 1f : this.mass;
-                entity.BecomeDynamic((Fix64)defaultMass, entity.AutoLocalInertiaTensor((Fix64)mass));
+                var entityMass = entity.Mass == Fix64.Zero ? Fix64.One : entity.Mass;
+                entity.BecomeDynamic(entityMass, entity.AutoLocalInertiaTensor(entityMass));
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        entity.Mass = (Fix64)mass;
-        entity.LinearDamping = (Fix64)drag;
-        entity.AngularDamping = (Fix64)angularDrag;
+
         entity.Gravity = useGravity
             ? (BEPU_PhysicsManager.Instance.SpaceGravity * (Fix64)gravityScale)
             : BEPUutilities.Vector3.Zero; // null代表使用默认的重力加速度值
-        entity.freezePos_X = this.freezePos_X;
-        entity.freezePos_Y = this.freezePos_Y;
-        entity.freezePos_Z = this.freezePos_Z;
-        entity.freezeRotation_X = this.freezeRotation_X;
-        entity.freezeRotation_Y = this.freezeRotation_Y;
-        entity.freezeRotation_Z = this.freezeRotation_Z;
-        SyncAttrsToEntity();
-        SyncPosAndRotation_ToPhysics();
+
+        SyncOtherAttrsToEntity();
+        _syncRenderPosAndRotationToEntity?.Invoke();
     }
 
-    public virtual void SyncPosAndRotation_ToTransform() {
-        SyncPosAndRotation_ToTransform(entity.Position.ToUnityVector3(), entity.Orientation.ToUnityQuaternion());
+    public void Dispose() {
+        BEPU_PhysicsManager.Instance.RemoveEntity(this);
     }
 
-    public virtual void SyncPosAndRotation_ToTransform(Vector3 entityPos, Quaternion EntityRot) {
-        if (Application.isPlaying) {
-            transform.position = entityPos - center;
-            transform.rotation = EntityRot;
-        }
-    }
+    // public virtual void SyncPosAndRotation_ToTransform() {
+    //     SyncPosAndRotation_ToTransform(entity.Position.ToUnityVector3(), entity.Orientation.ToUnityQuaternion());
+    // }
+    //
+    // public virtual void SyncPosAndRotation_ToTransform(Vector3 entityPos, Quaternion EntityRot) {
+    //     if (Application.isPlaying) {
+    //         transform.position = entityPos - center;
+    //         transform.rotation = EntityRot;
+    //     }
+    // }
+    //
+    //
+    // public virtual void SyncPosAndRotation_ToPhysics() {
+    //     entity.Position = (transform.position + center).ToFixedVector3();
+    //     entity.Orientation = transform.rotation.ToFixedQuaternion();
+    // }
 
 
-    public virtual void SyncPosAndRotation_ToPhysics() {
-        entity.Position = (transform.position + center).ToFixedVector3();
-        entity.Orientation = transform.rotation.ToFixedQuaternion();
-    }
-
-
-#if UNITY_EDITOR
-
-    private void OnValidate() {
-        SyncAllAttrsToEntity();
-    }
-#endif
-
-
-    private void OnDestroy() {
-        if (Application.isPlaying) {
-            BEPU_PhysicsManager.Instance.RemoveEntity(this);
-        }
-        OnRelease();
-    }
+// #if UNITY_EDITOR
+//
+//     private void OnValidate() {
+//         SyncAllAttrsToEntity();
+//     }
+// #endif
 
     #endregion
 
-    #region virtual
+    #region abstract
 
-    protected virtual void OnRelease() { }
-    protected abstract void SyncAttrsToEntity();
+    protected abstract void SyncOtherAttrsToEntity();
     protected abstract ConvexShape entityShape { get; }
 
     #endregion
-
-    public void OnBeforeUpdate() {
-        
-    }
-    public void OnAfterUpdate() {
-        
-    }
 }

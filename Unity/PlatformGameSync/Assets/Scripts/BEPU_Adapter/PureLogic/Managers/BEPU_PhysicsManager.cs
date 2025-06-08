@@ -13,7 +13,7 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
 
     private bool _hasInit = false;
 
-    private HashSet<BEPU_BaseCollider> _setAllColliders = new();
+    private HashSet<BEPU_BaseColliderLogic> _setAllColliders = new();
     public Vector3 SpaceGravity => Application.isPlaying ? _bepuSpace.ForceUpdater.Gravity : DefaultGravity;
 
     public override void Init() {
@@ -48,7 +48,7 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
         }
     }
 
-    public void AddEntity(BEPU_BaseCollider collider) {
+    public void AddEntity(BEPU_BaseColliderLogic collider) {
         if (_setAllColliders.Add(collider)) {
             _bepuSpace.Add(collider.entity);
         }
@@ -57,7 +57,7 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
         }
     }
 
-    public void RemoveEntity(BEPU_BaseCollider collider) {
+    public void RemoveEntity(BEPU_BaseColliderLogic collider) {
         if (_setAllColliders.Remove(collider)) {
             _bepuSpace.Remove(collider.entity);
         }
