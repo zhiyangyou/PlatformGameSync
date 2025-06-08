@@ -1,17 +1,23 @@
-using System;
+using BEPUphysics.BroadPhaseEntries.MobileCollidables;
+using BEPUphysics.CollisionShapes.ConvexShapes;
 using FixMath.NET;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Vector3 = BEPUutilities.Vector3;
 
 
 public class TestPlayer : MonoBehaviour {
     [FormerlySerializedAs("_collider")] public BEPU_BaseColliderMono colliderMono;
-    public  Animator _animator;
+    public Animator _animator;
     public SpriteRenderer _spRender;
     public float moveSpeed = 3f;
     public float jumpForce = 8f;
     public bool _facingRight = true;
+
+    public float groundCheckDictance = 0.5f;
+
+    public LayerMask whatIsGround;
+
+    public bool isGround = false;
 
     private float _xInput = 0f;
     private bool _isMoving = false;
@@ -25,6 +31,22 @@ public class TestPlayer : MonoBehaviour {
     private void HanldeAnimations() {
         _isMoving = colliderMono.entity.LinearVelocity.X != Fix64.Zero;
         _animator.SetBool("IsMoving", _isMoving);
+    }
+
+    private void HandleCollision() {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDictance, whatIsGround);
+        // Debug.LogError(hit.transform?.gameObject);
+
+        BEPU_PhysicsManager.Instance.Raycast(transform.position.ToFixedVector3(),
+            BEPUutilities.Vector3.Down,(Fix64)groundCheckDictance,out var HitInfo, 0 );
+        if (HitInfo.collider != null) {
+
+            ConvexCollidable  c = HitInfo.collider as ConvexCollidable;
+            if (c != null) {
+            Debug.LogError($"HitInfo.collider {c.Shape is BoxShape} {HitInfo.collider.GetType().Name} {HitInfo.collider}");
+                
+            }
+        }
     }
 
     private void HandleMove() {
@@ -46,11 +68,17 @@ public class TestPlayer : MonoBehaviour {
         _facingRight = isFlip;
         _spRender.flipX = _facingRight;
     }
+
     private void Update() {
         _xInput = Input.GetAxis("Horizontal");
         HandleMove();
         HandleJump();
         HanldeAnimations();
         HandleFlip();
+        HandleCollision();
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.DrawLine(transform.position, transform.position + groundCheckDictance * Vector3.down);
     }
 }

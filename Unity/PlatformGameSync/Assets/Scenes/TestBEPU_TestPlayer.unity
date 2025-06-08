@@ -320,6 +320,11 @@ MonoBehaviour:
   moveSpeed: 3
   jumpForce: 14
   _facingRight: 0
+  groundCheckDictance: 1.58
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 16
+  isGround: 0
 --- !u!1 &487468942
 GameObject:
   m_ObjectHideFlags: 0
