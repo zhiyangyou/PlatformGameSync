@@ -60,7 +60,6 @@ public abstract partial class BEPU_BaseColliderLogic : IColliderUpdater, IDispos
         _defaultCollisionRule = _entity.CollisionInformation.CollisionRules.Personal;
         _syncEntityPosAndRotationToRenderer = syncEntityPosAndRotationToRenderer;
         SyncAttrsToEntity();
-        InitInterpolateState();
     }
 
     public virtual void SyncAttrsToEntity() {

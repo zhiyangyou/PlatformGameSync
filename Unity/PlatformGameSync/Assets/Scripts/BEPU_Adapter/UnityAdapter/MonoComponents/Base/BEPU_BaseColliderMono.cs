@@ -48,7 +48,7 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
 
     private void Awake() {
         SyncAllAttrsToEntity();
-
+        colliderLogic.InitInterpolateState();
         if (Application.isPlaying) {
             BEPU_PhysicsManager.Instance.AddEntity(this.colliderLogic);
         }
@@ -63,7 +63,7 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
         colliderLogic.entityType = entityType;
         colliderLogic.useGravity = useGravity;
         colliderLogic.gravityScale = gravityScale;
-        
+
         entity.CollisionInformation.CollisionRules.Personal = isTrigger ? CollisionRule.NoSolver : _defaultCollisionRule;
         entity.Mass = (Fix64)mass;
         entity.LinearDamping = (Fix64)drag;

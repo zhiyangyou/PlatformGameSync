@@ -6,7 +6,7 @@ using UnityEngine;
 public partial class BEPU_BaseColliderLogic {
     private ILerpMethod _lerpper;
 
-    void InitInterpolateState() {
+    public void InitInterpolateState() {
         _lerpper = new LerpMethod_Interpolate();
         _lerpper.Init(this.entity, this, BEPU_PhysicsUpdater.PhysicsTimeStep);
     }
