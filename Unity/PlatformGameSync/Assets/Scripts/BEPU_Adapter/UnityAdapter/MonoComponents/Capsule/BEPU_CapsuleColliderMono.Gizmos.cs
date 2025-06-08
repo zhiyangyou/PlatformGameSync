@@ -1,13 +1,15 @@
 #if UNITY_EDITOR
 
 
+using BEPUphysics.CollisionShapes.ConvexShapes;
 using UnityEditor;
 using UnityEngine;
 
-public partial class BEPU_CapsuleCollider {
+public partial class BEPU_CapsuleColliderMono {
     private void OnDrawGizmos() {
-        var center = entity.Position.ToUnityVector3();
-        DrawWireCapsule(center, entity.Orientation.ToUnityQuaternion(), (float)RealRadiu, (float)(RealLength + RealRadiu + RealRadiu), Color.green);
+        var center = this.colliderLogic.entity.Position.ToUnityVector3();
+        var capsuleShape = this.colliderLogic.entityShape as CapsuleShape;
+        DrawWireCapsule(center, entity.Orientation.ToUnityQuaternion(), (float)capsuleShape.Radius, (float)(capsuleShape.Length + capsuleShape.Radius + capsuleShape.Radius), Color.green);
     }
 
     public static void DrawWireCapsule(Vector3 _pos, Quaternion _rot, float _radius, float _height, Color _color = default(Color)) {

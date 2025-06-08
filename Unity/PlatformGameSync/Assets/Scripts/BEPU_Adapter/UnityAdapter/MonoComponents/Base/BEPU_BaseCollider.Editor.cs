@@ -4,7 +4,7 @@ using UnityEngine;
 
 // [CustomEditor(typeof(BEPU_BaseCollider))]
 // [CanEditMultipleObjects]
-public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_BaseCollider {
+public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_BaseColliderMono {
     #region 属性和字段
 
     public const string kStrFloatFormat = "F2";
@@ -124,8 +124,8 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
 
     #region private
 
-    private void OnTransformChanged() {
-        collider.SyncAllAttrsToEntity();
+    private void OnTransformChanged() { 
+        collider.SyncAllAttrsToEntity(); 
     }
 
     #endregion

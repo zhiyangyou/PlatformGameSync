@@ -1,20 +1,26 @@
 #if UNITY_EDITOR
 
 
+using BEPUphysics.CollisionShapes.ConvexShapes;
 using UnityEditor;
 
-[CustomEditor(typeof(BEPU_BoxCollider))]
+[CustomEditor(typeof(BEPU_BoxColliderMono))]
 [CanEditMultipleObjects]
-public class BEPU_BoxCollider_Editor : BEPU_BaseColliderEditor<BEPU_BoxCollider> {
+public class BEPU_BoxColliderEditor : BEPU_BaseColliderEditor<BEPU_BoxColliderMono> {
     #region 属性和字段
 
     private SerializedProperty sizeProp;
+
+    private BEPU_CustomEntity _entity;
+    private BoxShape _boxShape;
 
     #endregion
 
     void OnEnable() {
         base.DoInit();
         sizeProp = serializedObject.FindProperty("size");
+        _entity = ((BEPU_BoxColliderMono)target).entity;
+        _boxShape = ((BEPU_BoxColliderMono)target).colliderLogic.entityShape as BoxShape;
     }
 
     void OnDisable() {
@@ -29,9 +35,7 @@ public class BEPU_BoxCollider_Editor : BEPU_BaseColliderEditor<BEPU_BoxCollider>
 
     protected override void DrawDebugAttrs() {
         base.DrawDebugAttrs();
-
-        var shape = collider.boxShape;
-        EditorGUILayout.LabelField($"长宽高:({((float)shape.Width).ToString(kStrFloatFormat)} , {((float)shape.Height).ToString(kStrFloatFormat)} , {((float)shape.Length).ToString(kStrFloatFormat)})");
+        EditorGUILayout.LabelField($"长宽高:({((float)_boxShape.Width).ToString(kStrFloatFormat)} , {((float)_boxShape.Height).ToString(kStrFloatFormat)} , {((float)_boxShape.Length).ToString(kStrFloatFormat)})");
     }
 
 

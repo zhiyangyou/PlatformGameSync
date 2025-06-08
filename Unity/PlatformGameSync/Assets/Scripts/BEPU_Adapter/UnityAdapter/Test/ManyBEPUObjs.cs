@@ -20,16 +20,16 @@ public class ManyBEPUObjs : MonoBehaviour {
     #region life-cycle
 
     private void Awake() {
-        CreateDynamicObjs<BEPU_BoxCollider>(dynamicCubePrefab);
-        CreateDynamicObjs<BEPU_SphereCollider>(sphereObj);
-        CreateDynamicObjs<BEPU_CapsuleCollider>(capsuleObj);
+        CreateDynamicObjs<BEPU_BoxColliderMono>(dynamicCubePrefab);
+        CreateDynamicObjs<BEPU_SphereColliderMono>(sphereObj);
+        CreateDynamicObjs<BEPU_CapsuleColliderMono>(capsuleObj);
     }
 
     #endregion
 
     #region private
 
-    void CreateDynamicObjs<T>(GameObject goTemplate) where T : BEPU_BaseCollider {
+    void CreateDynamicObjs<T>(GameObject goTemplate) where T : BEPU_BaseColliderMono {
         if (goTemplate == null) {
             Debug.LogError($"CreateDynamicObjs tempObj is null ");
             return;
@@ -40,7 +40,7 @@ public class ManyBEPUObjs : MonoBehaviour {
             GameObject goObj = Instantiate(goTemplate, initPos, initRotation);
             goObj.name = $"{goTemplate.name}_{i}";
             T collider = goObj.GetOrAddComponnet<T>();
-            collider.Mass = Random.Range(1f, 5f);
+            collider.entity.Mass = (Fix64)Random.Range(1f, 5f);
         }
     }
 

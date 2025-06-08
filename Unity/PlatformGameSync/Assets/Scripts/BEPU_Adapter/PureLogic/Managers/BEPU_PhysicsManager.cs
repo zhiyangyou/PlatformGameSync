@@ -21,7 +21,7 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
             _hasInit = true;
             Debug.Log("Editor下 BEPU 物理引擎Space被创建");
             _bepuSpace = new Space();
-            _bepuSpace.ForceUpdater.Gravity = DefaultGravity; 
+            _bepuSpace.ForceUpdater.Gravity = DefaultGravity;
         }
     }
 
@@ -62,11 +62,11 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
             _bepuSpace.Remove(collider.entity);
         }
         else {
-            Debug.LogError($"RemoveEntity 失败, Entity并没有加入到Space中 go:{collider.gameObject.name}");
+            Debug.LogError($"RemoveEntity 失败, Entity并没有加入到Space中 go:{collider.name}");
         }
     }
 
-    
+
     private void OnRelease() {
         this._bepuSpace = null;
     }

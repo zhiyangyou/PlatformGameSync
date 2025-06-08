@@ -1,7 +1,9 @@
 // 处理插值的事情
 
 
-public abstract partial class BEPU_BaseColliderLogic {
+using UnityEngine;
+
+public partial class BEPU_BaseColliderLogic {
     private ILerpMethod _lerpper;
 
     void InitInterpolateState() {
@@ -23,6 +25,6 @@ public abstract partial class BEPU_BaseColliderLogic {
 
     public void OnAfterUpdate() {
         if (_lerpper == null) return;
-        _lerpper.StoreNextSTate();  
+        _lerpper.StoreNextSTate();
     }
 }

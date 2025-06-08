@@ -1,14 +1,17 @@
 #if UNITY_EDITOR
 
+using BEPUphysics.CollisionShapes.ConvexShapes;
 using UnityEditor;
 
-[CustomEditor(typeof(BEPU_CapsuleCollider))]
+[CustomEditor(typeof(BEPU_CapsuleColliderMono))]
 [CanEditMultipleObjects]
-public class BEPU_CapsuleColliderEditor : BEPU_BaseColliderEditor<BEPU_CapsuleCollider> {
+public class BEPU_CapsuleColliderEditor : BEPU_BaseColliderEditor<BEPU_CapsuleColliderMono> {
     #region 属性和字段
 
     private SerializedProperty radiuProp;
     private SerializedProperty lengthProp;
+
+    private CapsuleShape _capsuleShape;
 
     #endregion
 
@@ -16,6 +19,7 @@ public class BEPU_CapsuleColliderEditor : BEPU_BaseColliderEditor<BEPU_CapsuleCo
         base.DoInit();
         radiuProp = serializedObject.FindProperty("radiu");
         lengthProp = serializedObject.FindProperty("length");
+        _capsuleShape = ((BEPU_CapsuleColliderMono)target).colliderLogic.entityShape as CapsuleShape;
     }
 
     void OnDisable() {
@@ -32,9 +36,9 @@ public class BEPU_CapsuleColliderEditor : BEPU_BaseColliderEditor<BEPU_CapsuleCo
     protected override void DrawDebugAttrs() {
         base.DrawDebugAttrs();
 
-        var shape = collider.capsuleShape;
-        EditorGUILayout.LabelField($"物理半径:({((float)shape.Radius).ToString(kStrFloatFormat)})");
-        EditorGUILayout.LabelField($"物理高度:({((float)shape.Length).ToString(kStrFloatFormat)})");
+
+        EditorGUILayout.LabelField($"物理半径:({((float)_capsuleShape.Radius).ToString(kStrFloatFormat)})");
+        EditorGUILayout.LabelField($"物理高度:({((float)_capsuleShape.Length).ToString(kStrFloatFormat)})");
     }
 
 

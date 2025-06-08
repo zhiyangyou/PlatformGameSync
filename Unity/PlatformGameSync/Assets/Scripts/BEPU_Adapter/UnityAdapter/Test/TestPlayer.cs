@@ -1,11 +1,12 @@
 using System;
 using FixMath.NET;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Vector3 = BEPUutilities.Vector3;
 
 
 public class TestPlayer : MonoBehaviour {
-    public BEPU_BaseCollider _collider;
+    [FormerlySerializedAs("_collider")] public BEPU_BaseColliderMono colliderMono;
     public  Animator _animator;
     public SpriteRenderer _spRender;
     public float moveSpeed = 3f;
@@ -16,32 +17,32 @@ public class TestPlayer : MonoBehaviour {
     private bool _isMoving = false;
 
     private void Awake() {
-        _collider = GetComponent<BEPU_BaseCollider>();
+        colliderMono = GetComponent<BEPU_BaseColliderMono>();
         _animator = GetComponent<Animator>();
         _spRender = GetComponent<SpriteRenderer>();
     }
 
     private void HanldeAnimations() {
-        _isMoving = _collider.entity.LinearVelocity.X != Fix64.Zero;
+        _isMoving = colliderMono.entity.LinearVelocity.X != Fix64.Zero;
         _animator.SetBool("IsMoving", _isMoving);
     }
 
     private void HandleMove() {
-        var oldV = _collider.entity.LinearVelocity;
+        var oldV = colliderMono.entity.LinearVelocity;
         oldV.X = (Fix64)_xInput * (Fix64)moveSpeed;
-        _collider.entity.LinearVelocity = oldV;
+        colliderMono.entity.LinearVelocity = oldV;
     }
 
     private void HandleJump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            var oldV = _collider.entity.LinearVelocity;
+            var oldV = colliderMono.entity.LinearVelocity;
             oldV.Y = (Fix64)jumpForce;
-            _collider.entity.LinearVelocity = oldV;
+            colliderMono.entity.LinearVelocity = oldV;
         }
     }
 
     private void HandleFlip() {
-        var isFlip = _collider.entity.LinearVelocity.X < Fix64.Zero;
+        var isFlip = colliderMono.entity.LinearVelocity.X < Fix64.Zero;
         _facingRight = isFlip;
         _spRender.flipX = _facingRight;
     }
