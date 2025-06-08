@@ -195,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 269063530}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.64, y: 1.91, z: 0}
+  m_LocalPosition: {x: 4.33, y: 1.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -273,7 +273,7 @@ MonoBehaviour:
   drag: 0
   angularDrag: 0
   useGravity: 1
-  gravityScale: 3
+  gravityScale: 10
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 1
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d50cd64ecf405381d657d07fa5a48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 0}
+  colliderMono: {fileID: 0}
   _animator: {fileID: 0}
   _spRender: {fileID: 0}
   moveSpeed: 3
@@ -371,8 +371,8 @@ MonoBehaviour:
   materialSo: {fileID: 0}
   entityType: 1
   mass: 1
-  drag: 0.31
-  angularDrag: 0.05
+  drag: 0
+  angularDrag: 0
   useGravity: 1
   gravityScale: 1
   freezePos_X: 0
@@ -521,8 +521,8 @@ MonoBehaviour:
   materialSo: {fileID: 0}
   entityType: 1
   mass: 1
-  drag: 0.31
-  angularDrag: 0.05
+  drag: 0
+  angularDrag: 0
   useGravity: 1
   gravityScale: 1
   freezePos_X: 0
@@ -703,8 +703,8 @@ Transform:
   m_GameObject: {fileID: 1035897557}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 0.5, z: 3}
+  m_LocalPosition: {x: 0.2, y: -1.33, z: 0}
+  m_LocalScale: {x: 18.9, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 605771591}
@@ -774,7 +774,7 @@ MonoBehaviour:
   center: {x: 0, y: 0, z: 0}
   isTrigger: 0
   materialSo: {fileID: 0}
-  entityType: 1
+  entityType: 0
   mass: 0
   drag: 0
   angularDrag: 0
@@ -950,8 +950,8 @@ MonoBehaviour:
   materialSo: {fileID: 0}
   entityType: 1
   mass: 1
-  drag: 0.31
-  angularDrag: 0.05
+  drag: 0
+  angularDrag: 0
   useGravity: 1
   gravityScale: 1
   freezePos_X: 0
