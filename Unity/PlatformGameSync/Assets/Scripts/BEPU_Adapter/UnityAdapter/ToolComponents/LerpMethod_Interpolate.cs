@@ -1,6 +1,7 @@
 // BepuInterpolatedTransform.cs
 
 // using UnityEngine;
+
 using BEPUphysics.Entities;
 using FixMath.NET;
 using UnityEngine;
@@ -42,10 +43,8 @@ public class LerpMethod_Interpolate : ILerpMethod {
         _targetOrientationFP = PhysicsEntity.Orientation;
         _previousPositionFP = _targetPositionFP;
         _previousOrientationFP = _targetOrientationFP;
-        
     }
 
- 
 
     public void StoreCurState() {
         if (PhysicsEntity == null) return;
@@ -72,10 +71,7 @@ public class LerpMethod_Interpolate : ILerpMethod {
     private (BEPUutilities.Vector3 interPos, BEPUutilities.Quaternion interRotation) DoLerp(Fix64 alpha) // alpha is a value from 0 to 1
     {
         if (PhysicsEntity == null) return (default, default);
-
-        var retPos = BEPUutilities.Vector3.Lerp(_previousPositionFP, _targetPositionFP, alpha);
-        BEPUutilities.Quaternion.Slerp(ref _previousOrientationFP, ref _targetOrientationFP, alpha, out var retRot);
-
-        return (retPos, retRot);
+        return (Vector3.Lerp(_previousPositionFP, _targetPositionFP, alpha),
+            UnityEngine.Quaternion.Lerp(_previousOrientationFP.ToUnityQuaternion(), _targetOrientationFP.ToUnityQuaternion(), (float)alpha).ToFixedQuaternion());
     }
 }
