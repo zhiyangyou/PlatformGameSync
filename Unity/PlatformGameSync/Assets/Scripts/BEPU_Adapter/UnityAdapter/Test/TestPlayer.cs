@@ -33,7 +33,9 @@ public class TestPlayer : MonoBehaviour {
 
     private void HanldeAnimations() {
         _isMoving = colliderMono.entity.LinearVelocity.X != Fix64.Zero;
-        _animator.SetBool("IsMoving", _isMoving);
+        _animator.SetBool("isGrounded", isGround);
+        _animator.SetFloat("xVelocity", (float)colliderMono.entity.LinearVelocity.X);
+        _animator.SetFloat("yVelocity", (float)colliderMono.entity.LinearVelocity.Y);
     }
 
     private void HandleCollision() {
@@ -69,9 +71,11 @@ public class TestPlayer : MonoBehaviour {
 
     private void HandleJump() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            var oldV = colliderMono.entity.LinearVelocity;
-            oldV.Y = (Fix64)jumpForce;
-            colliderMono.entity.LinearVelocity = oldV;
+            if (isGround) {
+                var oldV = colliderMono.entity.LinearVelocity;
+                oldV.Y = (Fix64)jumpForce;
+                colliderMono.entity.LinearVelocity = oldV;
+            }
         }
     }
 
