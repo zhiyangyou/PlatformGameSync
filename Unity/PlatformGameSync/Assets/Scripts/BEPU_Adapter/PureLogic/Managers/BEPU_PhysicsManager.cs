@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using BEPUphysics;
-using BEPUutilities;
+using BEPUphysics.CollisionRuleManagement;
 using FixMath.NET;
 using UnityEngine;
-using Ray = BEPUutilities.Ray;
 using Space = BEPUphysics.Space;
 using Vector3 = BEPUutilities.Vector3;
 
+public enum CollisionLayers {
+    Player,
+    Enemy,
+    PlayerProjectile,
+    Environment
+}
 
 public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
     public static readonly Vector3 DefaultGravity = new((Fix64)0, (Fix64)(-9.81f), (Fix64)0);
@@ -76,7 +81,7 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
         Vector3 direction,
         Fix64 maxDistance,
         out RaycastHit hitInfo,
-        uint layerMask 
+        uint layerMask
     ) {
         hitInfo = new RaycastHit();
 
@@ -86,8 +91,9 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
             normalizedDir.Normalize();
         }
 
+
         // 创建射线
-        Ray ray = new Ray(origin, normalizedDir);
+        BEPUutilities.Ray ray = new BEPUutilities.Ray(origin, normalizedDir);
         RayCastResult rayHit;
 
         // 执行射线检测

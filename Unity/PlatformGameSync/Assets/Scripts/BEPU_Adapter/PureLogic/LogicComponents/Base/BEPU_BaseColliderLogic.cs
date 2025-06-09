@@ -20,7 +20,6 @@ public abstract partial class BEPU_BaseColliderLogic : IColliderUpdater, IDispos
     public float gravityScale = 1f; // 使用重力
     private CollisionRule _defaultCollisionRule = CollisionRule.Defer;
     public string name { get; private set; }
-
     public ConvexShape entityShape { get; private set; }
 
     private Material _material;
@@ -29,9 +28,9 @@ public abstract partial class BEPU_BaseColliderLogic : IColliderUpdater, IDispos
         get {
             if (_material == null) {
                 _material = new Material();
-                _material.Bounciness = (Fix64.Zero);
-                _material.KineticFriction = (Fix64.Zero);
-                _material.StaticFriction = (Fix64.Zero);
+                _material.Bounciness = Fix64.Zero;
+                _material.KineticFriction = Fix64.Zero;
+                _material.StaticFriction = Fix64.Zero;
             }
             return _material;
         }

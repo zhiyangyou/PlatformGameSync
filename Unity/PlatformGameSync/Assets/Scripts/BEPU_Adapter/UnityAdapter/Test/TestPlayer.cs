@@ -3,6 +3,7 @@ using BEPUphysics.CollisionShapes.ConvexShapes;
 using FixMath.NET;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Ray = BEPUutilities.Ray;
 
 
 public class TestPlayer : MonoBehaviour {
@@ -34,17 +35,12 @@ public class TestPlayer : MonoBehaviour {
     }
 
     private void HandleCollision() {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDictance, whatIsGround);
-        // Debug.LogError(hit.transform?.gameObject);
-
         BEPU_PhysicsManager.Instance.Raycast(transform.position.ToFixedVector3(),
-            BEPUutilities.Vector3.Down,(Fix64)groundCheckDictance,out var HitInfo, 0 );
+            BEPUutilities.Vector3.Down, (Fix64)groundCheckDictance, out var HitInfo, 0);
         if (HitInfo.collider != null) {
-
-            ConvexCollidable  c = HitInfo.collider as ConvexCollidable;
+            ConvexCollidable c = HitInfo.collider as ConvexCollidable;
             if (c != null) {
-            Debug.LogError($"HitInfo.collider {c.Shape is BoxShape} {HitInfo.collider.GetType().Name} {HitInfo.collider}");
-                
+                Debug.LogError($"HitInfo.collider {c.Shape is BoxShape} {HitInfo.collider.GetType().Name} {HitInfo.collider}");
             }
         }
     }

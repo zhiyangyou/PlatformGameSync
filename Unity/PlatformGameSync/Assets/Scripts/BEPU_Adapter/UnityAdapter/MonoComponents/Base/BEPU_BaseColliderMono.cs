@@ -24,6 +24,7 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
     [SerializeField] protected bool freezeRotation_X = false;
     [SerializeField] protected bool freezeRotation_Y = false;
     [SerializeField] protected bool freezeRotation_Z = false;
+    [SerializeField] protected BEPU_LayerDefaine layer = BEPU_LayerDefaine.Default;
 
     private CollisionRule _defaultCollisionRule = CollisionRule.Defer;
 
@@ -77,6 +78,7 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
         entity.freezeRotation_X = this.freezeRotation_X;
         entity.freezeRotation_Y = this.freezeRotation_Y;
         entity.freezeRotation_Z = this.freezeRotation_Z;
+        entity.Layer = this.layer;
         colliderLogic.SyncAttrsToEntity();
         SyncRenderPosAndRotationToEntity();
         SyncExtendAttrsToEntity();

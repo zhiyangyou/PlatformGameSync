@@ -14,6 +14,8 @@ public class BEPU_CustomEntity : Entity {
     public bool freezeRotation_Y = false;
     public bool freezeRotation_Z = false;
 
+    public BEPU_LayerDefaine Layer { get; set; } = BEPU_LayerDefaine.Default;
+
     #endregion
 
     #region ctors
@@ -58,8 +60,6 @@ public class BEPU_CustomEntity : Entity {
         Vector3.Multiply(ref linearV, dt, out var increment);
         return increment;
     }
-    
-    
 
     #endregion
 }
