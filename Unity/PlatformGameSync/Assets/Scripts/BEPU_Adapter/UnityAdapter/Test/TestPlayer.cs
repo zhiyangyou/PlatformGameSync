@@ -23,7 +23,6 @@ public class TestPlayer : MonoBehaviour {
     public bool isGround = false;
 
     private float _xInput = 0f;
-    private bool _isMoving = false;
 
     private void Awake() {
         colliderMono = GetComponent<BEPU_BaseColliderMono>();
@@ -32,7 +31,6 @@ public class TestPlayer : MonoBehaviour {
     }
 
     private void HanldeAnimations() {
-        _isMoving = colliderMono.entity.LinearVelocity.X != Fix64.Zero;
         _animator.SetBool("isGrounded", isGround);
         _animator.SetFloat("xVelocity", (float)colliderMono.entity.LinearVelocity.X);
         _animator.SetFloat("yVelocity", (float)colliderMono.entity.LinearVelocity.Y);
@@ -69,26 +67,43 @@ public class TestPlayer : MonoBehaviour {
         colliderMono.entity.LinearVelocity = oldV;
     }
 
-    private void HandleJump() {
+    private void HandleInput() {
+        _xInput = Input.GetAxis("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space)) {
-            if (isGround) {
-                var oldV = colliderMono.entity.LinearVelocity;
-                oldV.Y = (Fix64)jumpForce;
-                colliderMono.entity.LinearVelocity = oldV;
-            }
+            TryJump();
+        }
+        if (Input.GetKeyDown(KeyCode.J)) {
+            TryAttack();
         }
     }
 
     private void HandleFlip() {
-        var isFlip = colliderMono.entity.LinearVelocity.X < Fix64.Zero;
-        _facingRight = isFlip;
+        Fix64 threshold = (Fix64)0.01f;
+        var hasV = Fix64.Abs(colliderMono.entity.LinearVelocity.X) > threshold;
+        var isFlip = hasV && colliderMono.entity.LinearVelocity.X < threshold;
+        if (hasV && _facingRight != isFlip) {
+            _facingRight = isFlip;
+        }
         _spRender.flipX = _facingRight;
     }
 
+    private void TryJump() {
+        if (isGround) {
+            var oldV = colliderMono.entity.LinearVelocity;
+            oldV.Y = (Fix64)jumpForce;
+            colliderMono.entity.LinearVelocity = oldV;
+        }
+    }
+
+    private void TryAttack() {
+        if (isGround) {
+            _animator.SetTrigger("attack");
+        }
+    }
+
     private void Update() {
-        _xInput = Input.GetAxis("Horizontal");
         HandleMove();
-        HandleJump();
+        HandleInput();
         HanldeAnimations();
         HandleFlip();
         HandleCollision();
