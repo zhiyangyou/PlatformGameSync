@@ -26,7 +26,7 @@ public class BEPU_PhysicsUpdater : MonoBehaviour {
             Application.isPlaying
 #endif
         ) {
-            BEPU_PhysicsManager.Instance.UpdatePhysicsWorld(PhysicsTimeStep);
+            BEPU_PhysicsManagerUnity.Instance.UpdatePhysicsWorld(PhysicsTimeStep);
         }
     }
 }

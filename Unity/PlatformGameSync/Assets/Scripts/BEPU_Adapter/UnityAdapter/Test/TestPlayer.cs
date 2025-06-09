@@ -35,12 +35,12 @@ public class TestPlayer : MonoBehaviour {
     }
 
     private void HandleCollision() {
-        BEPU_PhysicsManager.Instance.Raycast(transform.position.ToFixedVector3(),
+        BEPU_PhysicsManagerUnity.Instance.Raycast(transform.position.ToFixedVector3(),
             BEPUutilities.Vector3.Down, (Fix64)groundCheckDictance, out var HitInfo, 0);
         if (HitInfo.collider != null) {
             ConvexCollidable c = HitInfo.collider as ConvexCollidable;
             if (c != null) {
-                Debug.LogError($"HitInfo.collider {c.Shape is BoxShape} {HitInfo.collider.GetType().Name} {HitInfo.collider}");
+                Debug.Log($"HitInfo.collider {c.Shape is BoxShape} {HitInfo.collider.GetType().Name} {HitInfo.collider}");
             }
         }
     }

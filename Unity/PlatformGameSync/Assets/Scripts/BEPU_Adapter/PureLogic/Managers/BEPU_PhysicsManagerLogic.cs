@@ -2,20 +2,13 @@
 using System.Collections.Generic;
 using BEPUphysics;
 using BEPUphysics.CollisionRuleManagement;
+using Codice.CM.Common;
 using FixMath.NET;
-using UnityEngine;
 using Space = BEPUphysics.Space;
 using Vector3 = BEPUutilities.Vector3;
 
-public enum CollisionLayers {
-    Player,
-    Enemy,
-    PlayerProjectile,
-    Environment
-}
 
-public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
-    public static readonly Vector3 DefaultGravity = new((Fix64)0, (Fix64)(-9.81f), (Fix64)0);
+public abstract class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new() {
     public Space Space { get; private set; }
 
     public bool NeedAutoUpdate = true;
@@ -23,14 +16,50 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
     private bool _hasInit = false;
 
     private HashSet<BEPU_BaseColliderLogic> _setAllColliders = new();
-    public Vector3 SpaceGravity => Application.isPlaying ? Space.ForceUpdater.Gravity : DefaultGravity;
+    private Dictionary<BEPU_LayerDefaine, CollisionGroup> _dicGroup = new();
+
+    public Vector3 SpaceGravity {
+        get {
+            if (Space == null) {
+                return BEPU_DefaultAttr.DefaultGravity;
+            }
+            else {
+                return Space.ForceUpdater.Gravity;
+            }
+        }
+    }
 
     public override void Init() {
         if (!_hasInit) {
             _hasInit = true;
-            Debug.Log("Editor下 BEPU 物理引擎Space被创建");
+#if UNITY_2022_3_OR_NEWER
+            UnityEngine.Debug.Log("Editor下 BEPU 物理引擎Space被创建");
+#endif
             Space = new Space();
-            Space.ForceUpdater.Gravity = DefaultGravity;
+            Space.ForceUpdater.Gravity = BEPU_DefaultAttr.DefaultGravity;
+
+            var layerCount = (int)BEPU_LayerDefaine.LayerCount;
+            for (int i = 0; i < layerCount; i++) {
+                BEPU_LayerDefaine layer = (BEPU_LayerDefaine)i;
+                _dicGroup.Add(layer, new CollisionGroup());
+            }
+
+            ExtentInit();
+        }
+    }
+
+    public void SetLayerMatrix(BEPU_LayerMatrix matrix) {
+        var layerCount = (int)BEPU_LayerDefaine.LayerCount;
+        for (int i = 0; i < layerCount; i++) {
+            BEPU_LayerDefaine layerA = (BEPU_LayerDefaine)i;
+            for (int j = 0; j < layerCount; j++) {
+                BEPU_LayerDefaine layerB = (BEPU_LayerDefaine)j;
+                var groupA = _dicGroup[layerA];
+                var groupB = _dicGroup[layerB];
+                var needCollision = matrix.Get(layerA, layerB);
+                CollisionRule rule = needCollision ? CollisionRule.Defer : CollisionRule.NoSolver;
+                CollisionGroup.DefineCollisionRule(groupA, groupB, rule);
+            }
         }
     }
 
@@ -41,8 +70,11 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
                 collider.OnBeforeUpdate();
             }
             catch (Exception e) {
-                Debug.LogError("OnBeforeUpdate 回调报错");
-                Debug.LogException(e);
+#if UNITY_2022_3_OR_NEWER
+
+                UnityEngine.Debug.LogError("OnBeforeUpdate 回调报错");
+                UnityEngine.Debug.LogException(e);
+#endif
             }
         }
         Space.Update(dt);
@@ -51,8 +83,10 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
                 collider.OnAfterUpdate();
             }
             catch (Exception e) {
-                Debug.LogError("OnBeforeUpdate 回调报错");
-                Debug.LogException(e);
+#if UNITY_2022_3_OR_NEWER
+                UnityEngine.Debug.LogError("OnBeforeUpdate 回调报错");
+                UnityEngine.Debug.LogException(e);
+#endif
             }
         }
     }
@@ -62,7 +96,9 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
             Space.Add(collider.entity);
         }
         else {
-            Debug.LogError($"AddEntity 失败, 因为重复了");
+#if UNITY_2022_3_OR_NEWER
+            UnityEngine.Debug.LogError($"AddEntity 失败, 因为重复了");
+#endif
         }
     }
 
@@ -71,7 +107,9 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
             Space.Remove(collider.entity);
         }
         else {
-            Debug.LogError($"RemoveEntity 失败, Entity并没有加入到Space中 go:{collider.name}");
+#if UNITY_2022_3_OR_NEWER
+            UnityEngine.Debug.LogError($"RemoveEntity 失败, Entity并没有加入到Space中 go:{collider.name}");
+#endif
         }
     }
 
@@ -112,7 +150,9 @@ public class BEPU_PhysicsManager : Singleton<BEPU_PhysicsManager> {
     }
 
 
-    private void OnRelease() {
+    public virtual void OnRelease() {
         this.Space = null;
     }
+
+    public abstract void ExtentInit();
 }

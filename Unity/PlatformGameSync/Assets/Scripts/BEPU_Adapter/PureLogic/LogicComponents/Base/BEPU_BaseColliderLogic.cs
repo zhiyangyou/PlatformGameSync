@@ -76,16 +76,14 @@ public abstract partial class BEPU_BaseColliderLogic : IColliderUpdater, IDispos
                 throw new ArgumentOutOfRangeException();
         }
 
-        entity.Gravity = useGravity
-            ? (BEPU_PhysicsManager.Instance.SpaceGravity * (Fix64)gravityScale)
-            : BEPUutilities.Vector3.Zero; // null代表使用默认的重力加速度值
+        // entity.Gravity = useGravity
+        //     ? (BEPU_PhysicsManagerLogic.Instance.SpaceGravity * (Fix64)gravityScale)
+        //     : BEPUutilities.Vector3.Zero; // null代表使用默认的重力加速度值
 
         SyncExtendAttrsToEntity();
     }
 
-    public virtual void Dispose() {
-        BEPU_PhysicsManager.Instance.RemoveEntity(this);
-    }
+    public virtual void Dispose() { }
 
     #endregion
 

@@ -51,7 +51,7 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
         SyncAllAttrsToEntity();
         colliderLogic.InitInterpolateState();
         if (Application.isPlaying) {
-            BEPU_PhysicsManager.Instance.AddEntity(this.colliderLogic);
+            BEPU_PhysicsManagerUnity.Instance.AddEntity(this.colliderLogic);
         }
     }
 
@@ -70,7 +70,7 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
         entity.LinearDamping = (Fix64)drag;
         entity.AngularDamping = (Fix64)angularDrag;
         entity.Gravity = useGravity
-            ? (BEPU_PhysicsManager.Instance.SpaceGravity * (Fix64)gravityScale)
+            ? (BEPU_PhysicsManagerUnity.Instance.SpaceGravity * (Fix64)gravityScale)
             : BEPUutilities.Vector3.Zero; // null代表使用默认的重力加速度值
         entity.freezePos_X = this.freezePos_X;
         entity.freezePos_Y = this.freezePos_Y;
@@ -92,7 +92,7 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
 
     private void OnDestroy() {
         if (Application.isPlaying) {
-            BEPU_PhysicsManager.Instance.RemoveEntity(colliderLogic);
+            BEPU_PhysicsManagerUnity.Instance.RemoveEntity(colliderLogic);
         }
         OnRelease();
     }

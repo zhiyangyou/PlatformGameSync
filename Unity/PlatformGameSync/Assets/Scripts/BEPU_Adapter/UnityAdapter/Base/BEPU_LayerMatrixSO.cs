@@ -10,6 +10,16 @@ public class BEPU_LayerMatrixSO : ScriptableObject {
 
     private static int LayerCount => (int)BEPU_LayerDefaine.LayerCount;
 
+    public BEPU_LayerMatrix AsLayerMatrix() {
+        var ret = new BEPU_LayerMatrix();
+        for (int layerA = 0; layerA < LayerCount; layerA++) {
+            for (int layerB = 0; layerB < LayerCount; layerB++) {
+                ret.Set((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB, GetValue((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB));
+            }
+        }
+        return ret;
+    }
+
     private bool GetValue(bool[] arr, int layerCount, BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB) {
         var layerA = (int)ElayerA;
         var layerB = (int)ElayerB;
