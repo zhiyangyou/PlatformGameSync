@@ -11,7 +11,13 @@ public class LayerMatrixEditor : EditorWindow {
     [MenuItem("Tools/Layer Matrix Editor")]
     public static void ShowWindow() {
         // 获取或创建一个新的编辑器窗口实例
-        GetWindow<LayerMatrixEditor>("Layer Matrix");
+        ShowWindow(null);
+    }
+
+    public static void ShowWindow(BEPU_LayerMatrixSO so) {
+        // 获取或创建一个新的编辑器窗口实例
+        var window = GetWindow<LayerMatrixEditor>("Layer Matrix");
+        window.targetData = so;
     }
 
     // 获取所有已定义的层名称
@@ -102,13 +108,9 @@ public class LayerMatrixEditor : EditorWindow {
         // 绘制该行的所有复选框
         for (int colIndex = 0; colIndex < layerNumbers.Count; colIndex++) {
             int layerB = layerNumbers[colIndex];
-
-            // 为了模仿Unity的三角形矩阵UI并避免重复，只在 colIndex >= rowIndex 时绘制
-            if (colIndex < rowIndex) {
-                // 留出空白，对齐复选框
-                GUILayout.Space(24);
-            }
-            else {
+            {
+                bool disableEdit = colIndex < rowIndex;
+                EditorGUI.BeginDisabledGroup(disableEdit);
                 bool currentValue = targetData.GetValue((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB);
 
                 // 开始检查变化
@@ -121,6 +123,7 @@ public class LayerMatrixEditor : EditorWindow {
                     // 更新数据
                     targetData.SetValue((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB, newValue);
                 }
+                EditorGUI.EndDisabledGroup();
             }
         }
 

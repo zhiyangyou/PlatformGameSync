@@ -29,6 +29,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
     private SerializedProperty freezeRotation_X;
     private SerializedProperty freezeRotation_Y;
     private SerializedProperty freezeRotation_Z;
+    private SerializedProperty layer;
 
     private Transform _curTransform = null;
     private ListenerTransformChanged _listenerTransformChanged;
@@ -39,6 +40,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
 
     protected void DoInit() {
         collider = target as TCollider;
+        layer = serializedObject.FindProperty("layer");
         centerProp = serializedObject.FindProperty("center");
         isTrigger = serializedObject.FindProperty("isTrigger");
         materialSo = serializedObject.FindProperty("materialSo");
@@ -77,6 +79,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
     }
 
     protected virtual void DrawBaseAttr() {
+        EditorGUILayout.PropertyField(layer);
         EditorGUILayout.PropertyField(isTrigger);
         EditorGUILayout.PropertyField(materialSo);
         EditorGUILayout.PropertyField(centerProp);

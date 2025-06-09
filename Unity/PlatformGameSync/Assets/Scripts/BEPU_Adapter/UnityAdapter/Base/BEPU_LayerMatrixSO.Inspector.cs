@@ -15,6 +15,11 @@ public class BEPU_LayerMatrixSO_Inspector : Editor {
 
 
     public override void OnInspectorGUI() {
+        var rectBtn = EditorGUILayout.GetControlRect();
+        if (GUI.Button(rectBtn, "编辑")) {
+            LayerMatrixEditor.ShowWindow(_so);
+        }
+
         var layerCount = (int)BEPU_LayerDefaine.LayerCount;
         var needLen = layerCount * layerCount;
         if (needLen != _so.Length) {
@@ -31,7 +36,7 @@ public class BEPU_LayerMatrixSO_Inspector : Editor {
                 EditorGUILayout.Toggle(label, value);
             }
         }
-        base.OnInspectorGUI();
+        // base.OnInspectorGUI();
         EditorGUI.EndDisabledGroup();
     }
 }

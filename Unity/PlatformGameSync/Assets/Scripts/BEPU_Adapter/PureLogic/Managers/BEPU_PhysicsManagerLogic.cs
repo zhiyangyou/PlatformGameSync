@@ -32,9 +32,9 @@ public abstract class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new()
     public override void Init() {
         if (!_hasInit) {
             _hasInit = true;
-#if UNITY_2022_3_OR_NEWER
-            UnityEngine.Debug.Log("Editor下 BEPU 物理引擎Space被创建");
-#endif
+
+            BEPU_Logger.Log("Editor下 BEPU 物理引擎Space被创建");
+
             Space = new Space();
             Space.ForceUpdater.Gravity = BEPU_DefaultAttr.DefaultGravity;
 
@@ -70,11 +70,8 @@ public abstract class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new()
                 collider.OnBeforeUpdate();
             }
             catch (Exception e) {
-#if UNITY_2022_3_OR_NEWER
-
-                UnityEngine.Debug.LogError("OnBeforeUpdate 回调报错");
-                UnityEngine.Debug.LogException(e);
-#endif
+                BEPU_Logger.LogError("OnBeforeUpdate 回调报错");
+                BEPU_Logger.LogException(e);
             }
         }
         Space.Update(dt);
@@ -83,10 +80,8 @@ public abstract class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new()
                 collider.OnAfterUpdate();
             }
             catch (Exception e) {
-#if UNITY_2022_3_OR_NEWER
-                UnityEngine.Debug.LogError("OnBeforeUpdate 回调报错");
-                UnityEngine.Debug.LogException(e);
-#endif
+                BEPU_Logger.LogError("OnBeforeUpdate 回调报错");
+                BEPU_Logger.LogException(e);
             }
         }
     }
@@ -96,9 +91,7 @@ public abstract class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new()
             Space.Add(collider.entity);
         }
         else {
-#if UNITY_2022_3_OR_NEWER
-            UnityEngine.Debug.LogError($"AddEntity 失败, 因为重复了");
-#endif
+            BEPU_Logger.LogError($"AddEntity 失败, 因为重复了");
         }
     }
 
@@ -107,9 +100,18 @@ public abstract class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new()
             Space.Remove(collider.entity);
         }
         else {
-#if UNITY_2022_3_OR_NEWER
-            UnityEngine.Debug.LogError($"RemoveEntity 失败, Entity并没有加入到Space中 go:{collider.name}");
-#endif
+            BEPU_Logger.LogError($"RemoveEntity 失败, Entity并没有加入到Space中 go:{collider.name}");
+        }
+    }
+
+    public CollisionGroup GetGroupByLayer(BEPU_LayerDefaine layer) {
+        if (_dicGroup.TryGetValue(layer, out var g)) {
+            return g;
+        }
+        else {
+            BEPU_Logger.LogError($"不存在Layer{layer} 对应的Collision");
+
+            return null;
         }
     }
 

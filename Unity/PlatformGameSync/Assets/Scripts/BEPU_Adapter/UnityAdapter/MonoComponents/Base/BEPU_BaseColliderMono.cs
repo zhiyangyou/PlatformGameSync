@@ -64,7 +64,6 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
         colliderLogic.entityType = entityType;
         colliderLogic.useGravity = useGravity;
         colliderLogic.gravityScale = gravityScale;
-
         entity.CollisionInformation.CollisionRules.Personal = isTrigger ? CollisionRule.NoSolver : _defaultCollisionRule;
         entity.Mass = (Fix64)mass;
         entity.LinearDamping = (Fix64)drag;
@@ -78,7 +77,8 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
         entity.freezeRotation_X = this.freezeRotation_X;
         entity.freezeRotation_Y = this.freezeRotation_Y;
         entity.freezeRotation_Z = this.freezeRotation_Z;
-        entity.Layer = this.layer;
+        entity.Layer = layer;
+        entity.CollisionInformation.CollisionRules.Group = BEPU_PhysicsManagerUnity.Instance.GetGroupByLayer(this.layer);
         colliderLogic.SyncAttrsToEntity();
         SyncRenderPosAndRotationToEntity();
         SyncExtendAttrsToEntity();
