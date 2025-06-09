@@ -14,7 +14,7 @@ public class BEPU_CustomEntity : Entity {
     public bool freezeRotation_Y = false;
     public bool freezeRotation_Z = false;
 
-    public BEPU_LayerDefaine Layer { get; set; } = BEPU_LayerDefaine.Default;
+    public BEPU_LayerDefine Layer { get; set; } = BEPU_LayerDefine.Default;
 
     public object UserObj { get; }
     #endregion

@@ -20,7 +20,7 @@ public class BEPU_LayerMatrixSO_Inspector : Editor {
             LayerMatrixEditor.ShowWindow(_so);
         }
 
-        var layerCount = (int)BEPU_LayerDefaine.LayerCount;
+        var layerCount = (int)BEPU_LayerDefine.LayerCount;
         var needLen = layerCount * layerCount;
         if (needLen != _so.Length) {
             Debug.LogError($"枚举发生变更，修正配置数据！newLayerCount{layerCount} oldLayerCount:{(int)Mathf.Sqrt(_so.Length)}");
@@ -31,8 +31,8 @@ public class BEPU_LayerMatrixSO_Inspector : Editor {
 
         for (int layerA = 0; layerA < layerCount; layerA++) {
             for (int layerB = 0; layerB < layerCount; layerB++) {
-                var value = _so.GetValue((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB);
-                var label = $"{((BEPU_LayerDefaine)layerA).ToString()} - {((BEPU_LayerDefaine)layerB).ToString()}";
+                var value = _so.GetValue((BEPU_LayerDefine)layerA, (BEPU_LayerDefine)layerB);
+                var label = $"{((BEPU_LayerDefine)layerA).ToString()} - {((BEPU_LayerDefine)layerB).ToString()}";
                 EditorGUILayout.Toggle(label, value);
             }
         }

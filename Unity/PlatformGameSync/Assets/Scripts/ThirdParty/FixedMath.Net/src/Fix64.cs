@@ -17,6 +17,7 @@ namespace FixMath.NET
         public static readonly Fix64 MaxValue = new Fix64(MAX_VALUE);
         public static readonly Fix64 MinValue = new Fix64(MIN_VALUE);
 		public static readonly Fix64 MinusOne = new Fix64(-ONE);
+		public static readonly Fix64 HalfOne = (Fix64)0.5f;
 		public static readonly Fix64 One = new Fix64(ONE);
 		public static readonly Fix64 Two = (Fix64)2;
 		public static readonly Fix64 Three = (Fix64)3;

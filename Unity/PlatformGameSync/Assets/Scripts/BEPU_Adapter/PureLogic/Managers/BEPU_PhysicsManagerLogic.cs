@@ -36,9 +36,9 @@ public abstract partial class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T
             Space = new Space();
             Space.ForceUpdater.Gravity = BEPU_DefaultAttr.DefaultGravity;
 
-            var layerCount = (int)BEPU_LayerDefaine.LayerCount;
+            var layerCount = (int)BEPU_LayerDefine.LayerCount;
             for (int i = 0; i < layerCount; i++) {
-                BEPU_LayerDefaine layer = (BEPU_LayerDefaine)i;
+                BEPU_LayerDefine layer = (BEPU_LayerDefine)i;
                 _dicGroup.Add(layer, new CollisionGroup());
             }
 
@@ -47,11 +47,11 @@ public abstract partial class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T
     }
 
     public void SetLayerMatrix(BEPU_LayerMatrix matrix) {
-        var layerCount = (int)BEPU_LayerDefaine.LayerCount;
+        var layerCount = (int)BEPU_LayerDefine.LayerCount;
         for (int i = 0; i < layerCount; i++) {
-            BEPU_LayerDefaine layerA = (BEPU_LayerDefaine)i;
+            BEPU_LayerDefine layerA = (BEPU_LayerDefine)i;
             for (int j = 0; j < layerCount; j++) {
-                BEPU_LayerDefaine layerB = (BEPU_LayerDefaine)j;
+                BEPU_LayerDefine layerB = (BEPU_LayerDefine)j;
                 var groupA = _dicGroup[layerA];
                 var groupB = _dicGroup[layerB];
                 var needCollision = matrix.Get(layerA, layerB);

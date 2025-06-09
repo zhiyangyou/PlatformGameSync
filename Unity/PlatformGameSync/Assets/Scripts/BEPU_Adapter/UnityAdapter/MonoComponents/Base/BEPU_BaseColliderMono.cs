@@ -24,7 +24,7 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
     [SerializeField] protected bool freezeRotation_X = false;
     [SerializeField] protected bool freezeRotation_Y = false;
     [SerializeField] protected bool freezeRotation_Z = false;
-    [SerializeField] protected BEPU_LayerDefaine layer = BEPU_LayerDefaine.Default;
+    [SerializeField] protected BEPU_LayerDefine layer = BEPU_LayerDefine.Default;
 
     private CollisionRule _defaultCollisionRule = CollisionRule.Defer;
 

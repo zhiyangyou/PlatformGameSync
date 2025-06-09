@@ -5,22 +5,22 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "BEPU_LayerMatrix", menuName = "BEPU/BEPU_LayerMatrix")]
 public class BEPU_LayerMatrixSO : ScriptableObject {
-    [SerializeField] public bool[] matrix = new bool[(int)BEPU_LayerDefaine.LayerCount * (int)BEPU_LayerDefaine.LayerCount];
+    [SerializeField] public bool[] matrix = new bool[(int)BEPU_LayerDefine.LayerCount * (int)BEPU_LayerDefine.LayerCount];
     public int Length => matrix.Length;
 
-    private static int LayerCount => (int)BEPU_LayerDefaine.LayerCount;
+    private static int LayerCount => (int)BEPU_LayerDefine.LayerCount;
 
     public BEPU_LayerMatrix AsLayerMatrix() {
         var ret = new BEPU_LayerMatrix();
         for (int layerA = 0; layerA < LayerCount; layerA++) {
             for (int layerB = 0; layerB < LayerCount; layerB++) {
-                ret.Set((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB, GetValue((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB));
+                ret.Set((BEPU_LayerDefine)layerA, (BEPU_LayerDefine)layerB, GetValue((BEPU_LayerDefine)layerA, (BEPU_LayerDefine)layerB));
             }
         }
         return ret;
     }
 
-    private bool GetValue(bool[] arr, int layerCount, BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB) {
+    private bool GetValue(bool[] arr, int layerCount, BEPU_LayerDefine ElayerA, BEPU_LayerDefine ElayerB) {
         var layerA = (int)ElayerA;
         var layerB = (int)ElayerB;
         // 边界检查
@@ -45,11 +45,11 @@ public class BEPU_LayerMatrixSO : ScriptableObject {
     /// <param name="layerA">层 A 的索引</param>
     /// <param name="layerB">层 B 的索引</param>
     /// <returns>如果可以交互，返回 true</returns>
-    public bool GetValue(BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB) {
+    public bool GetValue(BEPU_LayerDefine ElayerA, BEPU_LayerDefine ElayerB) {
         return GetValue(matrix, LayerCount, ElayerA, ElayerB);
     }
 
-    public void SetValue(bool[] arr, int layerCount, BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB, bool value) {
+    public void SetValue(bool[] arr, int layerCount, BEPU_LayerDefine ElayerA, BEPU_LayerDefine ElayerB, bool value) {
         var layerA = (int)ElayerA;
         var layerB = (int)ElayerB;
         if (layerA < 0 || layerA >= layerCount || layerB < 0 || layerB >= layerCount) {
@@ -68,7 +68,7 @@ public class BEPU_LayerMatrixSO : ScriptableObject {
     /// <param name="layerA">层 A 的索引</param>
     /// <param name="layerB">层 B 的索引</param>
     /// <param name="value">是否可以交互</param>
-    public void SetValue(BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB, bool value) {
+    public void SetValue(BEPU_LayerDefine ElayerA, BEPU_LayerDefine ElayerB, bool value) {
         SetValue(matrix, LayerCount, ElayerA, ElayerB, value);
     }
 
@@ -87,8 +87,8 @@ public class BEPU_LayerMatrixSO : ScriptableObject {
             var forCount = Math.Min(oldLayerCount, newLayerCount);
             for (int layerA = 0; layerA < forCount; layerA++) {
                 for (int layerB = 0; layerB < forCount; layerB++) {
-                    var oldValue = GetValue(oldData, oldLayerCount, (BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB);
-                    SetValue(this.matrix, newLayerCount, (BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB, oldValue);
+                    var oldValue = GetValue(oldData, oldLayerCount, (BEPU_LayerDefine)layerA, (BEPU_LayerDefine)layerB);
+                    SetValue(this.matrix, newLayerCount, (BEPU_LayerDefine)layerA, (BEPU_LayerDefine)layerB, oldValue);
                 }
             }
             EditorUtility.SetDirty(this);

@@ -3,7 +3,7 @@
 /// 要求：1.只能顺序向下递增  2. 数值连续  
 /// 如果出现删除中间的情况，要重新配置并生成
 /// </summary>
-public enum BEPU_LayerDefaine : int {
+public enum BEPU_LayerDefine : int {
     Default = 0,
     Player = 1, // 玩家
     Enemy = 2, // 敌人

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using BEPUphysics.CollisionRuleManagement;
 
 public abstract partial class BEPU_PhysicsManagerLogic<T> {
-    private Dictionary<BEPU_LayerDefaine, CollisionGroup> _dicGroup = new();
+    private Dictionary<BEPU_LayerDefine, CollisionGroup> _dicGroup = new();
 
-    public CollisionGroup GetGroupByLayer(BEPU_LayerDefaine layer) {
+    public CollisionGroup GetGroupByLayer(BEPU_LayerDefine layer) {
         if (_dicGroup.TryGetValue(layer, out var g)) {
             return g;
         }

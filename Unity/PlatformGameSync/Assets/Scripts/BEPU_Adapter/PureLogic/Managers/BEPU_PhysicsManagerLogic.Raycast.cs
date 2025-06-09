@@ -22,7 +22,7 @@ public abstract partial class BEPU_PhysicsManagerLogic<T> {
         Vector3 origin,
         Vector3 direction,
         Fix64 maxDistance,
-        BEPU_LayerDefaine layer) {
+        BEPU_LayerDefine layer) {
         List<BEPU_RayCastReuslt> listRet = ListPool<BEPU_RayCastReuslt>.Get();
         var ret = Raycast(origin, direction, maxDistance, (logic) => logic.entity.Layer == layer, listRet);
         var hasAny = listRet.Count > 0;
@@ -34,7 +34,7 @@ public abstract partial class BEPU_PhysicsManagerLogic<T> {
         Vector3 origin,
         Vector3 direction,
         Fix64 maxDistance,
-        BEPU_LayerDefaine layer,
+        BEPU_LayerDefine layer,
         List<BEPU_RayCastReuslt> listRet) {
         var ret = Raycast(origin, direction, maxDistance, (logic) => logic.entity.Layer == layer, listRet);
         return ret;

@@ -11,6 +11,24 @@ namespace BEPUutilities
     /// </summary>
     public struct BoundingBox
     {
+        public Vector3 Center {
+            get {
+                var halfw = Fix64.Abs(Max.X - Min.X) * Fix64.HalfOne;
+                var halfh = Fix64.Abs(Max.Y - Min.Y) * Fix64.HalfOne;
+                var halfl = Fix64.Abs(Max.Z - Min.Z) * Fix64.HalfOne;
+                return new Vector3(Min.X + halfw, Min.Y + halfh, Min.Z + halfl);
+            }
+        }
+
+        public Vector3 Size {
+            get {
+                var w = Fix64.Abs(Max.X - Min.X) * Fix64.One;
+                var h = Fix64.Abs(Max.Y - Min.Y) * Fix64.One;
+                var l = Fix64.Abs(Max.Z - Min.Z) * Fix64.One;
+                return new Vector3(w, h, l);
+            }
+        }
+        
         /// <summary>
         /// Location with the lowest X, Y, and Z coordinates in the axis-aligned bounding box.
         /// </summary>

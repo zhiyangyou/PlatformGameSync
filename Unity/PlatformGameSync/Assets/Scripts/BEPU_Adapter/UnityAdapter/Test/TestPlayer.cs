@@ -1,28 +1,33 @@
+using System;
+using System.Collections;
 using BEPU_Adapter.Pool;
-using BEPUphysics.BroadPhaseEntries.MobileCollidables;
-using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
 using FixMath.NET;
 using UnityEngine;
-using UnityEngine.Serialization;
+using BoundingSphere = BEPUutilities.BoundingSphere;
 using Vector3 = UnityEngine.Vector3;
 
 
 public class TestPlayer : MonoBehaviour {
-    [FormerlySerializedAs("_collider")] public BEPU_BaseColliderMono colliderMono;
-    public Animator _animator;
-    public SpriteRenderer _spRender;
+    [NonSerialized] private BEPU_BaseColliderMono colliderMono;
+    [NonSerialized] private Animator _animator;
+    [NonSerialized] private SpriteRenderer _spRender;
+
+    public Transform trAttackPoint;
     public float moveSpeed = 3f;
     public float jumpForce = 8f;
     public bool _facingRight = true;
+    public bool isRectHitCheck = true;
 
     public float groundCheckDictance = 0.5f;
-
-    public LayerMask whatIsGround;
 
     public bool isGround = false;
 
     private float _xInput = 0f;
+
+    private BoundingBox? _attackBoundingBox = null;
+    private BoundingSphere? _attackBoundingSphere = null;
+
 
     private void Awake() {
         colliderMono = GetComponent<BEPU_BaseColliderMono>();
@@ -44,7 +49,7 @@ public class TestPlayer : MonoBehaviour {
             transform.position.ToFixedVector3(),
             BEPUutilities.Vector3.Down,
             (Fix64)groundCheckDictance,
-            BEPU_LayerDefaine.Envirement,
+            BEPU_LayerDefine.Envirement,
             listRet
         );
         isGround = false;
@@ -98,6 +103,24 @@ public class TestPlayer : MonoBehaviour {
     private void TryAttack() {
         if (isGround) {
             _animator.SetTrigger("attack");
+            var results = ListPool<BEPU_BaseColliderLogic>.Get();
+            if (isRectHitCheck) {
+                var center = trAttackPoint.position.ToFixedVector3();
+                var halfSize = BEPUutilities.Vector3.One * (Fix64)0.5f;
+                _attackBoundingBox = new BoundingBox(center - halfSize, center + halfSize);
+                BEPU_PhysicsManagerUnity.Instance.OverlapBoxAll(center, halfSize, BEPU_LayerDefine.Envirement, results);
+            }
+            else {
+                var center = trAttackPoint.position.ToFixedVector3();
+                Fix64 radiu = (Fix64)0.5f;
+                _attackBoundingSphere = new BoundingSphere(center, radiu);
+                BEPU_PhysicsManagerUnity.Instance.OverlapCircleAll(center, radiu, BEPU_LayerDefine.Envirement, results);
+            }
+
+            foreach (var logic in results) {
+                // Debug.LogError($"hitObj: {(logic.RenderObj as BEPU_BaseColliderMono).gameObject.name}");
+            }
+            ListPool<BEPU_BaseColliderLogic>.Release(results);
         }
     }
 
@@ -111,5 +134,23 @@ public class TestPlayer : MonoBehaviour {
 
     private void OnDrawGizmos() {
         Gizmos.DrawLine(transform.position, transform.position + groundCheckDictance * Vector3.down);
+
+        if (_attackBoundingBox.HasValue) {
+            var box = _attackBoundingBox.Value;
+            Gizmos.DrawWireCube(box.Center.ToUnityVector3(), box.Size.ToUnityVector3());
+            StartCoroutine(IEHideHitGizmos());
+        }
+        if (_attackBoundingSphere.HasValue) {
+            Gizmos.DrawSphere(_attackBoundingSphere.Value.Center.ToUnityVector3(), (float)_attackBoundingSphere.Value.Radius);
+            StartCoroutine(IEHideHitGizmos());
+        }
+    }
+
+    IEnumerator IEHideHitGizmos() {
+        for (int i = 0; i < 200; i++) {
+            yield return new WaitForEndOfFrame();
+        }
+        _attackBoundingBox = null;
+        _attackBoundingSphere = null;
     }
 }

@@ -25,9 +25,9 @@ public class LayerMatrixEditor : EditorWindow {
     List<int> _layerNumbers = new List<int>();
 
     private void OnEnable() {
-        for (int i = 0; i < (int)BEPU_LayerDefaine.LayerCount; i++) {
+        for (int i = 0; i < (int)BEPU_LayerDefine.LayerCount; i++) {
             _layerNumbers.Add(i);
-            _layerNames.Add(((BEPU_LayerDefaine)(i)).ToString());
+            _layerNames.Add(((BEPU_LayerDefine)(i)).ToString());
         }
     }
 
@@ -111,7 +111,7 @@ public class LayerMatrixEditor : EditorWindow {
             {
                 bool disableEdit = colIndex < rowIndex;
                 EditorGUI.BeginDisabledGroup(disableEdit);
-                bool currentValue = targetData.GetValue((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB);
+                bool currentValue = targetData.GetValue((BEPU_LayerDefine)layerA, (BEPU_LayerDefine)layerB);
 
                 // 开始检查变化
                 EditorGUI.BeginChangeCheck();
@@ -121,7 +121,7 @@ public class LayerMatrixEditor : EditorWindow {
                 // 如果用户点击了复选框
                 if (EditorGUI.EndChangeCheck()) {
                     // 更新数据
-                    targetData.SetValue((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB, newValue);
+                    targetData.SetValue((BEPU_LayerDefine)layerA, (BEPU_LayerDefine)layerB, newValue);
                 }
                 EditorGUI.EndDisabledGroup();
             }
