@@ -18,21 +18,20 @@ public class BEPU_LayerMatrixSO_Inspector : Editor {
         var layerCount = (int)BEPU_LayerDefaine.LayerCount;
         var needLen = layerCount * layerCount;
         if (needLen != _so.Length) {
+            Debug.LogError($"枚举发生变更，修正配置数据！newLayerCount{layerCount} oldLayerCount:{(int)Mathf.Sqrt(_so.Length)}");
             _so.FixData(layerCount);
-            EditorGUILayout.LabelField($"层级数据异常 长度不匹配 需要的长度：{layerCount}");
         }
-        else {
-            EditorGUI.BeginDisabledGroup(true);
 
-            for (int layerA = 0; layerA < layerCount; layerA++) {
-                for (int layerB = 0; layerB < layerCount; layerB++) {
-                    var value = _so.GetValue((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB);
-                    var label = $"{((BEPU_LayerDefaine)layerA).ToString()} - {((BEPU_LayerDefaine)layerB).ToString()}";
-                    EditorGUILayout.Toggle(label, value);
-                }
+        EditorGUI.BeginDisabledGroup(true);
+
+        for (int layerA = 0; layerA < layerCount; layerA++) {
+            for (int layerB = 0; layerB < layerCount; layerB++) {
+                var value = _so.GetValue((BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB);
+                var label = $"{((BEPU_LayerDefaine)layerA).ToString()} - {((BEPU_LayerDefaine)layerB).ToString()}";
+                EditorGUILayout.Toggle(label, value);
             }
-            base.OnInspectorGUI();
-            EditorGUI.EndDisabledGroup();
         }
+        base.OnInspectorGUI();
+        EditorGUI.EndDisabledGroup();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -9,18 +10,23 @@ public class BEPU_LayerMatrixSO : ScriptableObject {
 
     private static int LayerCount => (int)BEPU_LayerDefaine.LayerCount;
 
-    private bool GetValue(bool[] arr, BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB) {
+    private bool GetValue(bool[] arr, int layerCount, BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB) {
         var layerA = (int)ElayerA;
         var layerB = (int)ElayerB;
         // 边界检查
         if (layerA < 0
-            || layerA >= LayerCount
+            || layerA >= layerCount
             || layerB < 0
-            || layerB >= LayerCount) {
+            || layerB >= layerCount) {
             Debug.LogError($"Layer index out of bounds. {layerA} {layerB}");
             return false;
         }
-        return arr[layerA * LayerCount + layerB];
+        var index = layerA * layerCount + layerB;
+        if (index < 0 || index >= arr.Length) {
+            Debug.LogError($"layerA:{layerA} layerB:{layerB} LayerCount:{layerCount}");
+            return false;
+        }
+        return arr[layerA * layerCount + layerB];
     }
 
     /// <summary>
@@ -30,19 +36,19 @@ public class BEPU_LayerMatrixSO : ScriptableObject {
     /// <param name="layerB">层 B 的索引</param>
     /// <returns>如果可以交互，返回 true</returns>
     public bool GetValue(BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB) {
-        return GetValue(matrix, ElayerA, ElayerB);
+        return GetValue(matrix, LayerCount, ElayerA, ElayerB);
     }
 
-    public void SetValue(bool[] arr, BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB, bool value) {
+    public void SetValue(bool[] arr, int layerCount, BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB, bool value) {
         var layerA = (int)ElayerA;
         var layerB = (int)ElayerB;
-        if (layerA < 0 || layerA >= LayerCount || layerB < 0 || layerB >= LayerCount) {
+        if (layerA < 0 || layerA >= layerCount || layerB < 0 || layerB >= layerCount) {
             Debug.LogError("Layer index out of bounds.");
             return;
         }
         // 交互是相互的，所以 (A, B) 和 (B, A) 的状态应该一致
-        arr[layerA * LayerCount + layerB] = value;
-        arr[layerB * LayerCount + layerA] = value;
+        arr[layerA * layerCount + layerB] = value;
+        arr[layerB * layerCount + layerA] = value;
     }
 
 
@@ -53,7 +59,7 @@ public class BEPU_LayerMatrixSO : ScriptableObject {
     /// <param name="layerB">层 B 的索引</param>
     /// <param name="value">是否可以交互</param>
     public void SetValue(BEPU_LayerDefaine ElayerA, BEPU_LayerDefaine ElayerB, bool value) {
-        SetValue(matrix, ElayerA, ElayerB, value);
+        SetValue(matrix, LayerCount, ElayerA, ElayerB, value);
     }
 
     public void FixData(int newLayerCount) {
@@ -67,12 +73,15 @@ public class BEPU_LayerMatrixSO : ScriptableObject {
             this.matrix = newData;
 
             var oldLayerCount = (int)Mathf.Sqrt(oldData.Length);
-            for (int layerA = 0; layerA < oldLayerCount; layerA++) {
-                for (int layerB = 0; layerB < oldLayerCount; layerB++) {
-                    var oldValue = GetValue(oldData, (BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB);
-                    SetValue(this.matrix, (BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB, oldValue);
+
+            var forCount = Math.Min(oldLayerCount, newLayerCount);
+            for (int layerA = 0; layerA < forCount; layerA++) {
+                for (int layerB = 0; layerB < forCount; layerB++) {
+                    var oldValue = GetValue(oldData, oldLayerCount, (BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB);
+                    SetValue(this.matrix, newLayerCount, (BEPU_LayerDefaine)layerA, (BEPU_LayerDefaine)layerB, oldValue);
                 }
             }
+            EditorUtility.SetDirty(this);
         }
         else {
             Debug.LogError("数据长度匹配， 不需要修正");

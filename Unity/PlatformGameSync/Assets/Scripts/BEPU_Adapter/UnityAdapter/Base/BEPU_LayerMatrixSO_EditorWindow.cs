@@ -57,6 +57,11 @@ public class LayerMatrixEditor : EditorWindow {
         if (GUI.changed) {
             EditorUtility.SetDirty(targetData);
         }
+
+        var rectSaveBtn = EditorGUILayout.GetControlRect();
+        if (GUI.Button(rectSaveBtn, "Save")) {
+            AssetDatabase.SaveAssetIfDirty(targetData);
+        }
     }
 
     private void DrawColumnHeaders(List<string> layerNames) {
@@ -67,7 +72,7 @@ public class LayerMatrixEditor : EditorWindow {
         for (int i = 0; i < layerNames.Count; i++) {
             // 这是关键的修正：
             // 我们获取一个矩形，并使用 GUILayout.Width() 强制其宽度
-            Rect labelRect = GUILayoutUtility.GetRect(columnWidth, 45, GUILayout.Width(columnWidth));
+            Rect labelRect = GUILayoutUtility.GetRect(columnWidth, 125, GUILayout.Width(columnWidth));
 
             // 保存当前GUI状态
             Matrix4x4 matrix = GUI.matrix;
@@ -77,7 +82,7 @@ public class LayerMatrixEditor : EditorWindow {
 
             // 在旋转后的坐标系中绘制标签
             // 我们稍微调整一下绘制矩形，让文字更居中
-            Rect textRect = new Rect(labelRect.x - 45, labelRect.y + 10, labelRect.height, labelRect.width);
+            Rect textRect = new Rect(labelRect.x - 105, labelRect.y + 20, labelRect.height, labelRect.width);
             GUI.Label(textRect, layerNames[i], EditorStyles.label);
 
             // 恢复GUI状态
