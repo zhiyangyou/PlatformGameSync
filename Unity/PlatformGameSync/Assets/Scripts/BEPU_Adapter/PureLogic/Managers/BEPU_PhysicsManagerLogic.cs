@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using BEPUphysics;
 using BEPUphysics.CollisionRuleManagement;
-using Codice.CM.Common;
 using FixMath.NET;
 using Space = BEPUphysics.Space;
 using Vector3 = BEPUutilities.Vector3;
 
 
-public abstract class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new() {
+public abstract partial class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new() {
     public Space Space { get; private set; }
 
     public bool NeedAutoUpdate = true;
@@ -16,7 +14,7 @@ public abstract class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new()
     private bool _hasInit = false;
 
     private HashSet<BEPU_BaseColliderLogic> _setAllColliders = new();
-    private Dictionary<BEPU_LayerDefaine, CollisionGroup> _dicGroup = new();
+
 
     public Vector3 SpaceGravity {
         get {
@@ -104,52 +102,7 @@ public abstract class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T : new()
         }
     }
 
-    public CollisionGroup GetGroupByLayer(BEPU_LayerDefaine layer) {
-        if (_dicGroup.TryGetValue(layer, out var g)) {
-            return g;
-        }
-        else {
-            BEPU_Logger.LogError($"不存在Layer{layer} 对应的Collision");
 
-            return null;
-        }
-    }
-
-
-    public bool Raycast(
-        Vector3 origin,
-        Vector3 direction,
-        Fix64 maxDistance,
-        out RaycastHit hitInfo,
-        uint layerMask
-    ) {
-        hitInfo = new RaycastHit();
-
-        // 标准化方向向量
-        Vector3 normalizedDir = direction;
-        if (normalizedDir.LengthSquared() != 1) {
-            normalizedDir.Normalize();
-        }
-
-
-        // 创建射线
-        BEPUutilities.Ray ray = new BEPUutilities.Ray(origin, normalizedDir);
-        RayCastResult rayHit;
-
-        // 执行射线检测
-        bool hit = Space.RayCast(ray, maxDistance, out rayHit);
-
-        if (!hit) {
-            return false;
-        }
-
-        // 转换到 Unity 风格的命中信息
-        hitInfo.point = rayHit.HitData.Location;
-        hitInfo.normal = rayHit.HitData.Normal;
-        hitInfo.distance = rayHit.HitData.T;
-        hitInfo.collider = rayHit.HitObject;
-        return hitInfo.collider != null;
-    }
 
 
     public virtual void OnRelease() {

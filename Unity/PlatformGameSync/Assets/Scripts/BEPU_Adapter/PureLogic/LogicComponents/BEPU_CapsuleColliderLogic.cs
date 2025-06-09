@@ -11,8 +11,8 @@ public class BEPU_CapsuleColliderLogic : BEPU_BaseColliderLogic {
 
     #endregion
 
-    public BEPU_CapsuleColliderLogic(string name, Action<Vector3, Quaternion> syncEntityPosAndRotationToRenderer) :
-        base(name, new CapsuleShape(Fix64.One, Fix64.One), syncEntityPosAndRotationToRenderer) { }
+    public BEPU_CapsuleColliderLogic(string name, object renderObj, Action<Vector3, Quaternion> syncEntityPosAndRotationToRenderer) :
+        base(name, renderObj, new CapsuleShape(Fix64.One, Fix64.One), syncEntityPosAndRotationToRenderer) { }
 
 
     protected override void SyncExtendAttrsToEntity() {

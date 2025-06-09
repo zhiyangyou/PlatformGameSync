@@ -21,7 +21,10 @@ public abstract partial class BEPU_BaseColliderLogic : IColliderUpdater, IDispos
     private CollisionRule _defaultCollisionRule = CollisionRule.Defer;
     public string name { get; private set; }
     public ConvexShape entityShape { get; private set; }
+    public object RenderObj { get; private set; }
 
+    
+    
     private Material _material;
 
     private Material material {
@@ -50,11 +53,13 @@ public abstract partial class BEPU_BaseColliderLogic : IColliderUpdater, IDispos
 
     public BEPU_BaseColliderLogic(
         string name,
+        object renderObj,
         ConvexShape shape,
         Action<Vector3, Quaternion> syncEntityPosAndRotationToRenderer) {
         entityShape = shape;
+        this.RenderObj = renderObj;
         this.name = name;
-        _entity = new(shape);
+        _entity = new(this, shape);
         _entity.Material = material;
         _defaultCollisionRule = _entity.CollisionInformation.CollisionRules.Personal;
         _syncEntityPosAndRotationToRenderer = syncEntityPosAndRotationToRenderer;

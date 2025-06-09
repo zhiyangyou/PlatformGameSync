@@ -10,7 +10,7 @@ public partial class BEPU_BoxColliderMono : BEPU_BaseColliderMono {
 
     public BEPU_BaseColliderLogic _colliderLogic = null;
 
-    public override BEPU_BaseColliderLogic colliderLogic => _colliderLogic ??= new BEPU_BoxColliderLogic(ColliderName, base.SyncEntityPosAndRotationToRenderer);
+    public override BEPU_BaseColliderLogic colliderLogic => _colliderLogic ??= new BEPU_BoxColliderLogic(ColliderName, this, base.SyncEntityPosAndRotationToRenderer);
 
     protected override string ColliderName => $"{gameObject.name}_BoxCollider";
 

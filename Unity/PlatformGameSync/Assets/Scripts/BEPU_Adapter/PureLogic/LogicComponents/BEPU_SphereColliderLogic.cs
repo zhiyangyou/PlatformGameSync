@@ -10,8 +10,8 @@ public class BEPU_SphereColliderLogic : BEPU_BaseColliderLogic {
 
     #endregion
 
-    public BEPU_SphereColliderLogic(string name, Action<Vector3, Quaternion> syncEntityPosAndRotationToRenderer) :
-        base(name, new SphereShape(Fix64.One), syncEntityPosAndRotationToRenderer) { }
+    public BEPU_SphereColliderLogic(string name, object renderObj, Action<Vector3, Quaternion> syncEntityPosAndRotationToRenderer) :
+        base(name, renderObj, new SphereShape(Fix64.One), syncEntityPosAndRotationToRenderer) { }
 
 
     protected override void SyncExtendAttrsToEntity() {

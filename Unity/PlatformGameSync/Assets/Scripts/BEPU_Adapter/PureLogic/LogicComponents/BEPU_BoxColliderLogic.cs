@@ -11,8 +11,8 @@ public class BEPU_BoxColliderLogic : BEPU_BaseColliderLogic {
     #endregion
 
 
-    public BEPU_BoxColliderLogic(string name, Action<Vector3, Quaternion> syncEntityPosAndRotationToRenderer) :
-        base(name, new BoxShape(Fix64.One, Fix64.One, Fix64.One), syncEntityPosAndRotationToRenderer) { }
+    public BEPU_BoxColliderLogic(string name, object renderObj, Action<Vector3, Quaternion> syncEntityPosAndRotationToRenderer) :
+        base(name, renderObj,new BoxShape(Fix64.One, Fix64.One, Fix64.One), syncEntityPosAndRotationToRenderer) { }
 
 
     protected override void SyncExtendAttrsToEntity() {

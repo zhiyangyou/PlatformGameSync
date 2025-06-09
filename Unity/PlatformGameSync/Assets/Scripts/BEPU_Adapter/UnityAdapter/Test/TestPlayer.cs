@@ -1,9 +1,11 @@
+using BEPU_Adapter.Pool;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.CollisionShapes.ConvexShapes;
+using BEPUutilities;
 using FixMath.NET;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Ray = BEPUutilities.Ray;
+using Vector3 = UnityEngine.Vector3;
 
 
 public class TestPlayer : MonoBehaviour {
@@ -35,14 +37,28 @@ public class TestPlayer : MonoBehaviour {
     }
 
     private void HandleCollision() {
-        BEPU_PhysicsManagerUnity.Instance.Raycast(transform.position.ToFixedVector3(),
-            BEPUutilities.Vector3.Down, (Fix64)groundCheckDictance, out var HitInfo, 0);
-        if (HitInfo.collider != null) {
-            ConvexCollidable c = HitInfo.collider as ConvexCollidable;
-            if (c != null) {
-                Debug.Log($"HitInfo.collider {c.Shape is BoxShape} {HitInfo.collider.GetType().Name} {HitInfo.collider}");
+        var listRet = ListPool<BEPU_RayCastReuslt>.Get();
+
+
+        BEPU_PhysicsManagerUnity.Instance.Raycast(
+            transform.position.ToFixedVector3(),
+            BEPUutilities.Vector3.Down,
+            (Fix64)groundCheckDictance,
+            BEPU_LayerDefaine.Envirement,
+            listRet
+        );
+        isGround = false;
+        if (listRet.Count > 0) {
+            foreach (var reuslt in listRet) {
+                if (reuslt.baseLogic.RenderObj is BEPU_BoxColliderMono mono) {
+                    if (mono.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                        isGround = true;
+                        break;
+                    }
+                }
             }
         }
+        ListPool<BEPU_RayCastReuslt>.Release(listRet);
     }
 
     private void HandleMove() {

@@ -16,6 +16,7 @@ public class BEPU_CustomEntity : Entity {
 
     public BEPU_LayerDefaine Layer { get; set; } = BEPU_LayerDefaine.Default;
 
+    public object UserObj { get; }
     #endregion
 
     #region ctors
@@ -24,7 +25,10 @@ public class BEPU_CustomEntity : Entity {
     public BEPU_CustomEntity(EntityCollidable collisionInformation) : base(collisionInformation) { }
     public BEPU_CustomEntity(EntityCollidable collisionInformation, Fix64 mass) : base(collisionInformation, mass) { }
     public BEPU_CustomEntity(EntityCollidable collisionInformation, Fix64 mass, Matrix3x3 inertiaTensor) : base(collisionInformation, mass, inertiaTensor) { }
-    public BEPU_CustomEntity(EntityShape shape) : base(shape) { }
+
+    public BEPU_CustomEntity(object userObj, EntityShape shape) : base(shape) {
+        UserObj = userObj;
+    }
     public BEPU_CustomEntity(EntityShape shape, Fix64 mass) : base(shape, mass) { }
     public BEPU_CustomEntity(EntityShape shape, Fix64 mass, Matrix3x3 inertiaTensor) : base(shape, mass, inertiaTensor) { }
 
