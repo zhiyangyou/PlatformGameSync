@@ -169,7 +169,7 @@ public class GeneratorBindComponentTool : Editor
     /// <summary>
     /// 编译完成系统自动调用
     /// </summary>
-    [UnityEditor.Callbacks.DidReloadScripts]
+    // [UnityEditor.Callbacks.DidReloadScripts]
     public static void AddComponent2Window()
     {
         //如果当前不是生成数据脚本的回调，就不处理
