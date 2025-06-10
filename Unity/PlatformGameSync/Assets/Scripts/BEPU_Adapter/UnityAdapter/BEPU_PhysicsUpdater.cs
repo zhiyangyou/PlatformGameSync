@@ -7,7 +7,7 @@ public class BEPU_PhysicsUpdater : MonoBehaviour {
         if (Application.isPlaying) {
             this.gameObject.name = "BEPUPhysicsUpdater";
         }
-    } 
+    }
 
     public static Fix64 PhysicsTimeStep {
         get {
@@ -21,11 +21,12 @@ public class BEPU_PhysicsUpdater : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if (
 #if UNITY_EDITOR
+        if (
             Application.isPlaying
+        )
 #endif
-        ) {
+        {
             BEPU_PhysicsManagerUnity.Instance.UpdatePhysicsWorld(PhysicsTimeStep);
         }
     }

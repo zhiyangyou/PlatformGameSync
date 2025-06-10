@@ -19,7 +19,7 @@ using System.IO;
 
 public class BundleTools 
 {
-    private static string mBundleModuleEnumFilePath = Application.dataPath + "/"+BundleSettings.Instance.ZMAssetRootPath +"/Config/BundleModuleEnum.cs";
+    private static string mBundleModuleEnumFilePath => Application.dataPath + "/"+BundleSettings.Instance.ZMAssetRootPath +"/Config/BundleModuleEnum.cs";
 
     [MenuItem("ZMFrame/GeneratorModuleEnum")]
     public static void GenerateBundleModuleEnum()
@@ -27,6 +27,7 @@ public class BundleTools
         string namespaceName = "ZM.ZMAsset";
         string classname = "BundleModuleEnum";
 
+        Debug.LogError(mBundleModuleEnumFilePath);
         if (File.Exists(mBundleModuleEnumFilePath))
         {
             File.Delete(mBundleModuleEnumFilePath);

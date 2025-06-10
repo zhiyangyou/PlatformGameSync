@@ -17,25 +17,8 @@ MonoBehaviour:
     moduleName: Game
     isAddressableAsset: 0
     isBuild: 1
-    lastClickBtnTime: 121.24034
+    lastClickBtnTime: 1391.4832
     prefabPathArr:
-    - Assets/GameData/Hall/Prefabs
-    - Assets/GameData/Game/Prefabs
-    rootFolderPathArr:
-    - Assets/GameData/Game/Textures
-    - Assets/GameData/Hall/Textures
-    - Assets/GameData/Hall/Effects
-    - Assets/GameData/Game/Effects
-    - Assets/GameData/Game/Arts
-    - Assets/GameData/Game/SkillSystem
-    signFolderPathArr:
-    - abName: gameSound
-      bundlePath: Assets/GameData/Game/Sound
-    - abName: gameDataCfg
-      bundlePath: Assets/GameData/Game/Data
-    - abName: gameAnim
-      bundlePath: Assets/GameData/Game/Anim
-    - abName: font
-      bundlePath: Assets/GameData/Game/Font
-    - abName: gameMap
-      bundlePath: Assets/GameData/Game/Map
+    - Assets/GameData/Prefab/UIWindow
+    rootFolderPathArr: []
+    signFolderPathArr: []

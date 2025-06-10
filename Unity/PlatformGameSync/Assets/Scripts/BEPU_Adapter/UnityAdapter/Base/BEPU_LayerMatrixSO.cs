@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
 
 
@@ -91,7 +90,9 @@ public class BEPU_LayerMatrixSO : ScriptableObject {
                     SetValue(this.matrix, newLayerCount, (BEPU_LayerDefine)layerA, (BEPU_LayerDefine)layerB, oldValue);
                 }
             }
-            EditorUtility.SetDirty(this);
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif
         }
         else {
             Debug.LogError("数据长度匹配， 不需要修正");

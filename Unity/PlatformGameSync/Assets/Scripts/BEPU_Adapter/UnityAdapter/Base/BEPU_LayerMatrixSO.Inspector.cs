@@ -1,4 +1,7 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+
+
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -40,3 +43,5 @@ public class BEPU_LayerMatrixSO_Inspector : Editor {
         EditorGUI.EndDisabledGroup();
     }
 }
+
+#endif

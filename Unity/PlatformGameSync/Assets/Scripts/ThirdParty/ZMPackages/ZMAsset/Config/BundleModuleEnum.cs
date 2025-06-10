@@ -1,7 +1,7 @@
 /* ----------------------------------------------
 /* Title:AssetBundle模块类
 /* Author:铸梦xy
-/* Data:2024/9/22 21:36:51
+/* Data:2025/6/10 15:29:04
 /* Description:  Represents each module which is used to download an load
 /* Modify:
 ----------------------------------------------*/
@@ -11,10 +11,5 @@ namespace ZM.ZMAsset
 	{
 		None,
 		Game,
-		Hall,
-		GameItem,
-		AdressAsset,
-		WuZhang,
-		ShuangKou,
 	}
 }

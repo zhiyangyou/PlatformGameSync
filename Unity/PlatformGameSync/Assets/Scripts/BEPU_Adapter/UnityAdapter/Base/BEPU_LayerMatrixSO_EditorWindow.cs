@@ -1,4 +1,7 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+
+
+using System;
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
@@ -130,3 +133,5 @@ public class LayerMatrixEditor : EditorWindow {
         EditorGUILayout.EndHorizontal();
     }
 }
+
+#endif

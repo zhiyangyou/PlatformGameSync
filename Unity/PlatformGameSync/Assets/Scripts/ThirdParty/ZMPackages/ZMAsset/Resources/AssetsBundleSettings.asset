@@ -22,4 +22,4 @@ MonoBehaviour:
   bundleHotType: 0
   loadAssetType: 0
   MAX_THREAD_COUNT: 3
-  ZMAssetRootPath: ZMPackages/ZMAsset
+  ZMAssetRootPath: Scripts/ThirdParty/ZMPackages/ZMAsset
