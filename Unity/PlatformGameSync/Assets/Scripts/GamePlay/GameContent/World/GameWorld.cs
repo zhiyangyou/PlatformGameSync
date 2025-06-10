@@ -15,6 +15,8 @@ public class GameWorld : World {
 
     private void OnLoadSceneComplete() {
         UIModule.Instance.HideWindow<LoadingGameWindow>();
+        UIModule.Instance.PopUpWindow<BattleHUDWindow>();
+        UIModule.Instance.PopUpWindow<BattleDebugStateWindow>();
     }
 
     public override void OnUpdate() {

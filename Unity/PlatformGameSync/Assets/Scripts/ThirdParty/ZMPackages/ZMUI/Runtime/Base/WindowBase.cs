@@ -11,7 +11,7 @@ public class WindowBase : WindowBehaviour
     private List<Toggle> mToggleList = new List<Toggle>();//所有的Toggle列表
     private List<InputField> mInputList = new List<InputField>();//所有的输入框列表
 
-    private CanvasGroup mUIMaskCanvasGroup;
+    // private CanvasGroup mUIMaskCanvasGroup;
     private CanvasGroup mCanvasGroup;
     protected Transform mUIContent;
     protected bool mDisableAnim = false;//禁用动画
@@ -21,7 +21,7 @@ public class WindowBase : WindowBehaviour
     private void InitializeBaseComponent()
     {
         mCanvasGroup = transform.GetComponent<CanvasGroup>();
-        mUIMaskCanvasGroup = transform.Find("UIMask").GetComponent<CanvasGroup>();
+        // mUIMaskCanvasGroup = transform.Find("UIMask").GetComponent<CanvasGroup>();
         mUIContent = transform.Find("UIContent").transform;
     }
     #region 生命周期
@@ -68,8 +68,8 @@ public class WindowBase : WindowBehaviour
         if (Canvas.sortingOrder > 90 && mDisableAnim == false)
         {
             //Mask动画
-            mUIMaskCanvasGroup.alpha = 0;
-            mUIMaskCanvasGroup.DOFade(1, 0.2f);
+            // mUIMaskCanvasGroup.alpha = 0;
+            // mUIMaskCanvasGroup.DOFade(1, 0.2f);
             //缩放动画
             mUIContent.localScale = Vector3.one * 0.8f;
             mUIContent.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
@@ -115,21 +115,21 @@ public class WindowBase : WindowBehaviour
     public void SetMaskVisible(bool isVisible)
     {
         if (!UISetting.Instance.SINGMASK_SYSTEM) return;
-        mUIMaskCanvasGroup.alpha = isVisible ? 1 : 0;
-        mUIMaskCanvasGroup.blocksRaycasts = isVisible;
+        // mUIMaskCanvasGroup.alpha = isVisible ? 1 : 0;
+        // mUIMaskCanvasGroup.blocksRaycasts = isVisible;
         //特殊情况下进行窗口同层级重绘渲染
         if (isVisible && PopStack)
         {
-            mUIMaskCanvasGroup.gameObject.SetActive(false);
-            mUIMaskCanvasGroup.gameObject.SetActive(true);
+            // mUIMaskCanvasGroup.gameObject.SetActive(false);
+            // mUIMaskCanvasGroup.gameObject.SetActive(true);
         }
     }
 
     public virtual void PseudoHidden(int value)
     {
-        mUIMaskCanvasGroup.alpha = mCanvasGroup.alpha = value;
-        mUIMaskCanvasGroup.interactable = mCanvasGroup.interactable = value == 1 ? true : false;
-        mUIMaskCanvasGroup.blocksRaycasts = mCanvasGroup.blocksRaycasts = value == 1 ? true : false;
+        // mUIMaskCanvasGroup.alpha = mCanvasGroup.alpha = value;
+        // mUIMaskCanvasGroup.interactable = mCanvasGroup.interactable = value == 1 ? true : false;
+        // mUIMaskCanvasGroup.blocksRaycasts = mCanvasGroup.blocksRaycasts = value == 1 ? true : false;
 
     }
     public void PopUpWindow<T>() where T:WindowBase,new ()

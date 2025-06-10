@@ -5,10 +5,9 @@ using Fantasy.Network.Interface;
 using Fantasy.Platform.Unity;
 using GamePlay;
 using UnityEngine;
-using ZM.ZMAsset;
 using FScene = Fantasy.Scene;
 
-public class NetworkManager : Singleton<NetworkManager> {
+public class NetworkManager : ZM.ZMAsset.Singleton<NetworkManager> {
     #region 属性和字段
 
     private FScene _fScene;

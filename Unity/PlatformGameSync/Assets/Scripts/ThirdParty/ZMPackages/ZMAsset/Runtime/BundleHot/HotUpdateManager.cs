@@ -36,13 +36,15 @@ namespace ZM.ZMAsset
            mHotAssetsWindow = InstantiateResourcesObj<HotAssetsWindow>("HotAssetsWindow");
             //开始解压游戏内嵌资源
            IDecompressAssets decompress= ZMAsset.StartDeCompressBuiltinFile(bundleModule,()=> {
-               //说明资源开启解压了
-               if (Application.internetReachability == NetworkReachability.NotReachable)
-               {
-                   InstantiateResourcesObj<UpdateTipsWindow>("UpdateTipsWindow").InitView("当前无网络，请检测网络重试？", () => { NotNetButtonClick(bundleModule); }, () => { NotNetButtonClick(bundleModule); });
-                   return;
-               }
-               else
+               // //说明资源开启解压了
+               // if (Application.internetReachability == NetworkReachability.NotReachable)
+               // {
+               //     InstantiateResourcesObj<UpdateTipsWindow>("UpdateTipsWindow").InitView("当前无网络，请检测网络重试？", () => { NotNetButtonClick(bundleModule); }, () => { NotNetButtonClick(bundleModule); });
+               //     return;
+               // }
+               // else
+               
+               Debug.LogError("跳过网络检测");
                {
                    if (BundleSettings.Instance.bundleHotType == BundleHotEnum.Hot)
                         CheckAssetsVersion(bundleModule);

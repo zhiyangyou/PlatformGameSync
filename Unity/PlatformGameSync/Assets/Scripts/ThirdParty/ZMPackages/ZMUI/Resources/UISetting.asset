@@ -15,8 +15,8 @@ MonoBehaviour:
   SINGMASK_SYSTEM: 1
   ParseType: 0
   GeneratorType: 0
-  BindComponentGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows
-  FindComponentGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows
+  BindComponentGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows/Windows.Bindings
+  FindComponentGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows/Windows.Bindings
   WindowGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows
   WindowPrefabFolderPathArr:
   - Assets/GameData/Prefab/UIWindow

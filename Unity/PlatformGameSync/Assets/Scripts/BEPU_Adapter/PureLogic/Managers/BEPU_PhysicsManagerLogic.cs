@@ -14,7 +14,8 @@ public abstract partial class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T
     private bool _hasInit = false;
 
     private HashSet<BEPU_BaseColliderLogic> _setAllColliders = new();
-
+    
+    public int EntryCount => Space.Entities.Count;
 
     public Vector3 SpaceGravity {
         get {
@@ -26,6 +27,7 @@ public abstract partial class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T
             }
         }
     }
+
 
     public override void Init() {
         if (!_hasInit) {
@@ -101,8 +103,6 @@ public abstract partial class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T
             BEPU_Logger.LogError($"RemoveEntity 失败, Entity并没有加入到Space中 go:{collider.name}");
         }
     }
-
-
 
 
     public virtual void OnRelease() {
