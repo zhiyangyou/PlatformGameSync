@@ -56,7 +56,7 @@ public class GeneratorWindowTool : Editor
     {
         //储存字段名称
         string datalistJson = PlayerPrefs.GetString(GeneratorConfig.OBJDATALIST_KEY);
-        List<EditorObjectData> objDatalist = JsonConvert.DeserializeObject<List<EditorObjectData>>(datalistJson);
+        // List<EditorObjectData> objDatalist = JsonConvert.DeserializeObject<List<EditorObjectData>>(datalistJson);
         methodDic.Clear();
         StringBuilder sb = new StringBuilder();
 
@@ -132,32 +132,32 @@ public class GeneratorWindowTool : Editor
         sb.AppendLine($"\t\t #endregion");
 
         //UI组件事件生成
-        sb.AppendLine($"\t\t #region UI组件事件");
-        foreach (var item in objDatalist)
-        {
-            string type = item.fieldType;
-            string methodName = "On" + item.fieldName;
-            string suffix = "";
-            if (type.Contains("Button"))
-            {
-                suffix = "ButtonClick";
-                CreateMethod(sb, ref methodDic, methodName + suffix);
-            }
-            else if (type.Contains("InputField"))
-            {
-                suffix = "InputChange";
-                CreateMethod(sb, ref methodDic, methodName + suffix, "string text");
-                suffix = "InputEnd";
-                CreateMethod(sb, ref methodDic, methodName + suffix, "string text");
-            }
-            else if (type.Contains("Toggle"))
-            {
-                suffix = "ToggleChange";
-                CreateMethod(sb, ref methodDic, methodName + suffix, "bool state,Toggle toggle");
-            }
-        }
-
-        sb.AppendLine($"\t\t #endregion");
+        // sb.AppendLine($"\t\t #region UI组件事件");
+        // foreach (var item in objDatalist)
+        // {
+        //     string type = item.fieldType;
+        //     string methodName = "On" + item.fieldName;
+        //     string suffix = "";
+        //     if (type.Contains("Button"))
+        //     {
+        //         suffix = "ButtonClick";
+        //         CreateMethod(sb, ref methodDic, methodName + suffix);
+        //     }
+        //     else if (type.Contains("InputField"))
+        //     {
+        //         suffix = "InputChange";
+        //         CreateMethod(sb, ref methodDic, methodName + suffix, "string text");
+        //         suffix = "InputEnd";
+        //         CreateMethod(sb, ref methodDic, methodName + suffix, "string text");
+        //     }
+        //     else if (type.Contains("Toggle"))
+        //     {
+        //         suffix = "ToggleChange";
+        //         CreateMethod(sb, ref methodDic, methodName + suffix, "bool state,Toggle toggle");
+        //     }
+        // }
+        //
+        // sb.AppendLine($"\t\t #endregion");
 
         sb.AppendLine("\t}");
         return sb.ToString();

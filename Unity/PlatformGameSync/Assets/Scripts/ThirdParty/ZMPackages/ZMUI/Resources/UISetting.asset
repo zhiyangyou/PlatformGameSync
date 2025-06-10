@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SINGMASK_SYSTEM: 1
   ParseType: 0
-  GeneratorType: 1
+  GeneratorType: 0
   BindComponentGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows
   FindComponentGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows
   WindowGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows

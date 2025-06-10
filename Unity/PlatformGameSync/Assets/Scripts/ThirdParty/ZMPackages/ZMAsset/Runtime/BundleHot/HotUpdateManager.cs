@@ -55,7 +55,6 @@ namespace ZM.ZMAsset
                 }
             });
             //更新解压进度
-            Debug.LogError(decompress);
             mHotAssetsWindow.ShowDecompressProgress(decompress);
         }
 

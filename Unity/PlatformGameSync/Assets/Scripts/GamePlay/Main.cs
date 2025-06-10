@@ -11,8 +11,7 @@ namespace GamePlay {
             InitLoadingStateCallback();
             ZMAsset.InitFrameWork();
             UIModule.Instance.Initialize();
-            InitAssetBundle(); // TODO 暂时不知道AB包的逻辑, 跳过
-            StartGame();
+            InitAssetBundle();
         }
 
         private void Start() {
@@ -23,11 +22,11 @@ namespace GamePlay {
             HotUpdateManager.Instance.HotAndUnPackAssets(BundleModuleEnum.Game, OnUnPackAssetComplete);
         }
 
-        private void OnUnPackAssetComplete() { }
+        private void OnUnPackAssetComplete() {
+            StartGame();
+        }
 
         private void StartGame() {
-            Debug.LogError("创建GameWorld");
-
             WorldManager.CreateWorld<GameWorld>();
         }
 

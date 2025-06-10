@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum UIEventEnum
-{
-    LoginSuccess,
-    SceneLoadingProgress,
-    SceneLoadingLoadComplete,
-    BlackScreen,
-    RefreshTeamList,
-    DungeonProgress,
-    SceneProgressUpdate,
+public enum UIEventEnum {
+    LoadingScene_Start,
+    LoadingScene_Progress,
+    LoadingScene_End,
 }
