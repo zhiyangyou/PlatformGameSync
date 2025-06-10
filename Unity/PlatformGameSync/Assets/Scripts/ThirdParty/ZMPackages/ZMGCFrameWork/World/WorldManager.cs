@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum WorldEnum {
-    Default,
-    HallWorld,
-    BattleWorld,
+    None,
+    GameWorld,
 }
 
 /// <summary>
@@ -35,7 +34,7 @@ public class WorldManager {
     /// <summary>
     /// 当前游戏世界
     /// </summary>
-    public static WorldEnum CurWorldEnum { get; private set; }
+    public static WorldEnum CurWorldEnum { get; private set; } = WorldEnum.None;
 
 
     /// <summary>
@@ -101,7 +100,7 @@ public class WorldManager {
             if (world.GetType().Name == typeof(T).Name) {
                 world.DestroyWorld(typeof(T).Namespace, args);
                 mWorldList.Remove(mWorldList[i]);
-                CurWorldEnum = WorldEnum.Default;
+                CurWorldEnum = WorldEnum.None;
                 //触发销毁后处理，可在对应接口中返回其他世界
                 world.OnDestroyPostProcess(args);
                 break;

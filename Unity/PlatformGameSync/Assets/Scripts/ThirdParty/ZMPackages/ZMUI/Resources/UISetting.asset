@@ -14,11 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SINGMASK_SYSTEM: 1
   ParseType: 0
-  GeneratorType: 0
-  BindComponentGeneratorPath: Assets/GameScripts/UI
-  FindComponentGeneratorPath: Assets/GameScripts/UI
-  WindowGeneratorPath: Assets/GameScripts/UI
+  GeneratorType: 1
+  BindComponentGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows
+  FindComponentGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows
+  WindowGeneratorPath: Assets/Scripts/GamePlay/GameContent/UI/UIWindows
   WindowPrefabFolderPathArr:
-  - Assets/GameData/Hall/Prefabs/Window
-  - Assets/GameData/Game/Prefabs/Window
-  - Assets/GameData/Hall/Prefabs/Item
+  - Assets/GameData/Prefab/UIWindow

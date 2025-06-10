@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   savePath: GameScripts
   modules:
-  - moduleName: HallWorld
-    moduleNamespace: ZMGC.Hall
-  - moduleName: BattleWorld
-    moduleNamespace: ZMGC.Battle
+  - moduleName: GamePlay.GameWorld
+    moduleNamespace: GamePlay.GameWorld

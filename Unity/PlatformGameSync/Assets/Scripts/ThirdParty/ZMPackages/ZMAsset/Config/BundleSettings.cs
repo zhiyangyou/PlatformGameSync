@@ -90,7 +90,7 @@ public class BundleSettings : ScriptableObject
     [TitleGroup("框架相关配置")]
     [LabelText("ZMAsset框架路径")]
     [InfoBox("资源框架总路径节点(基于Assets目录下)，若需要修改资源框架存放位置，需要同步到这里")]
-    public string ZMAssetRootPath = "ThirdParty/ZMAsset";
+    public string ZMAssetRootPath = "Scripts/ThirdParty/ZMAsset";
     [Title("AssetBundle热更文件储存路径")]
     private string HotAssetsPath { get { return Application.persistentDataPath + "/HotAssets/"; } }
     [Title("AssetBundle加压路径")]
