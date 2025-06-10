@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ZM.ZMAsset;
+using GamePlay;
 
 namespace GameScripts {
     public class LoadSceneManager : MonoSingleton<LoadSceneManager> {
@@ -44,6 +45,7 @@ namespace GameScripts {
                 onLoadingProgress?.Invoke(1f);
             }
             onLoadComplete?.Invoke();
+            URPCameraUtils.SetCurSceneCameraAsBaseCamera();
         }
     }
 }
