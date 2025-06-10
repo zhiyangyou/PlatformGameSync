@@ -79,6 +79,7 @@ public class UIModule
     #region 框架初始化接口 (外部调用)
     public void Initialize()
     {
+        ZMUpdater.Instance.AddUpdateListener(OnUpdate);
         mUICamera = GameObject.Find("UICamera").GetComponent<Camera>();
         mUIRoot = GameObject.Find("UIRoot").transform;
         mWindowConfig = Resources.Load<WindowConfig>("WindowConfig");
@@ -319,6 +320,19 @@ public class UIModule
         Resources.UnloadUnusedAssets();
     }
 
+    private void OnUpdate() {
+        for (int i = 0; i < mVisibleWindowList.Count; i++) {
+            var win = mVisibleWindowList[i];
+            try {
+                win.OnUpdate();
+            }
+            catch (Exception e) {
+                Debug.LogError($"调用Window的OnUpdate报错 name:{win?.Name}");
+                Debug.LogException(e);
+            }
+        }
+    }
+    
     private void SetWidnowMaskVisible()
     {
         if (!UISetting.Instance.SINGMASK_SYSTEM)

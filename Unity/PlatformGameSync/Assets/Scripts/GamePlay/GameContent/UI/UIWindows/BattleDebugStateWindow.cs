@@ -37,8 +37,6 @@ public class BattleDebugStateWindow : WindowBase {
     }
 
     public override void OnUpdate() {
-        Debug.LogError("update entry count show");
-        // 2025年6月10日17:15:49 工作断点, Window的Update没有被驱动!!!
         uiCompt.PhysicsEntryCountText.text = $"PhysicsEntryCount:{BEPU_PhysicsManagerUnity.Instance.EntryCount}";
     }
 
