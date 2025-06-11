@@ -8,9 +8,6 @@ using UnityEngine;
 /// </summary>
 public partial class RenderObject : MonoBehaviour {
     #region 属性和字段
-
-
-
     public LogicObject LogicObject { get; private set; }
 
     /// <summary>
@@ -43,7 +40,7 @@ public partial class RenderObject : MonoBehaviour {
 
     protected virtual void Update() {
         if (LogicObject != null) {
-            UpdatePosAndDir();
+            UpdatePosRotation();
         }
     }
 
@@ -63,7 +60,7 @@ public partial class RenderObject : MonoBehaviour {
         if (!isUpdatePosAndDir) {
             transform.localPosition = Vector3.zero;
         }
-        UpdatePosAndDir();
+        UpdatePosRotation();
     }
 
     public virtual void OnCreate() {
@@ -112,7 +109,7 @@ public partial class RenderObject : MonoBehaviour {
 
     #region private
 
-    private void UpdatePosAndDir() {
+    private void UpdatePosRotation() {
         if (!_isUpdatePosAndDir) {
             return;
         }

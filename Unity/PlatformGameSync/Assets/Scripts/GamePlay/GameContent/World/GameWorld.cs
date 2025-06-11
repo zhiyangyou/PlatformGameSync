@@ -27,9 +27,7 @@ namespace WorldSpace.GameWorld {
             _nextLogicFrameTimeS = Fix64.Zero;
             // _logicDeltaTimeS = Fix64.Zero;
             UIModule.Instance.PopUpWindow<LoadingGameWindow>();
-           
         }
-
 
 
         public override void OnUpdate() {
@@ -58,6 +56,15 @@ namespace WorldSpace.GameWorld {
         public void OnLigicFrameUpdate() {
             // 更新物理
             BEPU_PhysicsManagerUnity.Instance.UpdatePhysicsWorld(GameConstConfigs.FrameIntervalS);
+            foreach (var logic in mLogicBehaviourDic.Values) {
+                try {
+                    logic.OnLogicFrameUpdate();
+                }
+                catch (Exception e) {
+                    Debug.LogError($"{logic.GetType().Name} 执行OnLogicFrameUpdate时报错 ");
+                    Debug.LogException(e);
+                }
+            }
         }
 
         #endregion

@@ -10,7 +10,7 @@ namespace WorldSpace.GameWorld {
         private BattleDataMgr _battleData = null;
 
         public void OnCreate() {
-            _battleData = GameWorld.GetExitsDataMgr<BattleDataMgr>();
+            _battleData = WorldManager.GetWorld<GameWorld>().GetExitsDataMgr<BattleDataMgr>();
             _listLogicPlayers = new();
             InitHeros();
         }
@@ -37,8 +37,9 @@ namespace WorldSpace.GameWorld {
                     Debug.LogException(e);
                 }
             }
+            _listLogicPlayers.Clear();
         }
-        
+
         private void InitHeros() {
             foreach (var roleData in _battleData.listRoleModels) {
                 int roleType = roleData.RoleType;
@@ -50,6 +51,7 @@ namespace WorldSpace.GameWorld {
                 heroLogic.BindRenderObject(heroRender);
                 heroLogic.OnCreate();
                 heroRender.OnCreate();
+                _listLogicPlayers.Add(heroLogic);
             }
         }
     }
