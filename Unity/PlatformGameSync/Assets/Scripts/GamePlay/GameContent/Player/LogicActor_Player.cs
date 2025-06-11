@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GamePlay.StateMachine;
 using UnityEngine;
+using UVector2 = UnityEngine.Vector2;
 
 public partial class LogicActor_Player {
     RenderObject_Player _renderPlayer => RenderObject as RenderObject_Player;
@@ -10,14 +11,11 @@ public partial class LogicActor_Player {
 
     public InputSystem_Player InputSystem { get; private set; }
 
-    private void InitPlayeColliderAttrs() { 
-    }
+
+    private void InitPlayeColliderAttrs() { }
 
 
-    private void InitInputSystem() {
-        InputSystem = new InputSystem_Player();
-        InputSystem.Enable();
-    }
+
 
     public override void OnCreate() {
         this.ColliderType = BEPU_ColliderType.Box;

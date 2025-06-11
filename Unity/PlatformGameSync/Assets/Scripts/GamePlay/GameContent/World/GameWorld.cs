@@ -12,20 +12,19 @@ namespace WorldSpace.GameWorld {
 
         private Fix64 _nextLogicFrameTimeS;
 
-        // private Fix64 _logicDeltaTimeS;
-
         private Fix64 _lastUpdateTime;
 
-        public int LogicFrameCount = 0;
+        public static int LogicFrameCount = 0;
 
         #endregion
 
         #region life-cycle
 
         public override void OnCreate() {
+            LogicFrameCount = 0;
             _accLogicRealTimeS = Fix64.Zero;
             _nextLogicFrameTimeS = Fix64.Zero;
-            // _logicDeltaTimeS = Fix64.Zero;
+            _lastUpdateTime = Fix64.Zero;
             UIModule.Instance.PopUpWindow<LoadingGameWindow>();
         }
 

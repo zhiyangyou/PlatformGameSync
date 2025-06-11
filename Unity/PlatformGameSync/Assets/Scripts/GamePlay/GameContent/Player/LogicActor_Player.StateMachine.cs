@@ -11,8 +11,7 @@ public partial class LogicActor_Player : LogicActor {
 
 
     Fix64 _moveSpeed = (Fix64)10f;
-    public UVector2 xInput = UVector2.zero;
-    public bool jumpPressed = false;
+
 
     private void InitStateMachine() {
         stateMachine = new StateMachine();
