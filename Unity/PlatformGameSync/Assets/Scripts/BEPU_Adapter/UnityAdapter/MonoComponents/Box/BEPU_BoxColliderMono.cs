@@ -12,7 +12,7 @@ public partial class BEPU_BoxColliderMono : BEPU_BaseColliderMono {
 
     public override BEPU_BaseColliderLogic colliderLogic => _colliderLogic ??= new BEPU_BoxColliderLogic(ColliderName, this, base.SyncEntityPosAndRotationToRenderer);
 
-    protected override string ColliderName => $"{gameObject.name}_BoxCollider";
+    protected override string ColliderName => $"{gameObject.name}_BoxCollider"; 
 
     protected override void SyncExtendAttrsToEntity() {
         var boxShape = (this.colliderLogic.entityShape) as BoxShape;

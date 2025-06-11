@@ -7,12 +7,17 @@ using UnityEngine;
 
 public partial class BEPU_CapsuleColliderMono {
     private void OnDrawGizmos() {
-        var center = this.colliderLogic.entity.Position.ToUnityVector3();
-        var capsuleShape = this.colliderLogic.entityShape as CapsuleShape;
-        DrawWireCapsule(center, entity.Orientation.ToUnityQuaternion(), (float)capsuleShape.Radius, (float)(capsuleShape.Length + capsuleShape.Radius + capsuleShape.Radius), Color.green);
+        DrawGizmo(colliderLogic);
     }
 
-    public static void DrawWireCapsule(Vector3 _pos, Quaternion _rot, float _radius, float _height, Color _color = default(Color)) {
+    public static void DrawGizmo(BEPU_BaseColliderLogic baseCollider) {
+        var center = baseCollider.entity.Position.ToUnityVector3();
+        var capsuleShape = baseCollider.entityShape as CapsuleShape;
+        DrawWireCapsule(center, baseCollider.entity.Orientation.ToUnityQuaternion(), (float)capsuleShape.Radius, (float)(capsuleShape.Length + capsuleShape.Radius + capsuleShape.Radius), Color.green);
+    }
+
+
+    private static void DrawWireCapsule(Vector3 _pos, Quaternion _rot, float _radius, float _height, Color _color = default(Color)) {
         var oldColor = Handles.color;
         if (_color != default(Color))
             Handles.color = _color;

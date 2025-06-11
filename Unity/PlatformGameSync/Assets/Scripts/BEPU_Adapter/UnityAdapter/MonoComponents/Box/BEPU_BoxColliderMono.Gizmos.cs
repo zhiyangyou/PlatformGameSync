@@ -1,17 +1,17 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using UnityEngine;
 
 public partial class BEPU_BoxColliderMono {
-#if UNITY_EDITOR
-    private Mesh _gizmosMesh = null;
+    private static Mesh _gizmosMesh = null;
 
-    private Vector3[] vertices = new Vector3[24];
-    private Vector3[] normals = new Vector3[24];
-    private Vector2[] uvs = new Vector2[24]; // UV坐标 (可选,但推荐)
-    private int[] triangles = new int[36];
+    private static Vector3[] vertices = new Vector3[24];
+    private static Vector3[] normals = new Vector3[24];
+    private static Vector2[] uvs = new Vector2[24]; // UV坐标 (可选,但推荐)
+    private static int[] triangles = new int[36];
 
-    private Mesh GizmosMesh {
+    private static Mesh GizmosMesh {
         get {
             if (_gizmosMesh == null) {
                 _gizmosMesh = new();
@@ -21,16 +21,20 @@ public partial class BEPU_BoxColliderMono {
     }
 
     private void OnDrawGizmos() {
+        DrawGizmos(colliderLogic);
+    }
+
+    public static void DrawGizmos(BEPU_BaseColliderLogic baseCollider) {
         var oldColor = Gizmos.color;
         Gizmos.color = Color.green;
-        var center = this.entity.Position.ToUnityVector3();
-        var boxShape = this.colliderLogic.entityShape as BoxShape;
+        var center = baseCollider.entity.Position.ToUnityVector3();
+        var boxShape = baseCollider.entityShape as BoxShape;
         UpdateGizmosMesh(GizmosMesh, (float)boxShape.Width, (float)boxShape.Height, (float)boxShape.Length);
-        Gizmos.DrawWireMesh(GizmosMesh, 0, center, entity.Orientation.ToUnityQuaternion());
+        Gizmos.DrawWireMesh(GizmosMesh, 0, center, baseCollider.entity.Orientation.ToUnityQuaternion());
         Gizmos.color = oldColor;
     }
 
-    private void UpdateGizmosMesh(Mesh mesh, float w, float h, float length) {
+    private static void UpdateGizmosMesh(Mesh mesh, float w, float h, float length) {
         mesh.Clear(); // 清除旧的网格数据
 
         float halfW = w / 2f;
