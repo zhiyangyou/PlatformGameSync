@@ -44,4 +44,16 @@ public partial class LogicActor_Player {
     public void SetIsLocalPlayer(bool v) {
         IsLocalActor = v;
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="facingRight"></param>
+    public void SetY180(bool facingRight) {
+        var q = this.BaseColliderLogic.entity.Orientation;
+        var e = q.ToEulerAngles();
+        e.Y = facingRight ? 0 : -180;
+        var newQ = e.ToQuaternion();
+        this.BaseColliderLogic.entity.Orientation = newQ;
+    }
 }

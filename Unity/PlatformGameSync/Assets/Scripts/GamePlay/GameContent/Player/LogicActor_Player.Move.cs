@@ -8,20 +8,28 @@ public partial class LogicActor_Player {
 
     public void DoMove(FVector3 input) {
         if (GameConstConfigs.UseLocalFrame) {
-            SetVelocity(input * _moveSpeed);
+            SetXVelocity((input * _moveSpeed).X);
         }
         else {
             Debug.LogError($"尚未实现网络移动");
         }
     }
 
-    private void HandleFlip(FVector3 v) {
-        // 2025年6月11日20:17:23
-        // LogicAxis_X
+    private void HandleFlip(Fix64 xVelocity) {
+        var isRight = xVelocity > Fix64.Zero;
+        var isLeft = xVelocity < Fix64.Zero;
+        if (isRight) {
+            SetY180(true);
+        }
+        if (isLeft) {
+            SetY180(false);
+        }
     }
-    
-    void SetVelocity(FVector3 v) {
-        this.BaseColliderLogic.entity.LinearVelocity = v;
-        
+
+    void SetXVelocity(Fix64 v) {
+        var oldV = BaseColliderLogic.entity.LinearVelocity;
+        oldV.X = v;
+        BaseColliderLogic.entity.LinearVelocity = oldV;
+        HandleFlip(v);
     }
 }
