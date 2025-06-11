@@ -37,6 +37,10 @@ namespace FixMath.NET
 		public static readonly Fix64 Ln2 = new Fix64(LN2);
 		public static readonly Fix64 Log2Max = new Fix64(LOG2MAX);
 		public static readonly Fix64 Log2Min = new Fix64(LOG2MIN);
+		
+		public static readonly Fix64 Deg2Rad = (Fix64)(0.017453292f);
+	    public static readonly Fix64 Rad2Deg = (Fix64)(57.29578f);
+		
 
 		static readonly Fix64 LutInterval = (Fix64)(LUT_SIZE - 1) / PiOver2;
         const long MAX_VALUE = long.MaxValue;
@@ -693,6 +697,20 @@ namespace FixMath.NET
             return new Fix64(finalValue);
         }
 
+        /// <summary>
+        /// 使用 ACos 实现 ASin
+        /// </summary>
+        public static Fix64 ASin(Fix64 x)
+        {
+	        // 确保输入在 [-1, 1] 范围内
+	        if (x < MinusOne || x > One)
+	        {
+		        throw new ArgumentOutOfRangeException(nameof(x));
+	        }
+
+	        return (Pi / (Fix64)2f) - Acos(x);
+        }
+        
         /// <summary>
         /// Returns a rough approximation of the Sine of x.
         /// This is at least 3 times faster than Sin() on x86 and slightly faster than Math.Sin(),
