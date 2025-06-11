@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GamePlay.StateMachine {
-    public class EntityState {
+    public abstract class EntityState {
         protected StateMachine _stateMachine;
         public string StateName { get; private set; }
 
@@ -13,16 +13,10 @@ namespace GamePlay.StateMachine {
         }
 
 
-        public virtual void Enter() {
-            Debug.LogError($"{StateName} enter state");
-        }
+        public abstract void Enter();
 
-        public virtual void Update() {
-            Debug.LogError($"{StateName} update state ");
-        }
+        public abstract void Update();
 
-        public virtual void Exit() {
-            Debug.LogError($"{StateName} exit state ");
-        }
+        public abstract void Exit();
     }
 }

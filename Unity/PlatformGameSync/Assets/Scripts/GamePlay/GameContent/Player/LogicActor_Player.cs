@@ -4,19 +4,17 @@ using System.Collections.Generic;
 using GamePlay.StateMachine;
 using UnityEngine;
 
-public class LogicActor_Player : LogicActor {
-    public StateMachine _stateMachine = null;
-
-    private EntityState _idleState = null;
-
+public partial class LogicActor_Player {
+    RenderObject_Player _renderPlayer => RenderObject as RenderObject_Player;
     public bool IsLocalActor { get; private set; }
-
     public override void OnCreate() {
         base.OnCreate();
+        InitStateMachine();
     }
 
     public override void OnLogicFrameUpdate() {
         base.OnLogicFrameUpdate();
+        LogicFrameUpdate_StateMachine();
     }
 
     public override void OnDestory() {
@@ -25,18 +23,5 @@ public class LogicActor_Player : LogicActor {
 
     public void SetIsLocalPlayer(bool v) {
         IsLocalActor = v;
-    }
-
-    private void Awake() {
-        _stateMachine = new StateMachine();
-        _idleState = new EntityState(_stateMachine, "Player-Idle");
-    }
-
-    private void Start() {
-        _stateMachine.Init(_idleState);
-    }
-
-    private void Update() {
-        _stateMachine.currentState.Update();
     }
 }
