@@ -11,6 +11,11 @@ public class Player_MoveState : Player_StateBase {
         if (this.xInput.x == 0f) {
             this._stateMachine.ChangeState(LogicPlayer.state_Idle);
         }
+        else {
+            LogicPlayer.DoMove(xInput.); 2025年6月11日17:16:02  处理DoMove...  2025年6月11日17:16:10
+        }
+        
+        
     }
 
     public override void Exit() {
