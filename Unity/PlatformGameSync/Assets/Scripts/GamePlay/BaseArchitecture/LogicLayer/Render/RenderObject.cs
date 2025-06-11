@@ -13,9 +13,7 @@ public partial class RenderObject : MonoBehaviour {
     /// <summary>
     /// 位置插值速度?
     /// </summary>
-    protected float _smoothPosSpeed => 20f;
-
-    protected Vector2 _renderDir = Vector2.zero;
+    protected float _smoothPosSpeed => 20f; 
 
     private bool _isUpdatePosAndDir = true;
 
@@ -70,9 +68,8 @@ public partial class RenderObject : MonoBehaviour {
     /// <summary>
     /// 通用逻辑:更新方向
     /// </summary>
-    public virtual void UpdateDir() {
-        _renderDir.y = LogicObject.LogicAxis_X >= 0 ? 0 : 180;
-        transform.localEulerAngles = _renderDir;
+    public virtual void UpdateRotation() {
+        transform.rotation = LogicObject.LogicRotation.ToUnityQuaternion();
     }
 
     /// <summary>
@@ -113,7 +110,7 @@ public partial class RenderObject : MonoBehaviour {
         if (!_isUpdatePosAndDir) {
             return;
         }
-        UpdateDir();
+        UpdateRotation();
         UpdatePosition();
     }
 

@@ -163,9 +163,9 @@ MonoBehaviour:
   gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
-  freezePos_Z: 0
-  freezeRotation_X: 0
-  freezeRotation_Y: 0
-  freezeRotation_Z: 0
+  freezePos_Z: 1
+  freezeRotation_X: 1
+  freezeRotation_Y: 1
+  freezeRotation_Z: 1
   layer: 0
   size: {x: 1.28, y: 2.09, z: 1}
