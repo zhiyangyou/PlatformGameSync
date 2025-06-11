@@ -152,13 +152,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ColliderTypeForEditorTest: 1
-  center: {x: 0, y: -0.28, z: 0}
+  center: {x: 0, y: -0.24, z: 0}
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 1
   mass: 1
-  drag: 0
-  angularDrag: 0
+  drag: 0.674
+  angularDrag: 0.05
   useGravity: 1
   gravityScale: 1
   freezePos_X: 0
@@ -168,4 +168,4 @@ MonoBehaviour:
   freezeRotation_Y: 1
   freezeRotation_Z: 1
   layer: 0
-  size: {x: 1.28, y: 2.09, z: 1}
+  size: {x: 1.26, y: 2.28, z: 1}

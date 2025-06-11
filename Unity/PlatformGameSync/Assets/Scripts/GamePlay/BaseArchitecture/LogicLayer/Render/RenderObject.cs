@@ -99,6 +99,7 @@ public partial class RenderObject : MonoBehaviour {
         }
         else {
             transform.position = Vector3.Lerp(transform.position, LogicObject.LogicPos.ToUnityVector3(), Time.deltaTime * _smoothPosSpeed);
+            // transform.position = LogicObject.LogicPos.ToUnityVector3();
         }
     }
 

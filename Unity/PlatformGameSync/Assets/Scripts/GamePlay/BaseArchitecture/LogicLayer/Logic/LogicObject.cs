@@ -9,21 +9,16 @@ using Quaternion = BEPUutilities.Quaternion;
 /// 同样的: LogicObject也会持有RenderObject ,二者会互相持有
 /// 同时具有的基础属性
 /// </summary>
-public abstract class LogicObject {
+public abstract partial class LogicObject {
     private Vector3 _logicPos; // 逻辑位置
 
-    // private Vector3 _logicDir; // 朝向
-    private Quaternion _logicRotation; // 旋转角度
+    private Quaternion _logicRotation = Quaternion.Identity; // 旋转角度
     private Fix64 _logicMoveSpeed = (Fix64)3; // 移动速度
     private Fix64 _logicAxis_X = Fix64.One; // 默认朝右
     private bool _isActive; // 是否激活
     private bool _isForceAllowMove; // 是否强制允许移动
     private bool _isForceNotAllowModifyDir; // 是否强制不允许修改位置
     public bool hasNewLogicPos = false;
-
-    public BEPU_ColliderType ColliderType = BEPU_ColliderType.Box;
-
-    public BEPU_BaseColliderLogic BaseColliderLogic { get; private set; }
 
     public Vector3 LogicPos {
         get { return _logicPos; }
@@ -73,35 +68,6 @@ public abstract class LogicObject {
     /// </summary>
     public RenderObject RenderObject { get; protected set; }
 
-    private void InitColliderLogic() {
-        var name = $"RenderObjectWithCollider-LogicObjectNam";
-        switch (ColliderType) {
-            case BEPU_ColliderType.None:
-                BaseColliderLogic = null;
-                break;
-            case BEPU_ColliderType.Box:
-                BaseColliderLogic = new BEPU_BoxColliderLogic(name, this, SyncEntityPosAndRotationToRenderer_Empty);
-                break;
-            case BEPU_ColliderType.Sphere:
-                BaseColliderLogic = new BEPU_SphereColliderLogic(name, this, SyncEntityPosAndRotationToRenderer_Empty);
-                break;
-            case BEPU_ColliderType.Capsule:
-                BaseColliderLogic = new BEPU_CapsuleColliderLogic(name, this, SyncEntityPosAndRotationToRenderer_Empty);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException($"InitColliderLogic 尚未不支持的碰撞体类型{ColliderType}");
-        }
-    }
-
-
-    private void SyncEntityPosAndRotationToRenderer_Empty(Vector3 arg1, Quaternion arg2) { }
-
-    private void TrySyncPhysicsPosAndRotation2LogicObject() {
-        if (BaseColliderLogic != null) {
-            LogicPos = BaseColliderLogic.entity.Position;
-            LogicRotation = BaseColliderLogic.entity.Orientation;
-        }
-    }
 
     public abstract string LogicObjectNam { get; }
 
@@ -122,7 +88,7 @@ public abstract class LogicObject {
     }
 
     public virtual void OnLogicFrameUpdate() {
-        TrySyncPhysicsPosAndRotation2LogicObject();
+        TrySyncPhysicsPosAndRot2Logic();
     }
 
     public virtual void OnDestory() {

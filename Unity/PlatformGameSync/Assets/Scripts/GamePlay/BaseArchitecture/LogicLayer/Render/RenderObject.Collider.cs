@@ -124,6 +124,9 @@ public partial class RenderObject {
         baseColliderLogic.entity.freezeRotation_Z = this.freezeRotation_Z;
         baseColliderLogic.entity.Layer = layer;
         baseColliderLogic.entity.CollisionInformation.CollisionRules.Group = BEPU_PhysicsManagerUnity.Instance.GetGroupByLayer(this.layer);
+        if (LogicObject != null) {
+            LogicObject.PhysicsEntryCenter = this.center.ToFixedVector3();
+        }
         baseColliderLogic.SyncAttrsToEntity();
         ProcessEditorCollider();
         SyncExtendAttrsToEntity();
