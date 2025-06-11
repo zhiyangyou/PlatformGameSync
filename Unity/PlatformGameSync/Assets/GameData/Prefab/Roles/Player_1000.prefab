@@ -40,8 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7274579609532808595}
-  - component: {fileID: 770873647570200183}
-  - component: {fileID: 1976236378907221888}
   - component: {fileID: 1080334552471458892}
   m_Layer: 0
   m_Name: Player_1000
@@ -64,15 +62,80 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 875091798995560769}
+  - {fileID: 6432761978606879091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &770873647570200183
-SpriteRenderer:
+--- !u!114 &1080334552471458892
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2466997457548856779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d97c04813714e1c8575f2b324c38803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ColliderTypeForEditorTest: 1
+  center: {x: 0, y: -0.24, z: 0}
+  isTrigger: 0
+  materialSo: {fileID: 0}
+  entityType: 1
+  mass: 1
+  drag: 0.674
+  angularDrag: 0.05
+  useGravity: 1
+  gravityScale: 1
+  freezePos_X: 0
+  freezePos_Y: 0
+  freezePos_Z: 1
+  freezeRotation_X: 1
+  freezeRotation_Y: 1
+  freezeRotation_Z: 1
+  layer: 0
+  size: {x: 1.26, y: 2.28, z: 1}
+  animator: {fileID: 3298360874542739958}
+--- !u!1 &7843363259959610913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6432761978606879091}
+  - component: {fileID: 1544497891846766052}
+  - component: {fileID: 3298360874542739958}
+  m_Layer: 0
+  m_Name: Animator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6432761978606879091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7843363259959610913}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.47, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7274579609532808595}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1544497891846766052
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7843363259959610913}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -107,7 +170,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1336894253, guid: 160044e22c6aab04f968581ae7d29170, type: 3}
+  m_Sprite: {fileID: 1721645802, guid: 160044e22c6aab04f968581ae7d29170, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,14 +181,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1976236378907221888
+--- !u!95 &3298360874542739958
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2466997457548856779}
+  m_GameObject: {fileID: 7843363259959610913}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2cc37f65944ddc449b87a6efcf4ab73f, type: 2}
@@ -139,33 +202,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1080334552471458892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2466997457548856779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d97c04813714e1c8575f2b324c38803, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ColliderTypeForEditorTest: 1
-  center: {x: 0, y: -0.24, z: 0}
-  isTrigger: 0
-  materialSo: {fileID: 0}
-  entityType: 1
-  mass: 1
-  drag: 0.674
-  angularDrag: 0.05
-  useGravity: 1
-  gravityScale: 1
-  freezePos_X: 0
-  freezePos_Y: 0
-  freezePos_Z: 1
-  freezeRotation_X: 1
-  freezeRotation_Y: 1
-  freezeRotation_Z: 1
-  layer: 0
-  size: {x: 1.26, y: 2.28, z: 1}

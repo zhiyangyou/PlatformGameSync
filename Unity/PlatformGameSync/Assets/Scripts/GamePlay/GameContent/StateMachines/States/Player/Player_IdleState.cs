@@ -1,32 +1,27 @@
 ﻿using GamePlay.StateMachine;
+using PlasticGui;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player_IdleState : Player_StateBase {
-    public Player_IdleState(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName) : base(logicPlayer, renderPlayer, stateMachine, stateName) {
-        this.InputPlayer.Player.Movement.started += MovementOnstarted;
-        this.InputPlayer.Player.Movement.performed += MovementOnperformed;
-        this.InputPlayer.Player.Movement.canceled += MovementOncanceled;
-    }
+    #region 属性和字段
 
-    private void MovementOncanceled(InputAction.CallbackContext obj) {
-        // Debug.LogError($"cancle {obj.phase} {obj.valueType} {obj.ReadValue<Vector2>()}");
-    }
+    #endregion
 
-    private void MovementOnperformed(InputAction.CallbackContext obj) {
-        // Debug.LogError($"perform {obj.phase} {obj.ReadValue<Vector2>()}");
-    }
 
-    private void MovementOnstarted(InputAction.CallbackContext obj) {
-        // Debug.LogError($"start {obj.phase} {obj.ReadValue<Vector2>()}");
-    }
+    public Player_IdleState(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName) : base(logicPlayer, renderPlayer, stateMachine, stateName) { }
 
-    public override void Enter() { }
+    public override void Enter() {
+        Animator.SetBool(kStrBool_Idle, true);
+    }
 
     public override void Update() {
-
-        
-        
+        if (this.xInput.x != 0f) {
+            this._stateMachine.ChangeState(LogicPlayer.state_Move);
+        }
     }
-    public override void Exit() { }
+
+    public override void Exit() {
+        Animator.SetBool(kStrBool_Idle, false);
+    }
 }
