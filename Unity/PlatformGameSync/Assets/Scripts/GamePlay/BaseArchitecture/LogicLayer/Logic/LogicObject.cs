@@ -13,11 +13,7 @@ public abstract partial class LogicObject {
     private Vector3 _logicPos; // 逻辑位置
 
     private Quaternion _logicRotation = Quaternion.Identity; // 旋转角度
-    private Fix64 _logicMoveSpeed = (Fix64)3; // 移动速度
-    private Fix64 _logicAxis_X = Fix64.One; // 默认朝右
-    private bool _isActive; // 是否激活
-    private bool _isForceAllowMove; // 是否强制允许移动
-    private bool _isForceNotAllowModifyDir; // 是否强制不允许修改位置
+    private Fix64 _logicMoveSpeed = (Fix64)3; // 移动速度  
     public bool hasNewLogicPos = false;
 
     public Vector3 LogicPos {
@@ -43,25 +39,6 @@ public abstract partial class LogicObject {
         set { _logicMoveSpeed = value; }
     }
 
-    public Fix64 LogicAxis_X {
-        get { return _logicAxis_X; }
-        protected set { _logicAxis_X = value; }
-    }
-
-    public bool IsActive {
-        get => _isActive;
-        set => _isActive = value;
-    }
-
-    public bool IsForceAllowMove {
-        get => _isForceAllowMove;
-        set => _isForceAllowMove = value;
-    }
-
-    public bool IsForceNotAllowModifyDir {
-        get => _isForceNotAllowModifyDir;
-        set => _isForceNotAllowModifyDir = value;
-    }
 
     /// <summary>
     /// 渲染对象

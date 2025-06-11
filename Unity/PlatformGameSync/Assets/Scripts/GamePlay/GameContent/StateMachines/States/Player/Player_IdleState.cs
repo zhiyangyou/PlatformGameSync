@@ -13,6 +13,8 @@ public class Player_IdleState : Player_StateBase {
 
     public override void Enter() {
         Animator.SetBool(kStrBool_Idle, true);
+        LogicPlayer.DoIdle();
+        
     }
 
     public override void Update() {

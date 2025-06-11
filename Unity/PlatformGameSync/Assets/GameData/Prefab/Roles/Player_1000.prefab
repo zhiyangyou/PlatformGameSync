@@ -83,7 +83,7 @@ MonoBehaviour:
   materialSo: {fileID: 0}
   entityType: 1
   mass: 1
-  drag: 1
+  drag: 0.438
   angularDrag: 0.05
   useGravity: 1
   gravityScale: 1

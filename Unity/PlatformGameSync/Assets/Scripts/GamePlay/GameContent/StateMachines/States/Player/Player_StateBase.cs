@@ -1,6 +1,7 @@
 ﻿using GamePlay.StateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UVector2 = UnityEngine.Vector2;
 
 public class Player_StateBase : EntityState {
     protected const string kStrBool_Idle = "isIdle";
@@ -11,16 +12,16 @@ public class Player_StateBase : EntityState {
     protected InputSystem_Player InputPlayer;
     protected Animator Animator;
 
-    protected Vector2 xInput = Vector2.zero;
+    protected UVector2 xInput = UVector2.zero;
 
 
     private void MovementOncanceled(InputAction.CallbackContext obj) {
-        xInput = Vector2.zero;
+        xInput = UVector2.zero;
     } 
 
 
     private void MovementOnstarted(InputAction.CallbackContext obj) {
-        xInput = obj.ReadValue<Vector2>();
+        xInput = obj.ReadValue<UVector2>();
     }
 
     public Player_StateBase(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName) : base(stateMachine, stateName) {

@@ -1,4 +1,5 @@
 ﻿using System;
+using FixMath.NET;
 using UnityEngine;
 using Vector3 = BEPUutilities.Vector3;
 using Quaternion = BEPUutilities.Quaternion;
@@ -11,6 +12,12 @@ public partial class LogicObject {
 
     public BEPU_BaseColliderLogic BaseColliderLogic { get; private set; }
 
+    public void FlipYRotation(Fix64 flipYDegree) {
+        var e1 = BaseColliderLogic.entity.Orientation.ToEulerAngles(); // TODO 应该实现一个Orientation转换欧拉角的方法, 而不是借用Unity的转换, 可能产生浮点精度误差
+        e1.Y += flipYDegree;
+
+    }
+    
 
     private void SyncEntityPosAndRotationToRenderer_Empty(Vector3 arg1, Quaternion arg2) { }
 
@@ -26,7 +33,8 @@ public partial class LogicObject {
         BaseColliderLogic.entity.Position = LogicPos + PhysicsEntryCenter;
         BaseColliderLogic.entity.Orientation = LogicRotation;
     }
-
+    
+    
     private void InitColliderLogic() {
         var name = $"RenderObjectWithCollider-LogicObjectNam";
         switch (ColliderType) {
