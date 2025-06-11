@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using GameScripts;
 using UnityEngine;
+using WorldSpace.GameWorld;
 using ZM.ZMAsset;
 
 namespace GamePlay {
@@ -27,7 +29,14 @@ namespace GamePlay {
         }
 
         private void StartGame() {
+            LoadSceneManager.Instance.LoadSceneAsync(SceneNames.GamePlayScene, OnLoadSceneComplete);
+        }
+
+        private void OnLoadSceneComplete() {
             WorldManager.CreateWorld<GameWorld>();
+            UIModule.Instance.HideWindow<LoadingGameWindow>();
+            UIModule.Instance.PopUpWindow<BattleHUDWindow>();
+            UIModule.Instance.PopUpWindow<BattleDebugStateWindow>();
         }
 
         private void InitScreenSettings() {

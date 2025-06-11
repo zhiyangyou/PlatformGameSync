@@ -12,14 +12,19 @@ public partial class BEPU_BoxColliderMono : BEPU_BaseColliderMono {
 
     public override BEPU_BaseColliderLogic colliderLogic => _colliderLogic ??= new BEPU_BoxColliderLogic(ColliderName, this, base.SyncEntityPosAndRotationToRenderer);
 
-    protected override string ColliderName => $"{gameObject.name}_BoxCollider"; 
+    protected override string ColliderName => $"{gameObject.name}_BoxCollider";
 
     protected override void SyncExtendAttrsToEntity() {
-        var boxShape = (this.colliderLogic.entityShape) as BoxShape;
+        SyncBoxAttrsToEntity(colliderLogic as BEPU_BoxColliderLogic, this.size, transform);
+    }
+
+    public static void SyncBoxAttrsToEntity(BEPU_BoxColliderLogic boxCollider, Vector3 size, Transform transform) {
+        var boxShape = (boxCollider.entityShape) as BoxShape;
         boxShape.Width = (Fix64)(size.x * transform.lossyScale.x);
         boxShape.Height = (Fix64)(size.y * transform.lossyScale.y);
         boxShape.Length = (Fix64)(size.z * transform.lossyScale.z);
     }
+
 
     protected override void OnRelease() { }
 }

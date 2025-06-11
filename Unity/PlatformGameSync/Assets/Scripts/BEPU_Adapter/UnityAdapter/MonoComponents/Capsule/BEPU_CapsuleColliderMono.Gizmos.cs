@@ -7,10 +7,10 @@ using UnityEngine;
 
 public partial class BEPU_CapsuleColliderMono {
     private void OnDrawGizmos() {
-        DrawGizmo(colliderLogic);
+        DrawGizmos(colliderLogic);
     }
 
-    public static void DrawGizmo(BEPU_BaseColliderLogic baseCollider) {
+    public static void DrawGizmos(BEPU_BaseColliderLogic baseCollider) {
         var center = baseCollider.entity.Position.ToUnityVector3();
         var capsuleShape = baseCollider.entityShape as CapsuleShape;
         DrawWireCapsule(center, baseCollider.entity.Orientation.ToUnityQuaternion(), (float)capsuleShape.Radius, (float)(capsuleShape.Length + capsuleShape.Radius + capsuleShape.Radius), Color.green);

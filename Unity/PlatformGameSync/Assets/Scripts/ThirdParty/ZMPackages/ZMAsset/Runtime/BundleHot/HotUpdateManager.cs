@@ -44,7 +44,7 @@ namespace ZM.ZMAsset
                // }
                // else
                
-               Debug.LogError("跳过网络检测");
+               Debug.Log("TODO 跳过网络检测");
                {
                    if (BundleSettings.Instance.bundleHotType == BundleHotEnum.Hot)
                         CheckAssetsVersion(bundleModule);
@@ -120,7 +120,6 @@ namespace ZM.ZMAsset
         /// </summary>
         public void OnHotFinishCallBack(BundleModuleEnum bundleModule)
         {
-            Debug.Log("OnHotFinishCallBack.....");
             mHotAssetsWindow.SetLoadGameEvn();
             StartCoroutine(InitGameEnv());
         }

@@ -27,6 +27,9 @@ public class TypeManager
         //然后获取该命名空间下的所有脚本
         //判断当前脚本是否继承了Behaviour 如果继承就是框架脚本，就需要维护创建和销毁的任务
         string NameSpace = world.GetType().Namespace;
+        if (string.IsNullOrEmpty(NameSpace)) {
+            Debug.LogError($"World没有所属的NameSpace {NameSpace} 不允许容纳任何的Ctrl {world.GetType().Name}");
+        }
         Type logicType = typeof(ILogicBehaviour);
         Type dataType = typeof(IDataBehaviour);
         Type msgType = typeof(IMsgBehaviour);
@@ -38,6 +41,7 @@ public class TypeManager
         foreach (var type in typeArr)
         {
             string space = type.Namespace;
+    
             if (type.Namespace == NameSpace)
             {
                 if (type.IsAbstract)
