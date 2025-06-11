@@ -15,7 +15,10 @@ namespace GamePlay.StateMachine {
             currentState.Exit();
             currentState = newState;
             currentState.Enter();
-            
+        }
+
+        public void UpdateActiveState() {
+            currentState?.Update();
         }
     }
 }

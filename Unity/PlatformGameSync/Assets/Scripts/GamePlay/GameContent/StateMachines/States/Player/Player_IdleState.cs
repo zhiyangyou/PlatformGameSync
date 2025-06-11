@@ -10,15 +10,15 @@ public class Player_IdleState : Player_StateBase {
     }
 
     private void MovementOncanceled(InputAction.CallbackContext obj) {
-        Debug.LogError($"cancle {obj.phase} {obj.valueType} {obj.ReadValue<Vector2>()}");
+        // Debug.LogError($"cancle {obj.phase} {obj.valueType} {obj.ReadValue<Vector2>()}");
     }
 
     private void MovementOnperformed(InputAction.CallbackContext obj) {
-        Debug.LogError($"perform {obj.phase} {obj.ReadValue<Vector2>()}");
+        // Debug.LogError($"perform {obj.phase} {obj.ReadValue<Vector2>()}");
     }
 
     private void MovementOnstarted(InputAction.CallbackContext obj) {
-        Debug.LogError($"start {obj.phase} {obj.ReadValue<Vector2>()}");
+        // Debug.LogError($"start {obj.phase} {obj.ReadValue<Vector2>()}");
     }
 
     public override void Enter() { }

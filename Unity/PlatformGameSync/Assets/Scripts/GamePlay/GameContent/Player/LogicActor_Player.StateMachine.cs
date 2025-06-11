@@ -17,8 +17,7 @@ public partial class LogicActor_Player : LogicActor {
         stateMachine.Init(state_Idle);
     }
 
-
     private void LogicFrameUpdate_StateMachine() {
-        stateMachine.currentState.Update();
+        stateMachine.UpdateActiveState();
     }
 }
