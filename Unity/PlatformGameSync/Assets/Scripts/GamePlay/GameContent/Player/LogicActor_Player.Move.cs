@@ -4,7 +4,7 @@ using UnityEngine;
 using FVector3 = BEPUutilities.Vector3;
 
 public partial class LogicActor_Player {
-    Fix64 _moveSpeed = (Fix64)10f;
+  
 
     public void DoMove(FVector3 input) {
         if (GameConstConfigs.UseLocalFrame) {

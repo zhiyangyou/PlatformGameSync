@@ -1,20 +1,24 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using FixMath.NET;
 using GamePlay.StateMachine;
-using UnityEngine;
+using UVector2 = UnityEngine.Vector2;
+
 
 public partial class LogicActor_Player : LogicActor {
     public StateMachine stateMachine { get; private set; }
 
-    public Player_IdleState state_Idle { get; private set; }
-    public Player_MoveState state_Move { get; private set; }
+    public Player_State_Idle StateIdle { get; private set; }
+    public Player_State_Move StateMove { get; private set; }
+
+
+    Fix64 _moveSpeed = (Fix64)10f;
+    public UVector2 xInput = UVector2.zero;
+    public bool jumpPressed = false;
 
     private void InitStateMachine() {
         stateMachine = new StateMachine();
-        state_Idle = new(this, _renderPlayer, stateMachine, "Player-Idle");
-        state_Move = new(this, _renderPlayer, stateMachine, "Player-Move");
-        stateMachine.Init(state_Idle);
+        StateIdle = new(this, _renderPlayer, stateMachine, "Player-Idle");
+        StateMove = new(this, _renderPlayer, stateMachine, "Player-Move");
+        stateMachine.Init(StateIdle);
     }
 
     private void LogicFrameUpdate_StateMachine() {

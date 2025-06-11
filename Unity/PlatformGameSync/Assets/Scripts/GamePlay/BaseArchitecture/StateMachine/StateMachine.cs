@@ -18,7 +18,7 @@ namespace GamePlay.StateMachine {
         }
 
         public void UpdateActiveState() {
-            currentState?.Update();
+            currentState?.LogicFrameUpdate();
         }
     }
 }

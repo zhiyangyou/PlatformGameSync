@@ -10,11 +10,7 @@ public partial class LogicActor_Player {
 
     public InputSystem_Player InputSystem { get; private set; }
 
-    private void InitPlayeColliderAttrs() {
-        // this.BaseColliderLogic.entity.freezeRotation_X = true;
-        // this.BaseColliderLogic.entity.freezeRotation_Y = true;
-        // this.BaseColliderLogic.entity.freezeRotation_Z = true;
-        // this.BaseColliderLogic.entity.freezePos_Z = true;
+    private void InitPlayeColliderAttrs() { 
     }
 
 
