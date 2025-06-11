@@ -47,7 +47,7 @@ namespace WorldSpace.GameWorld {
                 goHero.name = $"lockstep_player_{roleType}";
                 LogicActor_Player heroLogic = new();
                 heroLogic.SetIsLocalPlayer(roleData.IsLocalPlayer);
-                heroRender.SetLogicObject(heroLogic);
+                heroLogic.BindRenderObject(heroRender);
                 heroLogic.OnCreate();
                 heroRender.OnCreate();
             }

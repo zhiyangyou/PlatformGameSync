@@ -1,7 +1,8 @@
 using System;
 using FixMath.NET;
 using Vector3 = BEPUutilities.Vector3;
-using BEPUutilities;
+using UnityEngine;
+using Quaternion = BEPUutilities.Quaternion;
 
 /// <summary>
 /// RenderObject会持有LogicObject ,
@@ -10,6 +11,7 @@ using BEPUutilities;
 /// </summary>
 public abstract class LogicObject {
     private Vector3 _logicPos; // 逻辑位置
+
     // private Vector3 _logicDir; // 朝向
     private Quaternion _logicRotation; // 旋转角度
     private Fix64 _logicMoveSpeed = (Fix64)3; // 移动速度
@@ -102,6 +104,15 @@ public abstract class LogicObject {
     }
 
     public abstract string LogicObjectNam { get; }
+
+    public void BindRenderObject(RenderObject renderObject) {
+        if (renderObject == null) {
+            return;
+            Debug.LogError("BindRenderObject renderObject参数是null");
+        }
+        this.RenderObject = renderObject;
+        renderObject.SetLogicObject(this);
+    }
 
     public virtual void OnCreate() {
         InitColliderLogic();

@@ -10,13 +10,24 @@ using UnityEngine;
 public partial class RenderObject {
 #if UNITY_EDITOR
 
+    private Mesh _gizmosBoxMesh = null;
+
+    private Mesh GizmosBoxMesh {
+        get {
+            if (_gizmosBoxMesh == null) {
+                _gizmosBoxMesh = new();
+            }
+            return _gizmosBoxMesh;
+        }
+    }
+
     private void OnDrawGizmos() {
         if (baseColliderLogic != null) {
             switch (baseColliderType) {
                 case BEPU_ColliderType.None:
                     break;
                 case BEPU_ColliderType.Box:
-                    BEPU_BoxColliderMono.DrawGizmos(baseColliderLogic);
+                    BEPU_BoxColliderMono.DrawGizmos(baseColliderLogic, GizmosBoxMesh);
                     break;
                 case BEPU_ColliderType.Sphere:
                     BEPU_SphereColliderMono.DrawGizmos(baseColliderLogic);
