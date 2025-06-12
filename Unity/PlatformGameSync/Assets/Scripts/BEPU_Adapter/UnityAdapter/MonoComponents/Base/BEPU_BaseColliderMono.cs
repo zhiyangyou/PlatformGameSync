@@ -3,7 +3,8 @@ using FixMath.NET;
 using UnityEngine;
 using FVector3 = BEPUutilities.Vector3;
 
-public abstract class BEPU_BaseColliderMono : MonoBehaviour {
+[ExecuteAlways]
+public abstract partial class BEPU_BaseColliderMono : MonoBehaviour {
     #region 属性和字段
 
     [SerializeField] private FVector3 center = FVector3.Zero;

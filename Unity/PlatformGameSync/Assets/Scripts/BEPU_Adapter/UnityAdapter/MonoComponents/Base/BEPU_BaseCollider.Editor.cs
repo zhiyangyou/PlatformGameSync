@@ -84,14 +84,14 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         if (autoScaleToColliderSize.boolValue) {
             DoAutoSize();
         }
-        AutoInitPosAndRotation();
+        // SyncInitPosAndRot();
         DrawBaseAttr();
         DrawRigidBodyAttrs();
         DrawDebugAttrs();
         serializedObject.ApplyModifiedProperties();
     }
 
-    private void AutoInitPosAndRotation() {
+    private void SyncInitPosAndRot() {
         entityInitPos.boxedValue = curTransform.position.ToFixedVector3();
         entityInitRotation.boxedValue = curTransform.rotation.ToFixedQuaternion().ToEulerAngles();
     }
