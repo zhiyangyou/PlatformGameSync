@@ -15,7 +15,8 @@ public class BEPU_PhysicsUpdater : MonoBehaviour {
                 return (Fix64)Time.fixedDeltaTime;
             }
             else {
-                return (Fix64)0.066f;
+                Fix64 fixedDeltaTime = Fix64.One / Fix64.One * new Fix64((int)15); // 1秒15帧
+                return fixedDeltaTime;
             }
         }
     }

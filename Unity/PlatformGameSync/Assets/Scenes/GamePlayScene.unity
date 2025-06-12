@@ -168,15 +168,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 0
-  mass: 0
-  drag: 0
-  angularDrag: 0
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 4294967296
   useGravity: 0
-  gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 0
@@ -184,7 +194,14 @@ MonoBehaviour:
   freezeRotation_Y: 0
   freezeRotation_Z: 0
   layer: 3
-  size: {x: 1, y: 1, z: 1}
+  autoScaleToColliderSize: 0
+  size:
+    X:
+      RawValue: 13697101824
+    Y:
+      RawValue: 29077112832
+    Z:
+      RawValue: 4294967296
 --- !u!23 &14558330
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -271,6 +288,8 @@ Transform:
   - {fileID: 211919708}
   - {fileID: 14558328}
   - {fileID: 1801942432}
+  - {fileID: 1146764465}
+  - {fileID: 605387592}
   m_Father: {fileID: 605771591}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &211919707
@@ -319,15 +338,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 0
-  mass: 0
-  drag: 0
-  angularDrag: 0
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 4294967296
   useGravity: 0
-  gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 0
@@ -335,7 +364,14 @@ MonoBehaviour:
   freezeRotation_Y: 0
   freezeRotation_Z: 0
   layer: 3
-  size: {x: 1, y: 1, z: 1}
+  autoScaleToColliderSize: 0
+  size:
+    X:
+      RawValue: 8245655040
+    Y:
+      RawValue: 26177619968
+    Z:
+      RawValue: 4294967296
 --- !u!23 &211919710
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -432,15 +468,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 0
-  mass: 0
-  drag: 0
-  angularDrag: 0
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 4294967296
   useGravity: 0
-  gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 0
@@ -448,7 +494,14 @@ MonoBehaviour:
   freezeRotation_Y: 0
   freezeRotation_Z: 0
   layer: 3
-  size: {x: 1, y: 1, z: 1}
+  autoScaleToColliderSize: 0
+  size:
+    X:
+      RawValue: 13697101824
+    Y:
+      RawValue: 31491760128
+    Z:
+      RawValue: 4294967296
 --- !u!23 &431782476
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -545,15 +598,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 0
-  mass: 0
-  drag: 0
-  angularDrag: 0
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 4294967296
   useGravity: 0
-  gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 0
@@ -561,7 +624,14 @@ MonoBehaviour:
   freezeRotation_Y: 0
   freezeRotation_Z: 0
   layer: 3
-  size: {x: 1, y: 1, z: 1}
+  autoScaleToColliderSize: 0
+  size:
+    X:
+      RawValue: 13697101824
+    Y:
+      RawValue: 46645596160
+    Z:
+      RawValue: 4294967296
 --- !u!23 &582963583
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -612,6 +682,133 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582963580}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &605387591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605387592}
+  - component: {fileID: 605387595}
+  - component: {fileID: 605387594}
+  - component: {fileID: 605387593}
+  m_Layer: 0
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &605387592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605387591}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.16, y: -1.13, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 91959856}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &605387593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605387591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f35f12766124a86aee5b49dd534ad7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  isTrigger: 0
+  materialSo: {fileID: 0}
+  entityType: 0
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 4294967296
+  useGravity: 1
+  freezePos_X: 0
+  freezePos_Y: 0
+  freezePos_Z: 0
+  freezeRotation_X: 0
+  freezeRotation_Y: 0
+  freezeRotation_Z: 0
+  layer: 0
+  autoScaleToColliderSize: 1
+  radiu:
+    RawValue: 2147483648
+  length:
+    RawValue: 4294967296
+--- !u!23 &605387594
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605387591}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &605387595
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605387591}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &605771590
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,15 +1015,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 0
-  mass: 0
-  drag: 0
-  angularDrag: 0
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 4294967296
   useGravity: 0
-  gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 0
@@ -834,7 +1041,14 @@ MonoBehaviour:
   freezeRotation_Y: 0
   freezeRotation_Z: 0
   layer: 3
-  size: {x: 1, y: 1, z: 1}
+  autoScaleToColliderSize: 0
+  size:
+    X:
+      RawValue: 38022316032
+    Y:
+      RawValue: 9094556672
+    Z:
+      RawValue: 4294967296
 --- !u!23 &992713662
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -981,15 +1195,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 0
-  mass: 0
-  drag: 0
-  angularDrag: 0
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 4294967296
   useGravity: 0
-  gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 0
@@ -997,7 +1221,139 @@ MonoBehaviour:
   freezeRotation_Y: 0
   freezeRotation_Z: 0
   layer: 3
-  size: {x: 1, y: 1, z: 1}
+  autoScaleToColliderSize: 0
+  size:
+    X:
+      RawValue: 215432085504
+    Y:
+      RawValue: 7242173952
+    Z:
+      RawValue: 4294967296
+--- !u!1 &1146764464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1146764465}
+  - component: {fileID: 1146764468}
+  - component: {fileID: 1146764467}
+  - component: {fileID: 1146764466}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1146764465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146764464}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.34, y: -0.83, z: 0}
+  m_LocalScale: {x: 0.686629, y: 0.686629, z: 0.686629}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 91959856}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1146764466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146764464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38a33105e694dfb897c86f677dd08ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  isTrigger: 0
+  materialSo: {fileID: 0}
+  entityType: 0
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 4294967296
+  useGravity: 1
+  freezePos_X: 0
+  freezePos_Y: 0
+  freezePos_Z: 0
+  freezeRotation_X: 0
+  freezeRotation_Y: 0
+  freezeRotation_Z: 0
+  layer: 0
+  autoScaleToColliderSize: 1
+  radiu:
+    RawValue: 1474524544
+--- !u!23 &1146764467
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146764464}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1146764468
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146764464}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1801942431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,8 +1382,8 @@ Transform:
   m_GameObject: {fileID: 1801942431}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.08, y: -1.9344, z: 0}
-  m_LocalScale: {x: 3.189105, y: 1.2413042, z: 1}
+  m_LocalPosition: {x: -5.1391, y: -1.9344, z: 0}
+  m_LocalScale: {x: 3.0707154, y: 1.2413042, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 91959856}
@@ -1044,15 +1400,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f53c215a2a7049bd9df6ecbd09008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 0
-  mass: 0
-  drag: 0
-  angularDrag: 0
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 4294967296
   useGravity: 0
-  gravityScale: 1
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 0
@@ -1060,7 +1426,14 @@ MonoBehaviour:
   freezeRotation_Y: 0
   freezeRotation_Z: 0
   layer: 3
-  size: {x: 1, y: 1, z: 1}
+  autoScaleToColliderSize: 0
+  size:
+    X:
+      RawValue: 13188622336
+    Y:
+      RawValue: 5331360768
+    Z:
+      RawValue: 4294967296
 --- !u!23 &1801942434
 MeshRenderer:
   m_ObjectHideFlags: 0
