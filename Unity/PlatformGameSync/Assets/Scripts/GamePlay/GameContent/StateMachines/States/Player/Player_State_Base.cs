@@ -1,9 +1,12 @@
-﻿using GamePlay.StateMachine;
+﻿using FixMath.NET;
+using GamePlay.StateMachine;
 using UnityEngine;
 
 public class Player_State_Base : EntityState {
     protected const string kStrBool_Idle = "isIdle";
     protected const string kStrBool_Move = "isMove";
+    protected const string kStrBool_JumpFall = "isJumpFall";
+    protected const string kStrFloat_yVelocity = "yVelocity";
 
     protected LogicActor_Player LogicPlayer;
     protected RenderObject_Player RenderPlayer;
@@ -19,6 +22,10 @@ public class Player_State_Base : EntityState {
 
 
     protected override void OnEnter() { }
-    public override void LogicFrameUpdate() { }
+
+    public override void LogicFrameUpdate() {
+        Animator.SetFloat(kStrFloat_yVelocity, (float)LogicPlayer.BaseColliderLogic.entity.LinearVelocity.Y);
+    }
+
     public override void Exit() { }
 }
