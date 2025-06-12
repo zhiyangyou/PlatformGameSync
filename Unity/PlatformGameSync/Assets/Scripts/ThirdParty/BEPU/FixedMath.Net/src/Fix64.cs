@@ -30,6 +30,7 @@ namespace FixMath.NET
 		public static readonly Fix64 C0p28 = (Fix64)0.28m;
 		public static readonly Fix64 F981 = new Fix64(42133630976L); // 9.81f
 		public static readonly Fix64 MinusF981 = new Fix64(-42133630976L); // 9.81f
+		public static readonly Fix64 ZeroPoint999999 = new Fix64(4294962944L); // 9.81f
 		
 		
 		/// <summary>

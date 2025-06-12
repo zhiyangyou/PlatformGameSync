@@ -13,7 +13,8 @@ public class testFix : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        Fix64 f981 = (Fix64)(9.81f);
-        Fix64 minusf981 = (Fix64)(-9.81f);
+        var f =(Fix64)0.999999f;
+        Debug.LogError(f.RawValue);
+        Debug.LogError($"{(float)Fix64.ZeroPoint999999}");
     }
 }

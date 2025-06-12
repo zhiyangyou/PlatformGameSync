@@ -107,14 +107,16 @@ public static class MathEx {
         // 计算 Pitch (绕X轴的旋转)
         // 使用反正弦函数，公式来源于旋转矩阵的元素
         // sin(pitch) = 2 * (w*x - y*z)
-        Fix64 sinp = (Fix64)2.0f * (q.W * q.X - q.Y * q.Z);
+        // Fix64 sinp = (Fix64)2.0f * (q.W * q.X - q.Y * q.Z);
+        Fix64 sinp = (Fix64.Two) * (q.W * q.X - q.Y * q.Z);
 
         // --- 万向节死锁检查 (Gimbal Lock Check) ---
         // 当 pitch 接近 +/- 90 度时，sinp 会非常接近 +/- 1
         // Unity 使用一个很小的容差值，但直接比较 |sinp| >= 1 更稳健
-        if (Fix64.Abs(sinp) >= (Fix64)0.999999f) {
+        if (Fix64.Abs(sinp) >= (Fix64.ZeroPoint999999)) {
             // 当发生死锁时，pitch 为 +/- 90 度
-            angles.X = (Fix64.Pi / (Fix64)2.0) * Fix64.Sign(sinp);
+            // angles.X = (Fix64.Pi / (Fix64)2.0) * Fix64.Sign(sinp);
+            angles.X = (Fix64.Pi / (Fix64.Two)) * Fix64.Sign(sinp);
 
             // 按照 Unity 的约定，将 Roll (z) 设置为 0
             angles.Z = 0;
@@ -125,7 +127,8 @@ public static class MathEx {
             // 来保证在死锁情况下仍有唯一解。
             // 正确的死锁Yaw计算: 2 * atan2(q.Y, q.W)
             // 我们需要验证Unity具体使用的是哪个分量，经过验证和反编译，是(q.Y, q.W)
-            angles.Y = (Fix64)2.0f * Fix64.Atan2(q.Y, q.W);
+            // angles.Y = (Fix64)2.0f * Fix64.Atan2(q.Y, q.W);
+            angles.Y = (Fix64.Two) * Fix64.Atan2(q.Y, q.W);
         }
         else {
             // --- 正常情况 ---
@@ -134,11 +137,11 @@ public static class MathEx {
 
             // Yaw (绕Y轴)
             // 公式: atan2(2*(w*y + x*z), 1 - 2*(x*x + y*y))
-            angles.Y = (Fix64)Fix64.Atan2((Fix64)2.0f * (q.W * q.Y + q.X * q.Z), (Fix64)1.0f - (Fix64)2.0f * (q.X * q.X + q.Y * q.Y));
+            angles.Y = (Fix64)Fix64.Atan2(Fix64.Two * (q.W * q.Y + q.X * q.Z), Fix64.One - Fix64.Two * (q.X * q.X + q.Y * q.Y));
 
             // Roll (绕Z轴)
             // 公式: atan2(2*(w*z + x*y), 1 - 2*(z*z + x*x))
-            angles.Z = (Fix64)Fix64.Atan2((Fix64)2.0f * (q.W * q.Z + q.X * q.Y), (Fix64)1.0f - (Fix64)2.0f * (q.Z * q.Z + q.X * q.X));
+            angles.Z = (Fix64)Fix64.Atan2(Fix64.Two * (q.W * q.Z + q.X * q.Y), Fix64.One - Fix64.Two * (q.Z * q.Z + q.X * q.X));
         }
 
         // 将所有计算出的弧度值转换为度
