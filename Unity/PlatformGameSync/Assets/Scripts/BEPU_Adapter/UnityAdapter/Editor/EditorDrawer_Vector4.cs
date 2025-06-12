@@ -26,7 +26,7 @@ namespace BEPU_Adapter.UnityAdapter {
                 (Fix64)uv4.w
             );
 
-            property.boxedValue = (newF4) as object;
+            property.boxedValue = newF4;
         }
     }
 }

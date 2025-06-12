@@ -13,11 +13,7 @@ public class testFix : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        Fix64 f1 = (Fix64)0.5f;
-        var f = (float)f1;
-        Debug.LogError(f);
-        Fix64 Deg2Rad = (Fix64)(0.017453292f);
-        Fix64 Rad2Deg = (Fix64)(57.29578f);
-        int a = 0;
+        Fix64 f981 = (Fix64)(9.81f);
+        Fix64 minusf981 = (Fix64)(-9.81f);
     }
 }

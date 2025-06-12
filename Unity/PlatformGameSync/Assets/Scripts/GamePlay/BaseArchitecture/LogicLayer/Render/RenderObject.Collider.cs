@@ -108,8 +108,6 @@ public partial class RenderObject {
         }
         baseColliderLogic.isTrigger = isTrigger;
         baseColliderLogic.entityType = entityType;
-        baseColliderLogic.useGravity = useGravity;
-        baseColliderLogic.gravityScale = gravityScale;
         baseColliderLogic.entity.CollisionInformation.CollisionRules.Personal = isTrigger ? CollisionRule.NoSolver : _defaultCollisionRule;
         baseColliderLogic.entity.Mass = (Fix64)mass;
         baseColliderLogic.entity.LinearDamping = (Fix64)drag;

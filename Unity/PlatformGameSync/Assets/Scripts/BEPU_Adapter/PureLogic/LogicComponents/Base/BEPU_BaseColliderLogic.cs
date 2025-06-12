@@ -16,8 +16,6 @@ public abstract partial class BEPU_BaseColliderLogic : IColliderUpdater, IDispos
     private Action<Vector3, Quaternion> _syncEntityPosAndRotationToRenderer;
     public bool isTrigger;
     public BEPU_EEntityType entityType = BEPU_EEntityType.Dyanmic;
-    public bool useGravity = true; // 使用重力
-    public float gravityScale = 1f; // 使用重力
     private CollisionRule _defaultCollisionRule = CollisionRule.Defer;
     public string name { get; private set; }
     public ConvexShape entityShape { get; private set; }
@@ -80,10 +78,7 @@ public abstract partial class BEPU_BaseColliderLogic : IColliderUpdater, IDispos
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
-        // entity.Gravity = useGravity
-        //     ? (BEPU_PhysicsManagerLogic.Instance.SpaceGravity * (Fix64)gravityScale)
-        //     : BEPUutilities.Vector3.Zero; // null代表使用默认的重力加速度值
+ 
 
         SyncExtendAttrsToEntity();
     }

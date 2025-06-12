@@ -11,9 +11,7 @@ namespace BEPU_Adapter.UnityAdapter {
             label.text = $"(Fix64) {property.name}";
             float floatV = (float)((Fix64)property.boxedValue);
             float newValue = EditorGUI.FloatField(position, label, floatV);
-            property.boxedValue = ((Fix64)newValue) as object;
-
-            Fix64 f1 = (Fix64)0.5f;
+            property.boxedValue = (Fix64)newValue;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace BEPU_Adapter.UnityAdapter {
                 (Fix64)uv2.x,
                 (Fix64)uv2.y
             );
-            property.boxedValue = (newF2) as object;
+            property.boxedValue = newF2;
         }
     }
 }
