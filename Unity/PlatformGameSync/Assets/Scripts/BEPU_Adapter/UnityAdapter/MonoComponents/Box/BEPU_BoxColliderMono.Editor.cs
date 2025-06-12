@@ -3,6 +3,7 @@
 
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(BEPU_BoxColliderMono))]
 [CanEditMultipleObjects]
@@ -36,6 +37,12 @@ public class BEPU_BoxColliderEditor : BEPU_BaseColliderEditor<BEPU_BoxColliderMo
     protected override void DrawDebugAttrs() {
         base.DrawDebugAttrs();
         EditorGUILayout.LabelField($"长宽高:({((float)_boxShape.Width).ToString(kStrFloatFormat)} , {((float)_boxShape.Height).ToString(kStrFloatFormat)} , {((float)_boxShape.Length).ToString(kStrFloatFormat)})");
+    }
+
+    protected override void DoAutoSize() {
+        var scale = curTransform.lossyScale;
+        sizeProp.boxedValue = scale.ToFixedVector3();
+        collider.SyncExtendAttrsToEntity();
     }
 
 

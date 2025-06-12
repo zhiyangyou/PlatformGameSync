@@ -9,6 +9,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
 
     public const string kStrFloatFormat = "F2";
 
+    protected Transform curTransform;
     protected TCollider collider;
 
     private SerializedProperty centerProp;
@@ -29,6 +30,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
     private SerializedProperty freezeRotation_X;
     private SerializedProperty freezeRotation_Y;
     private SerializedProperty freezeRotation_Z;
+    private SerializedProperty autoScaleToColliderSize;
     private SerializedProperty layer;
 
     private Transform _curTransform = null;
@@ -39,6 +41,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
     #region override
 
     protected void DoInit() {
+        curTransform = (this.serializedObject.targetObject as MonoBehaviour).transform;
         collider = target as TCollider;
         layer = serializedObject.FindProperty("layer");
         centerProp = serializedObject.FindProperty("center");
@@ -57,6 +60,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         freezeRotation_X = serializedObject.FindProperty("freezeRotation_X");
         freezeRotation_Y = serializedObject.FindProperty("freezeRotation_Y");
         freezeRotation_Z = serializedObject.FindProperty("freezeRotation_Z");
+        autoScaleToColliderSize = serializedObject.FindProperty("autoScaleToColliderSize");
 
         _curTransform = collider.transform;
         _listenerTransformChanged = new ListenerTransformChanged(_curTransform, OnTransformChanged);
@@ -69,16 +73,22 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         _listenerTransformChanged = null;
     }
 
+    protected virtual void DoAutoSize() { }
 
     protected void DoOnInspectorGUI() {
         serializedObject.Update();
+        if (autoScaleToColliderSize.boolValue) {
+            DoAutoSize();
+        }
         DrawBaseAttr();
         DrawRigidBodyAttrs();
         DrawDebugAttrs();
         serializedObject.ApplyModifiedProperties();
     }
 
+
     protected virtual void DrawBaseAttr() {
+        EditorGUILayout.PropertyField(autoScaleToColliderSize);
         EditorGUILayout.PropertyField(layer);
         EditorGUILayout.PropertyField(isTrigger);
         EditorGUILayout.PropertyField(materialSo);
@@ -127,8 +137,8 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
 
     #region private
 
-    private void OnTransformChanged() { 
-        collider.SyncAllAttrsToEntity(); 
+    private void OnTransformChanged() {
+        collider.SyncAllAttrsToEntity();
     }
 
     #endregion

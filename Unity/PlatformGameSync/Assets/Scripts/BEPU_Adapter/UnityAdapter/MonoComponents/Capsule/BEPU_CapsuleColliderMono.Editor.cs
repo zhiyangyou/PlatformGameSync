@@ -1,7 +1,9 @@
 #if UNITY_EDITOR
 
 using BEPUphysics.CollisionShapes.ConvexShapes;
+using FixMath.NET;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(BEPU_CapsuleColliderMono))]
 [CanEditMultipleObjects]
@@ -39,6 +41,17 @@ public class BEPU_CapsuleColliderEditor : BEPU_BaseColliderEditor<BEPU_CapsuleCo
 
         EditorGUILayout.LabelField($"物理半径:({((float)_capsuleShape.Radius).ToString(kStrFloatFormat)})");
         EditorGUILayout.LabelField($"物理高度:({((float)_capsuleShape.Length).ToString(kStrFloatFormat)})");
+    }
+
+    protected override void DoAutoSize() {
+        
+        var scale = curTransform.lossyScale;
+      
+        var scaleRadiu = (Fix64)Mathf.Max(scale.x, scale.z);
+        var length = (Fix64)scale.y;
+        radiuProp.boxedValue = scaleRadiu * Fix64.HalfOne;
+        lengthProp.boxedValue = length;
+        collider.SyncExtendAttrsToEntity();
     }
 
 

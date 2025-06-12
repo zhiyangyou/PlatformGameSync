@@ -3,8 +3,8 @@ using FixMath.NET;
 using UnityEngine;
 
 public partial class BEPU_CapsuleColliderMono : BEPU_BaseColliderMono {
-    [SerializeField] private float radiu = 0.5f;
-    [SerializeField] private float length = 1f;
+    [SerializeField] private Fix64 radiu = Fix64.HalfOne;
+    [SerializeField] private Fix64 length = Fix64.One;
 
 
     public BEPU_BaseColliderLogic _colliderLogic = null;
@@ -13,11 +13,10 @@ public partial class BEPU_CapsuleColliderMono : BEPU_BaseColliderMono {
 
     protected override string ColliderName => $"{gameObject.name}_CapsuleCollider";
 
-    protected override void SyncExtendAttrsToEntity() {
-        var scaleRadiu = Mathf.Max(transform.lossyScale.x, transform.lossyScale.z);
-        var realRadiu = (Fix64)(scaleRadiu * radiu);
-        var realLen = (Fix64)(transform.lossyScale.y * length);
-        SyncExtendAttrsToEntity(this.colliderLogic, realRadiu, realLen);
+    public override void SyncExtendAttrsToEntity() {
+        //  不能直接使用lossyScale这种序列化的浮点数作为定点物理世界的输入
+        // var scaleRadiu = Mathf.Max(transform.lossyScale.x, transform.lossyScale.z);
+        SyncExtendAttrsToEntity(this.colliderLogic, radiu, length);
     }
 
 

@@ -1,7 +1,9 @@
 #if UNITY_EDITOR
 
 using BEPUphysics.CollisionShapes.ConvexShapes;
+using FixMath.NET;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(BEPU_SphereColliderMono))]
 [CanEditMultipleObjects]
@@ -29,6 +31,13 @@ public class BEPU_SphereColliderEditor : BEPU_BaseColliderEditor<BEPU_SphereColl
         EditorGUILayout.PropertyField(radiuProp);
     }
 
+    protected override void DoAutoSize() {
+        var scale = curTransform.lossyScale;
+        var scaleRadiu = (Fix64)Mathf.Max(scale.x, scale.z);
+        radiuProp.boxedValue = scaleRadiu * Fix64.HalfOne;
+        collider.SyncExtendAttrsToEntity();
+    }
+    
 
     protected override void DrawDebugAttrs() {
         base.DrawDebugAttrs();
