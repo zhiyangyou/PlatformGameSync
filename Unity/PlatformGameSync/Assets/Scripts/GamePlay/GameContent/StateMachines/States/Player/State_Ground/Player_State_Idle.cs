@@ -16,7 +16,7 @@ public class Player_State_Idle : Player_State_Ground {
 
     public override void LogicFrameUpdate() {
         base.LogicFrameUpdate();
-        if (this.LogicPlayer.xInput.x != 0f) {
+        if (this.LogicPlayer.xInput.Value.x != 0f) {
             this._stateMachine.ChangeState(LogicPlayer.StateMove);
         }
     }

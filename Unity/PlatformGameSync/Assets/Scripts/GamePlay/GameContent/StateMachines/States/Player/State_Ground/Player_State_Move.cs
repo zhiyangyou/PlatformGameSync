@@ -11,11 +11,11 @@ public class Player_State_Move : Player_State_Ground {
 
     public override void LogicFrameUpdate() {
         base.LogicFrameUpdate();
-        if (LogicPlayer.xInput.x == 0f) {
+        if (LogicPlayer.xInput.Value.x == 0f) {
             this._stateMachine.ChangeState(LogicPlayer.StateIdle);
         }
         else {
-            LogicPlayer.DoMove(LogicPlayer.xInput.ToFixedVector2().ToVector3());
+            LogicPlayer.DoMove(LogicPlayer.xInput.Value.ToFixedVector2().ToVector3());
         }
     }
 

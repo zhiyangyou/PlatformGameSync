@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GamePlay.StateMachine;
 using UnityEngine;
+using WorldSpace.GameWorld;
 using UVector2 = UnityEngine.Vector2;
 
 public partial class LogicActor_Player {
@@ -11,15 +12,15 @@ public partial class LogicActor_Player {
 
     public InputSystem_Player InputSystem { get; private set; }
 
+    private NextFrameTimer _nextFrameTimer;
 
     private void InitPlayeColliderAttrs() { }
-
-
 
 
     public override void OnCreate() {
         this.ColliderType = BEPU_ColliderType.Box;
         base.OnCreate();
+        _nextFrameTimer = WorldManager.GetWorld<GameWorld>().nextFrameTimer;
         InitPlayeColliderAttrs();
         InitInputSystem();
         InitStateMachine();
@@ -31,7 +32,9 @@ public partial class LogicActor_Player {
     }
 
     public override void OnDestory() {
+        DisposeInputActions();
         InputSystem.Disable();
+        _nextFrameTimer = null;
         base.OnDestory();
     }
 

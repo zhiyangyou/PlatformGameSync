@@ -14,6 +14,8 @@ namespace WorldSpace.GameWorld {
 
         private Fix64 _lastUpdateTime;
 
+        public NextFrameTimer nextFrameTimer { get; private set; }
+
         public static int LogicFrameCount = 0;
 
         #endregion
@@ -21,6 +23,7 @@ namespace WorldSpace.GameWorld {
         #region life-cycle
 
         public override void OnCreate() {
+            nextFrameTimer = new(() => LogicFrameCount);
             LogicFrameCount = 0;
             _accLogicRealTimeS = Fix64.Zero;
             _nextLogicFrameTimeS = Fix64.Zero;
@@ -45,6 +48,8 @@ namespace WorldSpace.GameWorld {
         }
 
         public override void OnDestroy() {
+            nextFrameTimer.Dispose();
+            nextFrameTimer = null;
             base.OnDestroy();
         }
 
@@ -54,6 +59,7 @@ namespace WorldSpace.GameWorld {
 
         public void OnLigicFrameUpdate() {
             // 更新物理
+            nextFrameTimer.LogicFrameUpdate();
             BEPU_PhysicsManagerUnity.Instance.UpdatePhysicsWorld(GameConstConfigs.FrameIntervalS);
             foreach (var logic in mLogicBehaviourDic.Values) {
                 try {

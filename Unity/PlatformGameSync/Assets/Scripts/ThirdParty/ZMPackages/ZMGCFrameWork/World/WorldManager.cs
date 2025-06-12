@@ -61,11 +61,11 @@ public class WorldManager {
         //首个创建的世界为默认世界，按照目前的HallWorld常驻内存的设计，DefaultGameWorld一直HallWorld。
         DefaultGameWorld = world;
         _dicAllWorlds.Add(typeof(T), world);
+        world.OnCreate();
         //初始化当前游戏世界的程序集脚本
         TypeManager.InitlizateWorldAssemblies(world);
         CurWorldEnum = world.WorldEnum;
         buildWorldComplete?.Invoke();
-        world.OnCreate();
         OnCreateWorldSuccessListener?.Invoke(CurWorldEnum);
 
         if (!Builder)

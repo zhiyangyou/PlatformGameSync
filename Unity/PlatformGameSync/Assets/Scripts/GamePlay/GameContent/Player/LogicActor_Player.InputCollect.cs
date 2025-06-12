@@ -1,44 +1,72 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using WorldSpace.GameWorld;
 using UVector2 = UnityEngine.Vector2;
 
+
+public class FrameInput<T> : IDisposable where T : struct {
+    public T Value;
+    public int StartFrameCount;
+
+
+    private NextFrameTimer _nextFrameTimer;
+    private int _uniqueKey;
+    private InputAction _inputAction;
+    public Action<InputAction.CallbackContext> onStart;
+    public Action<InputAction.CallbackContext> onCancel;
+
+    public FrameInput(
+        InputAction inputAction,
+        NextFrameTimer nextFrameTimer,
+        int uniqueKey) {
+        _nextFrameTimer = nextFrameTimer;
+        _uniqueKey = uniqueKey;
+        _inputAction = inputAction;
+        inputAction.started += this.OnStarted;
+        inputAction.canceled += this.OnCancle;
+    }
+
+    public void OnStarted(InputAction.CallbackContext context) {
+        StartFrameCount = GameWorld.LogicFrameCount;
+        _nextFrameTimer.ClearKey(_uniqueKey);
+        onStart.Invoke(context);
+    }
+
+    public void OnCancle(InputAction.CallbackContext context) {
+        if (GameWorld.LogicFrameCount == StartFrameCount) {
+            _nextFrameTimer.CallOnNextFrame(_uniqueKey, () => { onCancel.Invoke(context); });
+        }
+        else {
+            onCancel.Invoke(context);
+        }
+    }
+
+    public void Dispose() {
+        _inputAction.started -= this.OnStarted;
+        _inputAction.canceled -= this.OnCancle;
+    }
+}
+
 public partial class LogicActor_Player {
-    public UVector2 xInput = UVector2.zero;
-    public bool jumpPressed = false;
-
-    // 数据采集帧数
-    protected int _logicFrameCount_xInput = 0;
-    protected int _logicFrameCount_jumpPressed = 0;
-
+    public FrameInput<bool> jumpPressed;
+    public FrameInput<UVector2> xInput;
+    
     private void InitInputSystem() {
         InputSystem = new InputSystem_Player();
         InputSystem.Enable();
 
-        InputSystem.Player.Movement.started += context => {
-            xInput = context.ReadValue<UVector2>();
-            _logicFrameCount_xInput = GameWorld.LogicFrameCount;
-        };
-        InputSystem.Player.Movement.canceled += context => {
-            if (GameWorld.LogicFrameCount == _logicFrameCount_xInput) {
-                Debug.LogError("TODO xInput 采集丢失, 等下一帧再进行xInput还原操作");
-                xInput = UVector2.zero;
-            }
-            else {
-                xInput = UVector2.zero;
-            }
-        };
-        InputSystem.Player.Jump.started += context => {
-            jumpPressed = true;
-            _logicFrameCount_jumpPressed = GameWorld.LogicFrameCount;
-        };
-        InputSystem.Player.Jump.canceled += context => {
-            if (GameWorld.LogicFrameCount == _logicFrameCount_jumpPressed) {
-                Debug.LogError("TODO jumpPressed 采集丢失, 等下一帧再进行jumpPressed还原操作");
-                jumpPressed = false;
-            }
-            else {
-                jumpPressed = false;
-            }
-        };
+
+        xInput = new(InputSystem.Player.Movement, _nextFrameTimer, NextFrameTimeUniqueKeys.XInputKey);
+        xInput.onStart = context => { xInput.Value = context.ReadValue<UVector2>(); };
+        xInput.onCancel = _ => { xInput.Value = UVector2.zero; };
+
+        jumpPressed = new(InputSystem.Player.Jump, _nextFrameTimer, NextFrameTimeUniqueKeys.JumpKey);
+        jumpPressed.onStart = _ => jumpPressed.Value = true;
+        jumpPressed.onCancel = _ => jumpPressed.Value = false;
+    }
+
+    void DisposeInputActions() {
+        jumpPressed.Dispose();
     }
 }
