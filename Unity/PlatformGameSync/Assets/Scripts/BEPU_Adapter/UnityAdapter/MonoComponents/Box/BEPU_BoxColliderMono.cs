@@ -15,10 +15,10 @@ public partial class BEPU_BoxColliderMono : BEPU_BaseColliderMono {
     protected override string ColliderName => $"{gameObject.name}_BoxCollider";
 
     protected override void SyncExtendAttrsToEntity() {
-        SyncBoxAttrsToEntity(colliderLogic as BEPU_BoxColliderLogic, this.size, transform);
+        SyncExtendAttrsToEntity(colliderLogic as BEPU_BoxColliderLogic, this.size, transform);
     }
 
-    public static void SyncBoxAttrsToEntity(BEPU_BoxColliderLogic boxCollider, Vector3 size, Transform transform) {
+    public static void SyncExtendAttrsToEntity(BEPU_BoxColliderLogic boxCollider, Vector3 size, Transform transform) {
         var boxShape = (boxCollider.entityShape) as BoxShape;
         boxShape.Width = (Fix64)(size.x * transform.lossyScale.x);
         boxShape.Height = (Fix64)(size.y * transform.lossyScale.y);

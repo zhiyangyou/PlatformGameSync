@@ -10,17 +10,17 @@ public partial class LogicActor_Player {
     private NextFrameTimer _nextFrameTimer;
 
     public BEPU_CustomEntity PhysicsEntity { get; private set; } = null;
-    public BoxShape BoxShape { get; private set; } = null;
+    public SphereShape SphereShape { get; private set; } = null;
 
     private void InitPlayeColliderAttrs() { }
 
 
     public override void OnCreate() {
-        this.ColliderType = BEPU_ColliderType.Box;
+        this.ColliderType = BEPU_ColliderType.Capsule;
         base.OnCreate();
         _nextFrameTimer = WorldManager.GetWorld<GameWorld>().nextFrameTimer;
         PhysicsEntity = BaseColliderLogic.entity;
-        BoxShape = BaseColliderLogic.entityShape as BoxShape;
+        SphereShape = BaseColliderLogic.entityShape as SphereShape;
         InitPlayeColliderAttrs();
         InitInputSystem();
         InitStateMachine();

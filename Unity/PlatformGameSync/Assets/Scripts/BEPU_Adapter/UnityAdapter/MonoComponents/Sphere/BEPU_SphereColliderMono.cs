@@ -20,9 +20,14 @@ public partial class BEPU_SphereColliderMono : BEPU_BaseColliderMono {
     protected override string ColliderName => $"{gameObject.name}_ShpereCollider";
 
     protected override void SyncExtendAttrsToEntity() {
-        var sphereShape = (colliderLogic.entityShape) as SphereShape;
         var scaleRadiu = Mathf.Max(Mathf.Max(transform.lossyScale.x, transform.lossyScale.y), transform.lossyScale.z);
-        sphereShape.Radius = (Fix64)(scaleRadiu * radiu);
+        var realRadiu = (Fix64)(scaleRadiu * radiu);
+        SyncExtendAttrsToEntity(colliderLogic, realRadiu);
+    }
+
+    public static void SyncExtendAttrsToEntity(BEPU_BaseColliderLogic colliderLogic, Fix64 radiu) {
+        var sphereShape = (colliderLogic.entityShape) as SphereShape;
+        sphereShape.Radius = radiu;
     }
 
     protected override void OnRelease() { }

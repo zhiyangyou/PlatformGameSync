@@ -4,7 +4,8 @@ using UnityEngine;
 using FVector3 = BEPUutilities.Vector3;
 
 public class RenderObject_Player : RenderObject {
-    [SerializeField] private Vector3 size = Vector3.one;
+    [SerializeField] private float capsuleLen = 1;
+    [SerializeField] private float capsuleRadiu = 0.5f;
     [SerializeField] private Animator animator;
     [SerializeField] private float moveSpeedAirRate = 0.7f;
     [SerializeField] private float moveSpeed = 7f;
@@ -18,8 +19,7 @@ public class RenderObject_Player : RenderObject {
 
     public override void SyncExtendAttrsToEntity() {
         if (base.baseColliderType != null) {
-            BEPU_BoxColliderMono.SyncBoxAttrsToEntity(baseColliderLogic as BEPU_BoxColliderLogic,
-                size, transform);
+            BEPU_CapsuleColliderMono.SyncExtendAttrsToEntity(baseColliderLogic as BEPU_CapsuleColliderLogic, (Fix64)capsuleRadiu, (Fix64)capsuleLen);
         }
     }
 
@@ -31,6 +31,8 @@ public class RenderObject_Player : RenderObject {
             _logicPlayer.groundRayCastLen = (Fix64)groundRayCastLen;
             _logicPlayer.wallRayCastLen = (Fix64)wallRayCastLen;
             _logicPlayer.whatIsGround = whatIsGround;
+            _logicPlayer.capsuleLen = (Fix64)capsuleLen;
+            _logicPlayer.capsuleRadiu = (Fix64)capsuleRadiu;
         }
     }
 
@@ -59,13 +61,8 @@ public class RenderObject_Player : RenderObject {
         var oldColor = Gizmos.color;
         Gizmos.color = Color.red;
         var len = Application.isPlaying ? (float)_logicPlayer.groundRayCastLen : this.groundRayCastLen;
-
-        var halfW = (baseColliderLogic.entityShape as BoxShape).HalfWidth;
-        var p1 = (baseColliderLogic.entity.Position - FVector3.Left * halfW).ToUnityVector3();
-        var p2 = (baseColliderLogic.entity.Position - FVector3.Right * halfW).ToUnityVector3();
-
+        var p1 = (baseColliderLogic.entity.Position).ToUnityVector3();
         Gizmos.DrawLine(p1, p1 + len * Vector3.down);
-        Gizmos.DrawLine(p2, p2 + len * Vector3.down);
         Gizmos.color = oldColor;
     }
 

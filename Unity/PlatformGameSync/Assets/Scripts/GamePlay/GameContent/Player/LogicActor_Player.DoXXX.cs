@@ -12,6 +12,8 @@ public partial class LogicActor_Player {
     public Fix64 groundRayCastLen = (Fix64)1.3f; // 地面检测射线长度
     public Fix64 wallRayCastLen = (Fix64)1.3f; // 爬墙检测射线长度
     public BEPU_LayerDefine whatIsGround = BEPU_LayerDefine.Envirement;
+    public Fix64 capsuleLen = Fix64.One;
+    public Fix64 capsuleRadiu = Fix64.HalfOne;
 
     #endregion
 
@@ -40,21 +42,14 @@ public partial class LogicActor_Player {
     }
 
     private void LogicFrameUpdate_HandleCollisionDetection() {
-        var halfW = BoxShape.HalfWidth;
-
         // 地面检测
         {
-            var p1 = this.PhysicsEntity.Position - FVector3.Left * halfW;
-            var p2 = this.PhysicsEntity.Position - FVector3.Right * halfW;
-            var ret1 = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(p1, FVector3.Down, this.groundRayCastLen, whatIsGround);
-            var ret2 = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(p2, FVector3.Down, this.groundRayCastLen, whatIsGround);
-            groundDetected = ret2 || ret1;
+            groundDetected = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(this.PhysicsEntity.Position, FVector3.Down, this.groundRayCastLen, whatIsGround);
         }
 
         // 墙体检测
         {
-            var p1 = this.PhysicsEntity.Position;
-            wallDetected = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(p1, FVector3.Right * this.facingDir, this.groundRayCastLen, whatIsGround);
+            wallDetected = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(PhysicsEntity.Position, FVector3.Right * this.facingDir, this.groundRayCastLen, whatIsGround);
         }
     }
 

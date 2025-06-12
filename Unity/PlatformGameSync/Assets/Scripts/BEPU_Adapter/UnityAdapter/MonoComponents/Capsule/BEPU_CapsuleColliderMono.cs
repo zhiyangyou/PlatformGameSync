@@ -14,10 +14,17 @@ public partial class BEPU_CapsuleColliderMono : BEPU_BaseColliderMono {
     protected override string ColliderName => $"{gameObject.name}_CapsuleCollider";
 
     protected override void SyncExtendAttrsToEntity() {
-        var capsuleShape = (this.colliderLogic.entityShape) as CapsuleShape;
         var scaleRadiu = Mathf.Max(transform.lossyScale.x, transform.lossyScale.z);
-        capsuleShape.Radius = (Fix64)(scaleRadiu * radiu);
-        capsuleShape.Length = (Fix64)(transform.lossyScale.y * length);
+        var realRadiu = (Fix64)(scaleRadiu * radiu);
+        var realLen = (Fix64)(transform.lossyScale.y * length);
+        SyncExtendAttrsToEntity(this.colliderLogic, realRadiu, realLen);
+    }
+
+
+    public static void SyncExtendAttrsToEntity(BEPU_BaseColliderLogic colliderLogic, Fix64 realRadius, Fix64 realLen) {
+        var capsuleShape = (colliderLogic.entityShape) as CapsuleShape;
+        capsuleShape.Radius = realRadius;
+        capsuleShape.Length = realLen;
     }
 
     protected override void OnRelease() { }
