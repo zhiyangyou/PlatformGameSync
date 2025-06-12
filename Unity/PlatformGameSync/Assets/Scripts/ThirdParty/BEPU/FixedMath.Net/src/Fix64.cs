@@ -43,8 +43,8 @@ namespace FixMath.NET
 		public static readonly Fix64 Log2Max = new Fix64(LOG2MAX);
 		public static readonly Fix64 Log2Min = new Fix64(LOG2MIN);
 
-		public static readonly Fix64 Deg2Rad = (new Fix64(74961320));//(0.017453292f);
-		public static readonly Fix64 Rad2Deg = (new Fix64(246083502080));//(57.29578f);
+		public static readonly Fix64 Deg2Rad = new Fix64(74961320L);//(0.017453292f);
+		public static readonly Fix64 Rad2Deg = new Fix64(246083502080L);//(57.29578f);
 		
 
 		static readonly Fix64 LutInterval = (Fix64)(LUT_SIZE - 1) / PiOver2;
