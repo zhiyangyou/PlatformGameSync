@@ -22,7 +22,7 @@ namespace FixMath.NET
         public static readonly Fix64 MaxValue = new Fix64(MAX_VALUE);
         public static readonly Fix64 MinValue = new Fix64(MIN_VALUE);
 		public static readonly Fix64 MinusOne = new Fix64(-ONE);
-		public static readonly Fix64 HalfOne = (Fix64)0.5f;
+		public static readonly Fix64 HalfOne = new Fix64(2147483648); // 0.5f;
 		public static readonly Fix64 One = new Fix64(ONE);
 		public static readonly Fix64 Two = (Fix64)2;
 		public static readonly Fix64 Three = (Fix64)3;
@@ -42,9 +42,9 @@ namespace FixMath.NET
 		public static readonly Fix64 Ln2 = new Fix64(LN2);
 		public static readonly Fix64 Log2Max = new Fix64(LOG2MAX);
 		public static readonly Fix64 Log2Min = new Fix64(LOG2MIN);
-		
-		public static readonly Fix64 Deg2Rad = (Fix64)(0.017453292f);
-	    public static readonly Fix64 Rad2Deg = (Fix64)(57.29578f);
+
+		public static readonly Fix64 Deg2Rad = (new Fix64(74961320));//(0.017453292f);
+		public static readonly Fix64 Rad2Deg = (new Fix64(246083502080));//(57.29578f);
 		
 
 		static readonly Fix64 LutInterval = (Fix64)(LUT_SIZE - 1) / PiOver2;

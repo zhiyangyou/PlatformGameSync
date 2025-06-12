@@ -61,7 +61,7 @@ public class TestToEularAngle {
                     {
                         var newUQ = Quaternion.Euler(rotV3);
                         var newFQ = rotV3.ToFixedVector3().ToQuaternion();
-
+                        
                         Assert.IsTrue(Mathf.Abs(((float)newFQ.X - newUQ.x)) < 误差);
                         Assert.IsTrue(Mathf.Abs(((float)newFQ.Y - newUQ.y)) < 误差);
                         Assert.IsTrue(Mathf.Abs(((float)newFQ.Z - newUQ.z)) < 误差);

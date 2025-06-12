@@ -71,17 +71,17 @@ public static class MathEx {
 
     public static FQuaternion Euler(Fix64 x, Fix64 y, Fix64 z) {
         // 将输入的度数转换为弧度，并取其一半
-        Fix64 yawHalf = y * Fix64.Deg2Rad * (Fix64)0.5f;
-        Fix64 pitchHalf = x * Fix64.Deg2Rad * (Fix64)0.5f;
-        Fix64 rollHalf = z * Fix64.Deg2Rad * (Fix64)0.5f;
+        Fix64 yawHalf = y * Fix64.Deg2Rad * (Fix64.HalfOne);
+        Fix64 pitchHalf = x * Fix64.Deg2Rad * (Fix64.HalfOne);//0.5f;
+        Fix64 rollHalf = z * Fix64.Deg2Rad * (Fix64.HalfOne);//0.5f;
 
         // 计算每个半角的 sin 和 cos 值
-        Fix64 cy = (Fix64)Fix64.Cos(yawHalf);
-        Fix64 sy = (Fix64)Fix64.Sin(yawHalf);
-        Fix64 cp = (Fix64)Fix64.Cos(pitchHalf);
-        Fix64 sp = (Fix64)Fix64.Sin(pitchHalf);
-        Fix64 cr = (Fix64)Fix64.Cos(rollHalf);
-        Fix64 sr = (Fix64)Fix64.Sin(rollHalf);
+        Fix64 cy = Fix64.Cos(yawHalf);
+        Fix64 sy = Fix64.Sin(yawHalf);
+        Fix64 cp = Fix64.Cos(pitchHalf);
+        Fix64 sp = Fix64.Sin(pitchHalf);
+        Fix64 cr = Fix64.Cos(rollHalf);
+        Fix64 sr = Fix64.Sin(rollHalf);
 
         // 根据 Z-X-Y 旋转顺序应用最终的展开公式
         // 此公式经过反复测试，与 Unity 2021.3+ 的 Quaternion.Euler(x, y, z) 输出完全匹配
