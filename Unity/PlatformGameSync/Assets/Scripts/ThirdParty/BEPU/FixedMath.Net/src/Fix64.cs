@@ -28,6 +28,10 @@ namespace FixMath.NET
 		public static readonly Fix64 Three = (Fix64)3;
 		public static readonly Fix64 Zero = new Fix64();
 		public static readonly Fix64 C0p28 = (Fix64)0.28m;
+		public static readonly Fix64 F981 = new Fix64(42133630976L); // 9.81f
+		public static readonly Fix64 MinusF981 = new Fix64(-42133630976L); // 9.81f
+		
+		
 		/// <summary>
 		/// The value of Pi
 		/// </summary>
