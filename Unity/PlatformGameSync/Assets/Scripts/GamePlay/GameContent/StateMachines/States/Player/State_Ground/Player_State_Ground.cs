@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 using UVector2 = UnityEngine.Vector2;
 
 public class Player_State_Ground : Player_State_Base {
-    public Player_State_Ground(string boolTriggerName, LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName)
-        : base(boolTriggerName, logicPlayer, renderPlayer, stateMachine, stateName) { }
+    public Player_State_Ground(string boolTriggerName, LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine)
+        : base(boolTriggerName, logicPlayer, renderPlayer, stateMachine) { }
 
 
     protected override void OnEnter() {

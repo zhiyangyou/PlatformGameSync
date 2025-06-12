@@ -87,7 +87,7 @@ MonoBehaviour:
   drag: 0
   angularDrag: 0.05
   useGravity: 1
-  gravityScale: 3
+  gravityScale: 4
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 1
@@ -97,9 +97,11 @@ MonoBehaviour:
   layer: 0
   size: {x: 1.26, y: 2.28, z: 1}
   animator: {fileID: 3298360874542739958}
-  moveSpeed: 5
-  jumpForce: 11
+  moveSpeedAirRate: 0.7
+  moveSpeed: 6
+  jumpForce: 12
   groundRayCastLen: 1.3
+  wallRayCastLen: 0.8
   whatIsGround: 3
 --- !u!114 &7560540782520828872
 MonoBehaviour:
@@ -113,11 +115,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589b6c157d3a437fbfd9e9c9b54875c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeedAirRate: 7
   moveSpeed: 7
   jumpForce: 11
   groundRayCastLen: 1.3
   whatIsGround: 3
   groundDetected: 0
+  wallDetected: 0
+  facingDir: 1
 --- !u!1 &7843363259959610913
 GameObject:
   m_ObjectHideFlags: 0

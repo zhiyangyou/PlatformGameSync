@@ -3,8 +3,8 @@ using GamePlay.StateMachine;
 
 
 public class Player_State_Move : Player_State_Ground {
-    public Player_State_Move(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName)
-        : base(LogicActor_Player.kStrBool_Move, logicPlayer, renderPlayer, stateMachine, stateName) { }
+    public Player_State_Move(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine)
+        : base(LogicActor_Player.kStrBool_Move, logicPlayer, renderPlayer, stateMachine) { }
 
     protected override void OnEnter() {
         base.OnEnter();

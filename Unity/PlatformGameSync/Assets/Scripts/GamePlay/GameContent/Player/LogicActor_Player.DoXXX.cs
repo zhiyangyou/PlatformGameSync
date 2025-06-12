@@ -4,39 +4,70 @@ using UnityEngine;
 using FVector3 = BEPUutilities.Vector3;
 
 public partial class LogicActor_Player {
-    public Fix64 moveSpeed = (Fix64)7f;
-    public Fix64 jumpForce = (Fix64)10f;
-    public Fix64 groundRayCastLen = (Fix64)1.3f;
+    #region 人物运动参数
+
+    public Fix64 moveSpeedAirRate = (Fix64)0.7f; // 空中移动速度衰减
+    public Fix64 moveSpeed = (Fix64)7f; // 移动速度
+    public Fix64 jumpForce = (Fix64)10f; // 跳跃力
+    public Fix64 groundRayCastLen = (Fix64)1.3f; // 地面检测射线长度
+    public Fix64 wallRayCastLen = (Fix64)1.3f; // 爬墙检测射线长度
     public BEPU_LayerDefine whatIsGround = BEPU_LayerDefine.Envirement;
 
-    /// <summary>
-    /// 是否解除到地面
-    /// </summary>
-    public bool groundDetected = false;
+    #endregion
 
+    #region 人物运动运行时状态值
+
+    public Fix64 facingDir = Fix64.One; // 1=右 -1=左  
+    public bool groundDetected = false; // 是否接触地面
+    public bool wallDetected = false; // 是否接触地面
+
+    #endregion
+
+
+    #region private
 
     private void HandleFlip(Fix64 xVelocity) {
         var isRight = xVelocity > Fix64.Zero;
         var isLeft = xVelocity < Fix64.Zero;
         if (isRight) {
             SetY180(true);
+            facingDir = 1;
         }
         if (isLeft) {
             SetY180(false);
+            facingDir = -1;
         }
     }
 
     private void LogicFrameUpdate_HandleCollisionDetection() {
         var halfW = BoxShape.HalfWidth;
-        var p1 = this.PhysicsEntity.Position - FVector3.Left * halfW;
-        var p2 = this.PhysicsEntity.Position - FVector3.Right * halfW;
-        var ret1 = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(p1, FVector3.Down, this.groundRayCastLen, BEPU_LayerDefine.Envirement);
-        var ret2 = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(p2, FVector3.Down, this.groundRayCastLen, BEPU_LayerDefine.Envirement);
-        groundDetected = ret2 || ret1;
+
+        // 地面检测
+        {
+            var p1 = this.PhysicsEntity.Position - FVector3.Left * halfW;
+            var p2 = this.PhysicsEntity.Position - FVector3.Right * halfW;
+            var ret1 = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(p1, FVector3.Down, this.groundRayCastLen, whatIsGround);
+            var ret2 = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(p2, FVector3.Down, this.groundRayCastLen, whatIsGround);
+            groundDetected = ret2 || ret1;
+        }
+
+        // 墙体检测
+        {
+            var p1 = this.PhysicsEntity.Position;
+            wallDetected = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(p1, FVector3.Right * this.facingDir, this.groundRayCastLen, whatIsGround);
+        }
     }
 
+    #endregion
+
+    #region public
+
     public void SetXVelocityByXInput() {
-        SetXVelocity(moveSpeed * xInput.Value.X);
+        SetXVelocityByXInput(Fix64.One);
+    }
+
+    public void SetXVelocityByXInput(Fix64 rate) {
+        SetXVelocity(moveSpeed * xInput.Value.X * rate);
     }
 
     public void SetXVelocity(Fix64 v) {
@@ -56,4 +87,6 @@ public partial class LogicActor_Player {
         oldV.Y = v;
         BaseColliderLogic.entity.LinearVelocity = oldV;
     }
+
+    #endregion
 }

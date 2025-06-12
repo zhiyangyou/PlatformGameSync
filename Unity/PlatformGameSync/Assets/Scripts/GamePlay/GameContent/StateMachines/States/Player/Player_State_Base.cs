@@ -10,7 +10,7 @@ public class Player_State_Base : EntityState {
     protected BEPU_CustomEntity PhysicsEntity;
     protected string BoolTriggerName;
 
-    public Player_State_Base(string boolTriggerName, LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName) : base(stateMachine, stateName) {
+    public Player_State_Base(string boolTriggerName, LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine) : base(stateMachine, boolTriggerName) {
         BoolTriggerName = boolTriggerName;
         LogicPlayer = logicPlayer;
         RenderPlayer = renderPlayer;

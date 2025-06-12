@@ -1,8 +1,8 @@
 ﻿using GamePlay.StateMachine;
 
 public class Player_State_Jump : Player_State_Air {
-    public Player_State_Jump(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName)
-        : base(LogicActor_Player.kStrBool_JumpFall, logicPlayer, renderPlayer, stateMachine, stateName) { }
+    public Player_State_Jump(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine)
+        : base(LogicActor_Player.kStrBool_JumpFall, logicPlayer, renderPlayer, stateMachine) { }
 
     protected override void OnEnter() {
         base.OnEnter();

@@ -10,19 +10,22 @@ public partial class LogicActor_Player : LogicActor {
     public Player_State_Move StateMove { get; private set; }
     public Player_State_Jump StateJump { get; private set; }
     public Player_State_Fall StateFall { get; private set; }
+    public Player_State_WallSlide StateWallSlide { get; private set; }
 
     public const string kStrBool_Idle = "isIdle";
     public const string kStrBool_Move = "isMove";
     public const string kStrBool_JumpFall = "isJumpFall";
+    public const string kStrBool_WallSlide = "isWallSilde";
     public const string kStrFloat_yVelocity = "yVelocity";
 
 
     private void InitStateMachine() {
         stateMachine = new StateMachine();
-        StateIdle = new(this, _renderPlayer, stateMachine, "Player-Idle");
-        StateMove = new(this, _renderPlayer, stateMachine, "Player-Move");
-        StateJump = new(this, _renderPlayer, stateMachine, "Player-Jump");
-        StateFall = new(this, _renderPlayer, stateMachine, "Player-Fall");
+        StateIdle = new(this, _renderPlayer, stateMachine);
+        StateMove = new(this, _renderPlayer, stateMachine);
+        StateJump = new(this, _renderPlayer, stateMachine);
+        StateFall = new(this, _renderPlayer, stateMachine);
+        StateWallSlide = new(this, _renderPlayer, stateMachine);
         stateMachine.Init(StateIdle);
     }
 
