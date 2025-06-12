@@ -195,6 +195,20 @@ MonoBehaviour:
   freezeRotation_Z: 0
   layer: 3
   autoScaleToColliderSize: 0
+  entityInitPos:
+    X:
+      RawValue: -64510410752
+    Y:
+      RawValue: -7172595712
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   size:
     X:
       RawValue: 13697101824
@@ -365,6 +379,20 @@ MonoBehaviour:
   freezeRotation_Z: 0
   layer: 3
   autoScaleToColliderSize: 0
+  entityInitPos:
+    X:
+      RawValue: -42520174592
+    Y:
+      RawValue: -6957847552
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   size:
     X:
       RawValue: 8245655040
@@ -495,6 +523,20 @@ MonoBehaviour:
   freezeRotation_Z: 0
   layer: 3
   autoScaleToColliderSize: 0
+  entityInitPos:
+    X:
+      RawValue: 29119879168
+    Y:
+      RawValue: 2748778496
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   size:
     X:
       RawValue: 13697101824
@@ -625,6 +667,20 @@ MonoBehaviour:
   freezeRotation_Z: 0
   layer: 3
   autoScaleToColliderSize: 0
+  entityInitPos:
+    X:
+      RawValue: 65455300608
+    Y:
+      RawValue: 5497558016
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   size:
     X:
       RawValue: 13697101824
@@ -755,6 +811,20 @@ MonoBehaviour:
   freezeRotation_Z: 0
   layer: 0
   autoScaleToColliderSize: 1
+  entityInitPos:
+    X:
+      RawValue: -9277129728
+    Y:
+      RawValue: -11038066688
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   radiu:
     RawValue: 2147483648
   length:
@@ -1042,6 +1112,20 @@ MonoBehaviour:
   freezeRotation_Z: 0
   layer: 3
   autoScaleToColliderSize: 0
+  entityInitPos:
+    X:
+      RawValue: 17566416896
+    Y:
+      RawValue: -17078078464
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   size:
     X:
       RawValue: 38022316032
@@ -1127,7 +1211,7 @@ Transform:
   m_GameObject: {fileID: 1035897557}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.4207, y: -3.52, z: 0}
+  m_LocalPosition: {x: 0.36, y: -5.48, z: 0}
   m_LocalScale: {x: 50.15919, y: 1.6862, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1222,6 +1306,20 @@ MonoBehaviour:
   freezeRotation_Z: 0
   layer: 3
   autoScaleToColliderSize: 0
+  entityInitPos:
+    X:
+      RawValue: 1546188288
+    Y:
+      RawValue: -29721174016
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   size:
     X:
       RawValue: 215432085504
@@ -1302,6 +1400,20 @@ MonoBehaviour:
   freezeRotation_Z: 0
   layer: 0
   autoScaleToColliderSize: 1
+  entityInitPos:
+    X:
+      RawValue: 5755256320
+    Y:
+      RawValue: -9749575680
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   radiu:
     RawValue: 1474524544
 --- !u!23 &1146764467
@@ -1427,6 +1539,20 @@ MonoBehaviour:
   freezeRotation_Z: 0
   layer: 3
   autoScaleToColliderSize: 0
+  entityInitPos:
+    X:
+      RawValue: -22072266752
+    Y:
+      RawValue: -14492938240
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   size:
     X:
       RawValue: 13188622336

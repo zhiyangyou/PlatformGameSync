@@ -31,6 +31,8 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
     private SerializedProperty freezeRotation_Y;
     private SerializedProperty freezeRotation_Z;
     private SerializedProperty autoScaleToColliderSize;
+    private SerializedProperty entityInitPos;
+    private SerializedProperty entityInitRotation;
     private SerializedProperty layer;
 
     private Transform _curTransform = null;
@@ -61,6 +63,8 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         freezeRotation_Y = serializedObject.FindProperty("freezeRotation_Y");
         freezeRotation_Z = serializedObject.FindProperty("freezeRotation_Z");
         autoScaleToColliderSize = serializedObject.FindProperty("autoScaleToColliderSize");
+        entityInitPos = serializedObject.FindProperty("entityInitPos");
+        entityInitRotation = serializedObject.FindProperty("entityInitRotation");
 
         _curTransform = collider.transform;
         _listenerTransformChanged = new ListenerTransformChanged(_curTransform, OnTransformChanged);
@@ -80,15 +84,22 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         if (autoScaleToColliderSize.boolValue) {
             DoAutoSize();
         }
+        AutoInitPosAndRotation();
         DrawBaseAttr();
         DrawRigidBodyAttrs();
         DrawDebugAttrs();
         serializedObject.ApplyModifiedProperties();
     }
 
+    private void AutoInitPosAndRotation() {
+        entityInitPos.boxedValue = curTransform.position.ToFixedVector3();
+        entityInitRotation.boxedValue = curTransform.rotation.ToFixedQuaternion().ToEulerAngles();
+    }
 
     protected virtual void DrawBaseAttr() {
         EditorGUILayout.PropertyField(autoScaleToColliderSize);
+        EditorGUILayout.PropertyField(entityInitPos);
+        EditorGUILayout.PropertyField(entityInitRotation);
         EditorGUILayout.PropertyField(layer);
         EditorGUILayout.PropertyField(isTrigger);
         EditorGUILayout.PropertyField(materialSo);

@@ -1,5 +1,4 @@
-﻿using System;
-using BEPUphysics.CollisionRuleManagement;
+﻿using BEPUphysics.CollisionRuleManagement;
 using FixMath.NET;
 using UnityEngine;
 using FVector3 = BEPUutilities.Vector3;
@@ -27,6 +26,9 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
     [SerializeField] protected BEPU_LayerDefine layer = BEPU_LayerDefine.Default;
 
     [SerializeField] protected bool autoScaleToColliderSize = false;
+    [SerializeField] protected FVector3 entityInitPos = FVector3.Zero;
+    [SerializeField] protected FVector3 entityInitRotation = FVector3.Zero;
+
     private CollisionRule _defaultCollisionRule = CollisionRule.Defer;
 
 
@@ -38,9 +40,9 @@ public abstract class BEPU_BaseColliderMono : MonoBehaviour {
     }
 
     protected virtual void SyncRenderPosAndRotationToEntity() {
-        TODO 这边不能使用Transform上序列化的值直接赋给定点物理世界, 可能造成差异, 需要序列化改造!!!
-        entity.Position = transform.position.ToFixedVector3() + center;
-        entity.Orientation = transform.rotation.ToFixedQuaternion();
+        // TODO 这边不能使用Transform上序列化的值直接赋给定点物理世界, 可能造成差异, 需要序列化改造!!!
+        entity.Position = entityInitPos + center;
+        entity.Orientation = entityInitRotation.ToQuaternion();
     }
 
     public BEPU_CustomEntity entity => colliderLogic.entity;
