@@ -58,6 +58,8 @@ public partial class RenderObject {
     }
 
 
+    2025年6月12日23:38:35  工作断点, 处理此处的定点数序列化值
+    
     [SerializeField] private Vector3 center = Vector3.zero;
     [SerializeField] protected bool isTrigger;
     [SerializeField] protected BEPU_PhysicMaterialSO materialSo;
