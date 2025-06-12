@@ -6,19 +6,31 @@ namespace BEPUutilities
     /// <summary>
     /// Provides XNA-like 3D vector math.
     /// </summary>
+#if UNITY_EDITOR
+    [System.Serializable]
+#endif
     public struct Vector3 : IEquatable<Vector3>
     {
         /// <summary>
         /// X component of the vector.
         /// </summary>
+#if UNITY_EDITOR
+        [UnityEngine.SerializeField]
+#endif
         public Fix64 X;
         /// <summary>
         /// Y component of the vector.
         /// </summary>
+#if UNITY_EDITOR
+        [UnityEngine.SerializeField]
+#endif
         public Fix64 Y;
         /// <summary>
         /// Z component of the vector.
         /// </summary>
+#if UNITY_EDITOR
+        [UnityEngine.SerializeField]
+#endif
         public Fix64 Z;
 
         /// <summary>

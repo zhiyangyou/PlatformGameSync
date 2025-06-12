@@ -4,13 +4,18 @@ using System.Runtime.CompilerServices;
 
 namespace FixMath.NET
 {
-
+#if UNITY_EDITOR
+	[System.Serializable]
+#endif
     /// <summary>
     /// Represents a Q31.32 fixed-point number.
     /// </summary>
     public partial struct Fix64 : IEquatable<Fix64>, IComparable<Fix64> {
 		// Field is public and mutable to allow serialization by XNA Content Pipeline
-        public long RawValue;
+#if UNITY_EDITOR
+	    [UnityEngine.SerializeField]
+#endif
+		public long RawValue;
 
         // Precision of this type is 2^-32, that is 2,3283064365386962890625E-10
         public static readonly decimal Precision = (decimal)(new Fix64(1L));//0.00000000023283064365386962890625m;

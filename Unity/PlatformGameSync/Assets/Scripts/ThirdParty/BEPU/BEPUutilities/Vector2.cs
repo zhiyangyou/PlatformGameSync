@@ -3,18 +3,28 @@ using System;
 
 namespace BEPUutilities
 {
+#if UNITY_EDITOR
+    [System.Serializable]
+#endif
     /// <summary>
     /// Provides XNA-like 2D vector math.
     /// </summary>
     public struct Vector2 : IEquatable<Vector2>
     {
+
         /// <summary>
         /// X component of the vector.
         /// </summary>
+#if UNITY_EDITOR
+        [UnityEngine.SerializeField]
+#endif
         public Fix64 X;
         /// <summary>
         /// Y component of the vector.
         /// </summary>
+#if UNITY_EDITOR
+        [UnityEngine.SerializeField]
+#endif
         public Fix64 Y;
 
         /// <summary>
