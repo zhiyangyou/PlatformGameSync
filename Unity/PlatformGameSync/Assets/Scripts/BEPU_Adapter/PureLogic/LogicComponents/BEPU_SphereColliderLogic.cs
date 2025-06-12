@@ -6,7 +6,7 @@ using FixMath.NET;
 public class BEPU_SphereColliderLogic : BEPU_BaseColliderLogic {
     #region 属性和字段
 
-    public Fix64 Radiu = (Fix64)0.5f;
+    public Fix64 Radiu = Fix64.HalfOne;
 
     #endregion
 
@@ -15,6 +15,6 @@ public class BEPU_SphereColliderLogic : BEPU_BaseColliderLogic {
 
 
     protected override void SyncExtendAttrsToEntity() {
-        ((SphereShape)entityShape).Radius = Radiu;
+        ((SphereShape)entityShape).Radius = this.Radiu;
     }
 }

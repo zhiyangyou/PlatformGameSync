@@ -6,7 +6,7 @@ using FixMath.NET;
 public class BEPU_CapsuleColliderLogic : BEPU_BaseColliderLogic {
     #region 属性和字段
 
-    public Fix64 Radiu = (Fix64)0.5f;
+    public Fix64 Radiu = Fix64.HalfOne;
     public Fix64 Length = Fix64.One;
 
     #endregion
