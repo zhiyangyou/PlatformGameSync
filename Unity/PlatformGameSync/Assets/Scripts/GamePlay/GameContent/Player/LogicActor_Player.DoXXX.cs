@@ -35,12 +35,21 @@ public partial class LogicActor_Player {
         groundDetected = ret2 || ret1;
     }
 
+    public void SetXVelocityByXInput() {
+        SetXVelocity(moveSpeed * xInput.Value.X);
+    }
+
     public void SetXVelocity(Fix64 v) {
         var oldV = BaseColliderLogic.entity.LinearVelocity;
         oldV.X = v;
         BaseColliderLogic.entity.LinearVelocity = oldV;
         HandleFlip(v);
     }
+
+    public void SetYVelocityByJumpForce() {
+        SetYVelocity(jumpForce);
+    }
+
 
     public void SetYVelocity(Fix64 v) {
         var oldV = BaseColliderLogic.entity.LinearVelocity;

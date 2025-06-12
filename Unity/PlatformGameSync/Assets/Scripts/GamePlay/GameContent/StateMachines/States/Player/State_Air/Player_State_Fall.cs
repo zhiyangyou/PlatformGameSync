@@ -1,6 +1,6 @@
 ﻿using GamePlay.StateMachine;
 
-public class Player_State_Fall: Player_State_Base {
+public class Player_State_Fall: Player_State_Air {
     public Player_State_Fall(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName)
         : base(LogicActor_Player.kStrBool_JumpFall,logicPlayer, renderPlayer, stateMachine, stateName) {
         

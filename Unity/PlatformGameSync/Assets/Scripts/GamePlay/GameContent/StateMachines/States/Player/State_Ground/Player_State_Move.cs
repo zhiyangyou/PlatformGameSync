@@ -12,10 +12,10 @@ public class Player_State_Move : Player_State_Ground {
 
     public override void LogicFrameUpdate() {
         base.LogicFrameUpdate();
-        if (LogicPlayer.xInput.Value.x == 0f) {
+        if (LogicPlayer.xInput.Value.X == Fix64.Zero) {
             this._stateMachine.ChangeState(LogicPlayer.StateIdle);
         }
-        LogicPlayer.SetXVelocity(LogicPlayer.moveSpeed * (Fix64)LogicPlayer.xInput.Value.x);
+        LogicPlayer.SetXVelocityByXInput();
     }
 
     public override void Exit() {

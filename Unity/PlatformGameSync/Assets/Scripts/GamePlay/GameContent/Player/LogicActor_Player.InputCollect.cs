@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using WorldSpace.GameWorld;
 using UVector2 = UnityEngine.Vector2;
+using FVector2 = BEPUutilities.Vector2;
 
 
 public class FrameInput<T> : IDisposable where T : struct {
@@ -50,16 +51,16 @@ public class FrameInput<T> : IDisposable where T : struct {
 
 public partial class LogicActor_Player {
     public FrameInput<bool> jumpPressed;
-    public FrameInput<UVector2> xInput;
-    
+    public FrameInput<FVector2> xInput;
+
     private void InitInputSystem() {
         InputSystem = new InputSystem_Player();
         InputSystem.Enable();
 
 
         xInput = new(InputSystem.Player.Movement, _nextFrameTimer, NextFrameTimeUniqueKeys.XInputKey);
-        xInput.onStart = context => { xInput.Value = context.ReadValue<UVector2>(); };
-        xInput.onCancel = _ => { xInput.Value = UVector2.zero; };
+        xInput.onStart = context => { xInput.Value = context.ReadValue<UVector2>().ToFixedVector2(); };
+        xInput.onCancel = _ => { xInput.Value = FVector2.Zero; };
 
         jumpPressed = new(InputSystem.Player.Jump, _nextFrameTimer, NextFrameTimeUniqueKeys.JumpKey);
         jumpPressed.onStart = _ => jumpPressed.Value = true;

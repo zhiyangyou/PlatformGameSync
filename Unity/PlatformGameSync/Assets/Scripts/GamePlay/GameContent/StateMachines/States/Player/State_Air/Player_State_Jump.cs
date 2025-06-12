@@ -1,12 +1,13 @@
 ﻿using GamePlay.StateMachine;
 
-public class Player_State_Jump : Player_State_Base {
+public class Player_State_Jump : Player_State_Air {
     public Player_State_Jump(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName)
         : base(LogicActor_Player.kStrBool_JumpFall, logicPlayer, renderPlayer, stateMachine, stateName) { }
 
     protected override void OnEnter() {
         base.OnEnter();
-        LogicPlayer.SetYVelocity(LogicPlayer.jumpForce);
+        LogicPlayer.SetYVelocityByJumpForce();
+     
     }
 
     public override void LogicFrameUpdate() {

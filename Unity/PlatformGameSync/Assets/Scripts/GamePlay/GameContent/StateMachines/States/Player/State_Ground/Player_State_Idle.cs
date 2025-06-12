@@ -1,4 +1,5 @@
-﻿using GamePlay.StateMachine;
+﻿using FixMath.NET;
+using GamePlay.StateMachine;
 
 public class Player_State_Idle : Player_State_Ground {
     #region 属性和字段
@@ -17,7 +18,7 @@ public class Player_State_Idle : Player_State_Ground {
 
     public override void LogicFrameUpdate() {
         base.LogicFrameUpdate();
-        if (this.LogicPlayer.xInput.Value.x != 0f) {
+        if (this.LogicPlayer.xInput.Value.X != Fix64.Zero) {
             this._stateMachine.ChangeState(LogicPlayer.StateMove);
         }
     }

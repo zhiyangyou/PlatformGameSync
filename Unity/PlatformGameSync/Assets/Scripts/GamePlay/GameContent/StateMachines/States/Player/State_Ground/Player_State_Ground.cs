@@ -14,6 +14,7 @@ public class Player_State_Ground : Player_State_Base {
     }
 
     public override void LogicFrameUpdate() {
+        base.LogicFrameUpdate();
         if (PhysicsEntity.LinearVelocity.Y < Fix64.Zero && this.LogicPlayer.groundDetected == false)
             _stateMachine.ChangeState(LogicPlayer.StateFall);
 
