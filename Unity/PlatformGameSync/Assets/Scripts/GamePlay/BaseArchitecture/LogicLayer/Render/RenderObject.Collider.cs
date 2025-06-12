@@ -83,15 +83,16 @@ public partial class RenderObject {
 
 #if UNITY_EDITOR
     protected virtual void SyncRenderPosAndRotationToEntity() {
+        if (baseColliderLogic  == null) {
+            return;
+        }
         baseColliderLogic.entity.Position = (transform.position + center).ToFixedVector3();
         baseColliderLogic.entity.Orientation = transform.rotation.ToFixedQuaternion();
     }
 
-    private void OnValidate() {
-        if (!Application.isPlaying) {
-            SyncAllAttrsToEntity();
-            SyncRenderPosAndRotationToEntity();
-        }
+    protected virtual void OnValidate() {
+        SyncAllAttrsToEntity();
+        SyncRenderPosAndRotationToEntity();
     }
 #endif
 

@@ -2,7 +2,7 @@
 
 namespace WorldSpace.GameWorld {
     public class RoleModel {
-        public bool IsLocalPlayer => true;
+        public bool IsLocalPlayer;
         public int RoleType;
     }
 
@@ -14,6 +14,7 @@ namespace WorldSpace.GameWorld {
             listRoleModels = new();
             var selfPlayer = new RoleModel() {
                 RoleType = 1000,
+                IsLocalPlayer = true
             };
             listRoleModels.Add(selfPlayer);
         }

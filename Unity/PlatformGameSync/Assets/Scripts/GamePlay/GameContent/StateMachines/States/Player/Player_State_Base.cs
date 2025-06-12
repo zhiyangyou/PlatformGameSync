@@ -3,29 +3,32 @@ using GamePlay.StateMachine;
 using UnityEngine;
 
 public class Player_State_Base : EntityState {
-    protected const string kStrBool_Idle = "isIdle";
-    protected const string kStrBool_Move = "isMove";
-    protected const string kStrBool_JumpFall = "isJumpFall";
-    protected const string kStrFloat_yVelocity = "yVelocity";
-
     protected LogicActor_Player LogicPlayer;
     protected RenderObject_Player RenderPlayer;
     protected InputSystem_Player InputPlayer;
     protected Animator Animator;
+    protected BEPU_CustomEntity PhysicsEntity;
+    protected string BoolTriggerName;
 
-    public Player_State_Base(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName) : base(stateMachine, stateName) {
+    public Player_State_Base(string boolTriggerName, LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName) : base(stateMachine, stateName) {
+        BoolTriggerName = boolTriggerName;
         LogicPlayer = logicPlayer;
         RenderPlayer = renderPlayer;
         InputPlayer = logicPlayer.InputSystem;
         Animator = renderPlayer.Animator;
+        PhysicsEntity = LogicPlayer.BaseColliderLogic.entity;
     }
 
 
-    protected override void OnEnter() { }
+    protected override void OnEnter() {
+        Animator.SetBool(BoolTriggerName, true);
+    }
 
     public override void LogicFrameUpdate() {
-        Animator.SetFloat(kStrFloat_yVelocity, (float)LogicPlayer.BaseColliderLogic.entity.LinearVelocity.Y);
+        Animator.SetFloat(LogicActor_Player.kStrFloat_yVelocity, (float)PhysicsEntity.LinearVelocity.Y);
     }
 
-    public override void Exit() { }
+    public override void Exit() {
+        Animator.SetBool(BoolTriggerName, false);
+    }
 }

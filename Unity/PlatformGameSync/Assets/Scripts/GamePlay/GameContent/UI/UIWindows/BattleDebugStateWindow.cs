@@ -8,10 +8,13 @@
 
 using UnityEngine.UI;
 using UnityEngine;
+using WorldSpace.GameWorld;
 using ZMUIFrameWork;
 
 public class BattleDebugStateWindow : WindowBase {
     public BattleDebugStateWindowUIComponent uiCompt = new BattleDebugStateWindowUIComponent();
+
+    private LogicActor_Player _playerActor = null;
 
     #region 声明周期函数
 
@@ -24,6 +27,7 @@ public class BattleDebugStateWindow : WindowBase {
     //物体显示时执行
     public override void OnShow() {
         base.OnShow();
+        _playerActor = WorldManager.GetWorld<GameWorld>().GetExitsLogicCtrl<HeroLogicCtrl>().LocalPlayer;
     }
 
     //物体隐藏时执行
@@ -38,6 +42,7 @@ public class BattleDebugStateWindow : WindowBase {
 
     public override void OnUpdate() {
         uiCompt.PhysicsEntryCountText.text = $"PhysicsEntryCount:{BEPU_PhysicsManagerUnity.Instance.EntryCount}";
+        uiCompt.PlayerStateText.text = $"PlayerState:{_playerActor.stateMachine.currentState.GetType().Name}";
     }
 
     #endregion

@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using ZM.ZMAsset;
 
 namespace WorldSpace.GameWorld {
     public class HeroLogicCtrl : ILogicBehaviour {
+        public LogicActor_Player LocalPlayer {
+            get {
+                
+                return _listLogicPlayers.First(player => player.IsLocalActor);
+            }
+        }
         public List<LogicActor_Player> _listLogicPlayers = null;
 
         private BattleDataMgr _battleData = null;

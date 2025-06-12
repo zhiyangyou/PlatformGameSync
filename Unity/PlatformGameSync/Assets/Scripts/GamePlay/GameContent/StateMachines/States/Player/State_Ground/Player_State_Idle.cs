@@ -6,12 +6,13 @@ public class Player_State_Idle : Player_State_Ground {
     #endregion
 
 
-    public Player_State_Idle(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName) : base(logicPlayer, renderPlayer, stateMachine, stateName) { }
+    public Player_State_Idle(LogicActor_Player logicPlayer, RenderObject_Player renderPlayer, StateMachine stateMachine, string stateName)
+        : base(LogicActor_Player.kStrBool_Idle, logicPlayer, renderPlayer, stateMachine, stateName) { }
 
     protected override void OnEnter() {
         base.OnEnter();
-        Animator.SetBool(kStrBool_Idle, true);
-        LogicPlayer.DoIdle();
+
+        LogicPlayer.SetXVelocity(0);
     }
 
     public override void LogicFrameUpdate() {
@@ -23,6 +24,5 @@ public class Player_State_Idle : Player_State_Ground {
 
     public override void Exit() {
         base.Exit();
-        Animator.SetBool(kStrBool_Idle, false);
     }
 }

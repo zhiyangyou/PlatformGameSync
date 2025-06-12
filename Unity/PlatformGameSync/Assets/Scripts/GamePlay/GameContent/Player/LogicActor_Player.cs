@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using GamePlay.StateMachine;
-using UnityEngine;
+using BEPUphysics.CollisionShapes.ConvexShapes;
 using WorldSpace.GameWorld;
-using UVector2 = UnityEngine.Vector2;
 
 public partial class LogicActor_Player {
     RenderObject_Player _renderPlayer => RenderObject as RenderObject_Player;
@@ -14,6 +9,9 @@ public partial class LogicActor_Player {
 
     private NextFrameTimer _nextFrameTimer;
 
+    public BEPU_CustomEntity PhysicsEntity { get; private set; } = null;
+    public BoxShape BoxShape { get; private set; } = null;
+
     private void InitPlayeColliderAttrs() { }
 
 
@@ -21,6 +19,8 @@ public partial class LogicActor_Player {
         this.ColliderType = BEPU_ColliderType.Box;
         base.OnCreate();
         _nextFrameTimer = WorldManager.GetWorld<GameWorld>().nextFrameTimer;
+        PhysicsEntity = BaseColliderLogic.entity;
+        BoxShape = BaseColliderLogic.entityShape as BoxShape;
         InitPlayeColliderAttrs();
         InitInputSystem();
         InitStateMachine();

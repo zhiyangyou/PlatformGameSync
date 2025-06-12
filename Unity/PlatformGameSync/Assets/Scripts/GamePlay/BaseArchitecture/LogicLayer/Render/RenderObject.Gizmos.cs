@@ -21,7 +21,7 @@ public partial class RenderObject {
         }
     }
 
-    private void OnDrawGizmos() {
+    protected virtual void OnDrawGizmos() {
         if (baseColliderLogic != null) {
             switch (baseColliderType) {
                 case BEPU_ColliderType.None:
