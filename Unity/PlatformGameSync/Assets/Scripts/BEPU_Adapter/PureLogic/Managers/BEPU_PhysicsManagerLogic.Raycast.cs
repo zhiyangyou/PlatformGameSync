@@ -58,7 +58,7 @@ public abstract partial class BEPU_PhysicsManagerLogic<T> {
         IList<BEPU_RayCastReuslt> baseColliderLogics) {
         // 标准化方向向量
         Vector3 normalizedDir = direction;
-        if (normalizedDir.LengthSquared() != 1) {
+        if (normalizedDir.LengthSquared() != Fix64.One) {
             normalizedDir.Normalize();
         }
 
