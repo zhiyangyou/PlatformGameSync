@@ -41,7 +41,6 @@ public abstract partial class BEPU_BaseColliderMono : MonoBehaviour {
     }
 
     protected virtual void SyncRenderPosAndRotationToEntity() {
-        // TODO 这边不能使用Transform上序列化的值直接赋给定点物理世界, 可能造成差异, 需要序列化改造!!!
         entity.Position = entityInitPos + center;
         entity.Orientation = entityInitRotation.ToQuaternion();
     }

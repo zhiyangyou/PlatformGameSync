@@ -21,8 +21,6 @@ public partial class BEPU_BaseColliderMono {
             serializedMono.Update();
             serializedMono.FindProperty(nameof(entityInitPos)).boxedValue = transform.position.ToFixedVector3();
             serializedMono.FindProperty(nameof(entityInitRotation)).boxedValue = transform.rotation.ToFixedQuaternion().ToEulerAngles();
-            // entityInitPos = transform.position.ToFixedVector3();
-            // entityInitRotation = transform.rotation.ToFixedQuaternion().ToEulerAngles();
             serializedMono.ApplyModifiedProperties();
         }
     }

@@ -79,15 +79,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ColliderTypeForEditorTest: 3
-  center: {x: 0, y: -0.24, z: 0}
+  center:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: -687194752
+    Z:
+      RawValue: 0
   isTrigger: 0
   materialSo: {fileID: 0}
   entityType: 1
-  mass: 1
-  drag: 0
-  angularDrag: 0.05
+  mass:
+    RawValue: 4294967296
+  drag:
+    RawValue: 0
+  angularDrag:
+    RawValue: 0
+  gravityScale:
+    RawValue: 15032385536
   useGravity: 1
-  gravityScale: 4
   freezePos_X: 0
   freezePos_Y: 0
   freezePos_Z: 1
@@ -95,6 +105,20 @@ MonoBehaviour:
   freezeRotation_Y: 1
   freezeRotation_Z: 1
   layer: 0
+  entityInitPos:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  entityInitRotation:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   capsuleLen: 1.25
   capsuleRadiu: 0.56
   animator: {fileID: 3298360874542739958}

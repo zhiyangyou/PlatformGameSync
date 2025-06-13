@@ -1,8 +1,9 @@
 ﻿using System;
 using BEPUphysics.CollisionRuleManagement;
 using FixMath.NET;
-using GamePlay;
 using UnityEngine;
+using BEPUutilities;
+using FVector3 = BEPUutilities.Vector3;
 
 
 public partial class RenderObject {
@@ -58,19 +59,19 @@ public partial class RenderObject {
     }
 
 
-    2025年6月12日23:38:35  工作断点, 处理此处的定点数序列化值
-    
-    [SerializeField] private Vector3 center = Vector3.zero;
+    // 2025年6月12日23:38:35  工作断点, 处理此处的定点数序列化值
+
+    [SerializeField] private FVector3 center = FVector3.Zero;
     [SerializeField] protected bool isTrigger;
     [SerializeField] protected BEPU_PhysicMaterialSO materialSo;
 
     // 刚体属性
     [SerializeField] protected BEPU_EEntityType entityType = BEPU_EEntityType.Dyanmic;
-    [SerializeField] protected float mass = 1f;
-    [SerializeField] [Range(0f, 1f)] protected float drag = 0f; // 移动时空气阻力
-    [SerializeField] protected float angularDrag = 0f; // 旋转时的阻力
+    [SerializeField] protected Fix64 mass = Fix64.One;
+    [SerializeField] protected Fix64 drag = Fix64.Zero; // 移动时空气阻力
+    [SerializeField] protected Fix64 angularDrag = Fix64.Zero; // 旋转时的阻力
+    [SerializeField] protected Fix64 gravityScale = Fix64.One; // 重力缩放值
     [SerializeField] protected bool useGravity = true; // 使用重力
-    [SerializeField] protected float gravityScale = 1f; // 使用重力
     [SerializeField] protected bool freezePos_X = false;
     [SerializeField] protected bool freezePos_Y = false;
     [SerializeField] protected bool freezePos_Z = false;
@@ -79,24 +80,14 @@ public partial class RenderObject {
     [SerializeField] protected bool freezeRotation_Z = false;
     [SerializeField] protected BEPU_LayerDefine layer = BEPU_LayerDefine.Default;
 
+
+    [SerializeField] protected FVector3 entityInitPos = FVector3.Zero;
+    [SerializeField] protected FVector3 entityInitRotation = FVector3.Zero;
+
     private CollisionRule _defaultCollisionRule = CollisionRule.Defer;
 
     #endregion
 
-#if UNITY_EDITOR
-    protected virtual void SyncRenderPosAndRotationToEntity() {
-        if (baseColliderLogic  == null) {
-            return;
-        }
-        baseColliderLogic.entity.Position = (transform.position + center).ToFixedVector3();
-        baseColliderLogic.entity.Orientation = transform.rotation.ToFixedQuaternion();
-    }
-
-    protected virtual void OnValidate() {
-        SyncAllAttrsToEntity();
-        SyncRenderPosAndRotationToEntity();
-    }
-#endif
 
     public virtual void SyncExtendAttrsToEntity() { }
 
@@ -117,16 +108,16 @@ public partial class RenderObject {
         baseColliderLogic.entity.Gravity = useGravity
             ? (BEPU_PhysicsManagerUnity.Instance.SpaceGravity * (Fix64)gravityScale)
             : BEPUutilities.Vector3.Zero; // null代表使用默认的重力加速度值
-        baseColliderLogic.entity.freezePos_X = this.freezePos_X;
-        baseColliderLogic.entity.freezePos_Y = this.freezePos_Y;
-        baseColliderLogic.entity.freezePos_Z = this.freezePos_Z;
-        baseColliderLogic.entity.freezeRotation_X = this.freezeRotation_X;
-        baseColliderLogic.entity.freezeRotation_Y = this.freezeRotation_Y;
-        baseColliderLogic.entity.freezeRotation_Z = this.freezeRotation_Z;
+        baseColliderLogic.entity.freezePos_X = freezePos_X;
+        baseColliderLogic.entity.freezePos_Y = freezePos_Y;
+        baseColliderLogic.entity.freezePos_Z = freezePos_Z;
+        baseColliderLogic.entity.freezeRotation_X = freezeRotation_X;
+        baseColliderLogic.entity.freezeRotation_Y = freezeRotation_Y;
+        baseColliderLogic.entity.freezeRotation_Z = freezeRotation_Z;
         baseColliderLogic.entity.Layer = layer;
         baseColliderLogic.entity.CollisionInformation.CollisionRules.Group = BEPU_PhysicsManagerUnity.Instance.GetGroupByLayer(this.layer);
         if (LogicObject != null) {
-            LogicObject.PhysicsEntryCenter = this.center.ToFixedVector3();
+            LogicObject.PhysicsEntryCenter = center;
         }
         baseColliderLogic.SyncAttrsToEntity();
         ProcessEditorCollider();
