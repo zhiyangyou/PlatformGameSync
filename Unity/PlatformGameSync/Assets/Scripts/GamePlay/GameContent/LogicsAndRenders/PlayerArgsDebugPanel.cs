@@ -13,9 +13,9 @@ public class PlayerArgsDebugPanel : MonoBehaviour {
     public bool groundDetected = false;
     public bool wallDetected = false;
     public int facingDir = 1;
-    public Vector2 xInput ;
-    public Vector2 yInput;
-    public bool jumpPressed ;
+    public float xInput;
+    public float yInput;
+    public bool jumpPressed;
 
     private RenderObject_Player _renderPlayer = null;
 
@@ -51,8 +51,8 @@ public class PlayerArgsDebugPanel : MonoBehaviour {
         this.wallDetected = logicPlayer.wallDetected;
         this.moveSpeedAirRate = (float)logicPlayer.moveSpeedAirRate;
         this.facingDir = (int)((float)logicPlayer.facingDir);
-        this.xInput = logicPlayer.xInput.Value.ToUnityVector2();
-        this.yInput = logicPlayer.yInput.Value.ToUnityVector2();
-        this.jumpPressed = logicPlayer.jumpPressed.Value;
+        this.xInput = (float)logicPlayer.xInput;
+        this.yInput = (float)logicPlayer.yInput;
+        this.jumpPressed = logicPlayer.jumpPressed;
     }
 }

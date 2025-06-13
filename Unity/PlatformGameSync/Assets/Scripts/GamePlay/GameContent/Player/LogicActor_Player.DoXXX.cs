@@ -74,7 +74,7 @@ public partial class LogicActor_Player {
     }
 
     public void SetXVelocityByXInput(Fix64 rate) {
-        SetVelocity_X(moveSpeed * xInput.Value.X * rate);
+        SetVelocity_X(moveSpeed * xInput * rate);
     }
 
     public void SetVelocity_X(Fix64 v) {

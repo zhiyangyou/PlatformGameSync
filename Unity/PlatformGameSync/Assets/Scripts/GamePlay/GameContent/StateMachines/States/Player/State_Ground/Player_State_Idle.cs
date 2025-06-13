@@ -20,10 +20,16 @@ public class Player_State_Idle : Player_State_Ground {
         base.LogicFrameUpdate();
         LogicPlayer.SetVelocity_X(Fix64.Zero);
 
-        if (LogicPlayer.xInput.Value.X == LogicPlayer.facingDir && LogicPlayer.wallDetected)
+        // 输入方向和人物朝向一致, 那么直接reture
+        var inputDirSameToFacingDir =
+            (LogicPlayer.xInput > Fix64.Zero && LogicPlayer.facingDir > Fix64.Zero)
+            ||
+            (LogicPlayer.xInput < Fix64.Zero && LogicPlayer.facingDir < Fix64.Zero);
+
+        if (inputDirSameToFacingDir && LogicPlayer.wallDetected)
             return;
 
-        if (this.LogicPlayer.xInput.Value.X != Fix64.Zero) {
+        if (this.LogicPlayer.xInput != Fix64.Zero) {
             this._stateMachine.ChangeState(LogicPlayer.StateMove);
         }
     }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player_State_Base : EntityState {
     protected LogicActor_Player LogicPlayer;
     protected RenderObject_Player RenderPlayer;
-    protected InputSystem_Player InputPlayer;
     protected Animator Animator;
     protected BEPU_CustomEntity PhysicsEntity;
     protected string BoolTriggerName;
@@ -14,7 +13,6 @@ public class Player_State_Base : EntityState {
         BoolTriggerName = boolTriggerName;
         LogicPlayer = logicPlayer;
         RenderPlayer = renderPlayer;
-        InputPlayer = logicPlayer.InputSystem;
         Animator = renderPlayer.Animator;
         PhysicsEntity = LogicPlayer.BaseColliderLogic.entity;
     }

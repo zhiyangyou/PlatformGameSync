@@ -15,7 +15,7 @@ public class Player_State_Air : Player_State_Base {
 
     public override void LogicFrameUpdate() {
         base.LogicFrameUpdate();
-        if (LogicPlayer.xInput.Value.X != Fix64.Zero) {
+        if (LogicPlayer.xInput != Fix64.Zero) {
             LogicPlayer.SetXVelocityByXInput(LogicPlayer.moveSpeedAirRate);
         }
     }

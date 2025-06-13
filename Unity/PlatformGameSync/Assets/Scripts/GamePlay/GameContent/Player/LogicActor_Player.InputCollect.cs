@@ -1,4 +1,5 @@
 ﻿using System;
+using FixMath.NET;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using WorldSpace.GameWorld;
@@ -6,73 +7,48 @@ using UVector2 = UnityEngine.Vector2;
 using FVector2 = BEPUutilities.Vector2;
 
 
-public class FrameInput<T> : IDisposable where T : struct {
-    public T Value;
-    public int StartFrameCount;
-
-
-    private NextFrameTimer _nextFrameTimer;
-    private int _uniqueKey;
-    private InputAction _inputAction;
-    public Action<InputAction.CallbackContext> onStart;
-    public Action<InputAction.CallbackContext> onCancel;
-
-    public FrameInput(
-        InputAction inputAction,
-        NextFrameTimer nextFrameTimer,
-        int uniqueKey) {
-        _nextFrameTimer = nextFrameTimer;
-        _uniqueKey = uniqueKey;
-        _inputAction = inputAction;
-        inputAction.started += this.OnStarted;
-        inputAction.canceled += this.OnCancle;
-    }
-
-    public void OnStarted(InputAction.CallbackContext context) {
-        StartFrameCount = GameWorld.LogicFrameCount;
-        _nextFrameTimer.ClearKey(_uniqueKey);
-        onStart.Invoke(context);
-    }
-
-    public void OnCancle(InputAction.CallbackContext context) {
-        if (GameWorld.LogicFrameCount == StartFrameCount) {
-            _nextFrameTimer.CallOnNextFrame(_uniqueKey, () => { onCancel.Invoke(context); });
-        }
-        else {
-            onCancel.Invoke(context);
-        }
-    }
-
-    public void Dispose() {
-        _inputAction.started -= this.OnStarted;
-        _inputAction.canceled -= this.OnCancle;
-    }
-}
-
 public partial class LogicActor_Player {
-    public FrameInput<bool> jumpPressed;
-    public FrameInput<FVector2> xInput;
-    public FrameInput<FVector2> yInput;
+    public bool jumpPressed;
+    public Fix64 xInput; // 1:前进  0不动  -1:后退
+    public Fix64 yInput; // 1:上   0:不动  -1:下
+
+    public FrameInput Input_W;
+    public FrameInput Input_A;
+    public FrameInput Input_S;
+    public FrameInput Input_D;
+    public FrameInput Input_Space;
 
     private void InitInputSystem() {
-        InputSystem = new InputSystem_Player();
-        InputSystem.Enable();
+        inputSystem2 = WorldManager.GetWorld<GameWorld>().inputSystem2;
+
+        Input_W = new FrameInput(false, KeyCode.W, inputSystem2, _nextFrameTimer);
+        Input_A = new FrameInput(false, KeyCode.A, inputSystem2, _nextFrameTimer);
+        Input_S = new FrameInput(false, KeyCode.S, inputSystem2, _nextFrameTimer);
+        Input_D = new FrameInput(false, KeyCode.D, inputSystem2, _nextFrameTimer);
+        Input_Space = new FrameInput(true, KeyCode.Space, inputSystem2, _nextFrameTimer);
 
 
-        xInput = new(InputSystem.Player.Movement, _nextFrameTimer, NextFrameTimeUniqueKeys.XInputKey);
-        xInput.onStart = context => { xInput.Value = context.ReadValue<UVector2>().ToFixedVector2(); };
-        xInput.onCancel = _ => { xInput.Value = FVector2.Zero; };
-        
-        yInput = new(InputSystem.Player.Movement, _nextFrameTimer, NextFrameTimeUniqueKeys.XInputKey);
-        yInput.onStart = context => { yInput.Value = context.ReadValue<UVector2>().ToFixedVector2(); };
-        yInput.onCancel = _ => { yInput.Value = FVector2.Zero; };
+        Input_W.onDown = () => { yInput = Fix64.One; };
+        Input_W.onUp = () => { yInput = Fix64.Zero; };
 
-        jumpPressed = new(InputSystem.Player.Jump, _nextFrameTimer, NextFrameTimeUniqueKeys.JumpKey);
-        jumpPressed.onStart = _ => jumpPressed.Value = true;
-        jumpPressed.onCancel = _ => jumpPressed.Value = false;
+        Input_S.onDown = () => { yInput = Fix64.MinusOne; };
+        Input_S.onUp = () => { yInput = Fix64.Zero; };
+
+        Input_A.onDown = () => { xInput = Fix64.MinusOne; };
+        Input_A.onUp = () => { yInput = Fix64.Zero; };
+
+        Input_D.onDown = () => { xInput = Fix64.One; };
+        Input_D.onUp = () => { yInput = Fix64.Zero; };
+
+        Input_Space.onDown = () => { jumpPressed = true; };
+        Input_Space.onUp = () => { jumpPressed = false; };
     }
 
     void DisposeInputActions() {
-        jumpPressed.Dispose();
+        Input_W.Dispose();
+        Input_A.Dispose();
+        Input_S.Dispose();
+        Input_D.Dispose();
+        Input_Space.Dispose();
     }
 }

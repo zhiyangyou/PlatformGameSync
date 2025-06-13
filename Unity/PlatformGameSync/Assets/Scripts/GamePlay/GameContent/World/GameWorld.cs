@@ -14,6 +14,7 @@ namespace WorldSpace.GameWorld {
 
         private Fix64 _lastUpdateTime;
 
+        public InputSystem2 inputSystem2 { get; private set; }
         public NextFrameTimer nextFrameTimer { get; private set; }
 
         public static int LogicFrameCount = 0;
@@ -23,6 +24,7 @@ namespace WorldSpace.GameWorld {
         #region life-cycle
 
         public override void OnCreate() {
+            inputSystem2 = new();
             nextFrameTimer = new(() => LogicFrameCount);
             LogicFrameCount = 0;
             _accLogicRealTimeS = Fix64.Zero;
@@ -33,6 +35,7 @@ namespace WorldSpace.GameWorld {
 
 
         public override void OnUpdate() {
+            inputSystem2.InputUpdate();
             _accLogicRealTimeS += (Fix64)Time.deltaTime;
 
             // 当前逻辑帧时间大于下一个逻辑帧时间, 需要更新逻辑帧
@@ -48,6 +51,8 @@ namespace WorldSpace.GameWorld {
         }
 
         public override void OnDestroy() {
+            inputSystem2.ClearLisntner();
+            inputSystem2 = null;
             nextFrameTimer.Dispose();
             nextFrameTimer = null;
             base.OnDestroy();

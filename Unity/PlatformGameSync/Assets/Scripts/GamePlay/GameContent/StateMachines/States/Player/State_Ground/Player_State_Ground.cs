@@ -18,7 +18,7 @@ public class Player_State_Ground : Player_State_Base {
         if (PhysicsEntity.LinearVelocity.Y < Fix64.Zero && this.LogicPlayer.groundDetected == false)
             _stateMachine.ChangeState(LogicPlayer.StateFall);
 
-        if (LogicPlayer.jumpPressed.Value) {
+        if (LogicPlayer.jumpPressed) {
             _stateMachine.ChangeState(LogicPlayer.StateJump);
         }
     }

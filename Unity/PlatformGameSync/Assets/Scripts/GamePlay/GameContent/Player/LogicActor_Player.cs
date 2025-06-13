@@ -6,7 +6,7 @@ public partial class LogicActor_Player {
     RenderObject_Player _renderPlayer => RenderObject as RenderObject_Player;
     public bool IsLocalActor { get; private set; }
 
-    public InputSystem_Player InputSystem { get; private set; }
+    public InputSystem2 inputSystem2 { get; private set; }
 
     private NextFrameTimer _nextFrameTimer;
 
@@ -34,7 +34,6 @@ public partial class LogicActor_Player {
 
     public override void OnDestory() {
         DisposeInputActions();
-        InputSystem.Disable();
         _nextFrameTimer = null;
         base.OnDestory();
     }
