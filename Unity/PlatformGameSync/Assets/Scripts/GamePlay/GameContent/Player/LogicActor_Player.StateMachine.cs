@@ -11,6 +11,7 @@ public partial class LogicActor_Player : LogicActor {
     public Player_State_Jump StateJump { get; private set; }
     public Player_State_Fall StateFall { get; private set; }
     public Player_State_WallSlide StateWallSlide { get; private set; }
+    public Player_State_WallJump StateWallJump { get; private set; }
 
     public const string kStrBool_Idle = "isIdle";
     public const string kStrBool_Move = "isMove";
@@ -26,6 +27,7 @@ public partial class LogicActor_Player : LogicActor {
         StateJump = new(this, _renderPlayer, stateMachine);
         StateFall = new(this, _renderPlayer, stateMachine);
         StateWallSlide = new(this, _renderPlayer, stateMachine);
+        StateWallJump = new(this, _renderPlayer, stateMachine);
         stateMachine.Init(StateIdle);
     }
 

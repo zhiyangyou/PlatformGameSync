@@ -15,11 +15,10 @@ namespace GamePlay.StateMachine {
 
         public void Enter() {
             OnEnter();
-            LogicFrameUpdate(); // Enter后立即更新一帧, 避免迟滞
         }
 
         protected abstract void OnEnter();
-        
+
         public abstract void LogicFrameUpdate();
 
         public abstract void Exit();

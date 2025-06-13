@@ -15,19 +15,21 @@ public class Player_State_WallSlide : Player_State_Base {
         
         HandlerWallSlide();
 
+        if (LogicPlayer.jumpPressed.Value) {
+            _stateMachine.ChangeState(this.LogicPlayer.StateWallJump);
+        }
+        
         if (!LogicPlayer.wallDetected) {
             _stateMachine.ChangeState(this.LogicPlayer.StateFall);
         }
-        
+
         if (LogicPlayer.groundDetected) {
             _stateMachine.ChangeState(this.LogicPlayer.StateIdle);
             LogicPlayer.Flip();
         }
-      
     }
 
     private void HandlerWallSlide() {
-        
         // LogicPlayer.SetVelocity_X(Fix64.Zero); // 沿着墙体下滑, 避免X轴偏移
         // 用户按住方向: 下
         if (LogicPlayer.yInput.Value.Y < Fix64.Zero) {
@@ -38,7 +40,7 @@ public class Player_State_WallSlide : Player_State_Base {
         else {
             var oldV = PhysicsEntity.LinearVelocity.Y * LogicPlayer.wallSlideSpeedRate;
             LogicPlayer.SetVelocity_Y(oldV);
-            LogicPlayer.SetVelocity_X(LogicPlayer.xInput.Value.X);  
+            LogicPlayer.SetVelocity_X(LogicPlayer.xInput.Value.X);
         }
     }
 }

@@ -2,6 +2,7 @@
 using GamePlay;
 using UnityEngine;
 using FVector3 = BEPUutilities.Vector3;
+using FVector2 = BEPUutilities.Vector2;
 
 public partial class LogicActor_Player {
     #region 人物运动参数
@@ -13,8 +14,7 @@ public partial class LogicActor_Player {
     public Fix64 groundRayCastLen = (Fix64)1.3f; // 地面检测射线长度
     public Fix64 wallRayCastLen = (Fix64)1.3f; // 爬墙检测射线长度
     public BEPU_LayerDefine whatIsGround = BEPU_LayerDefine.Envirement;
-    public Fix64 capsuleLen = Fix64.One;
-    public Fix64 capsuleRadiu = Fix64.HalfOne;
+    public FVector2 wallJumpForce = new(Fix64.HalfOne, Fix64.HalfOne); // 跳墙方向和力度
 
     #endregion
 

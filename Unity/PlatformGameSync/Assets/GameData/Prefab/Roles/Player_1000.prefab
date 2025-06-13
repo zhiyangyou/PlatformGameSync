@@ -135,6 +135,11 @@ MonoBehaviour:
   wallRayCastLen:
     RawValue: 3435973888
   whatIsGround: 3
+  wallJumpForce:
+    X:
+      RawValue: 30064771072
+    Y:
+      RawValue: 47244640256
 --- !u!114 &7560540782520828872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +160,9 @@ MonoBehaviour:
   groundDetected: 0
   wallDetected: 0
   facingDir: 1
+  xInput: {x: 0, y: 0}
+  yInput: {x: 0, y: 0}
+  jumpPressed: 0
 --- !u!1 &7843363259959610913
 GameObject:
   m_ObjectHideFlags: 0

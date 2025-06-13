@@ -1,6 +1,8 @@
 ﻿using FixMath.NET;
 using UnityEngine;
+using UnityEngine.Serialization;
 using FVector3 = BEPUutilities.Vector3;
+using FVector2 = BEPUutilities.Vector2;
 
 public class RenderObject_Player : RenderObject {
     [SerializeField] private Animator animator;
@@ -13,6 +15,8 @@ public class RenderObject_Player : RenderObject {
     [SerializeField] private Fix64 groundRayCastLen;
     [SerializeField] private Fix64 wallRayCastLen;
     [SerializeField] private BEPU_LayerDefine whatIsGround = BEPU_LayerDefine.Envirement;
+    [SerializeField] private FVector2 wallJumpForce = new FVector2(Fix64.HalfOne, Fix64.HalfOne); // 跳墙方向
+
     public Animator Animator => animator;
 
     private LogicActor_Player _logicPlayer => this.LogicObject as LogicActor_Player;
@@ -30,9 +34,8 @@ public class RenderObject_Player : RenderObject {
             _logicPlayer.jumpForce = jumpForce;
             _logicPlayer.groundRayCastLen = groundRayCastLen;
             _logicPlayer.wallRayCastLen = wallRayCastLen;
-            _logicPlayer.capsuleRadiu = capsuleRadiu;
-            _logicPlayer.capsuleLen = capsuleLen;
             _logicPlayer.whatIsGround = whatIsGround;
+            _logicPlayer.wallJumpForce = wallJumpForce;
         }
     }
 
