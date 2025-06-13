@@ -69,6 +69,19 @@ namespace FixMath.NET
 		const long LOG2MIN = -0x2000000000;
 		const int LUT_SIZE = (int)(PI_OVER_2 >> 15);
 
+		public static Fix64 Clamp01(Fix64 f) {
+			return Clamp(f, Zero, One);
+		}
+		
+		public static Fix64 Clamp(Fix64 f, Fix64 min, Fix64 max) {
+			if (f > max) {
+				return max;
+			}else if (f < min) {
+				return min;
+			}
+			return f;
+		}
+		
 		/// <summary>
 		/// Returns a number indicating the sign of a Fix64 number.
 		/// Returns 1 if the value is positive, 0 if is 0, and -1 if it is negative.

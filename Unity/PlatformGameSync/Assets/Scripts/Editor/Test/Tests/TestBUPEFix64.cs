@@ -8,6 +8,22 @@ using UnityEngine;
 
 public class TestBUPEFix64 {
     [Test]
+    public void TestClamp() {
+        Assert.IsTrue(Fix64.Clamp((Fix64)(-101f), (Fix64)(-100f), (Fix64)100f) == (Fix64)(-100f));
+        Assert.IsTrue(Fix64.Clamp((Fix64)(-99f), (Fix64)(-100f), (Fix64)100f) == (Fix64)(-99f));
+        Assert.IsTrue(Fix64.Clamp((Fix64)(100f), (Fix64)(-100f), (Fix64)100f) == (Fix64)(100f));
+        Assert.IsTrue(Fix64.Clamp((Fix64)(101f), (Fix64)(-100f), (Fix64)100f) == (Fix64)(100f));
+    }
+
+    public void TestClamp01() {
+        Assert.IsTrue(Fix64.Clamp01((Fix64)(-2f)) == (Fix64)(-1f));
+        Assert.IsTrue(Fix64.Clamp01((Fix64)(2f)) == (Fix64)(1f));
+        Assert.IsTrue(Fix64.Clamp01((Fix64)(0.5f)) == (Fix64)(0.5f));
+    
+    }
+
+
+    [Test]
     public void Fix64_Print() {
         // 好像也不会溢出
 
