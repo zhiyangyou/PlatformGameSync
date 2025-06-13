@@ -1,17 +1,17 @@
-﻿using BEPUphysics.CollisionShapes.ConvexShapes;
-using FixMath.NET;
+﻿using FixMath.NET;
 using UnityEngine;
 using FVector3 = BEPUutilities.Vector3;
 
 public class RenderObject_Player : RenderObject {
-    [SerializeField] private float capsuleLen = 1;
-    [SerializeField] private float capsuleRadiu = 0.5f;
     [SerializeField] private Animator animator;
-    [SerializeField] private float moveSpeedAirRate = 0.7f;
-    [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private float groundRayCastLen = 1.3f;
-    [SerializeField] private float wallRayCastLen = 1.3f;
+
+    [SerializeField] private Fix64 capsuleLen = Fix64.One;
+    [SerializeField] private Fix64 capsuleRadiu = Fix64.HalfOne;
+    [SerializeField] private Fix64 moveSpeedAirRate;
+    [SerializeField] private Fix64 moveSpeed;
+    [SerializeField] private Fix64 jumpForce;
+    [SerializeField] private Fix64 groundRayCastLen;
+    [SerializeField] private Fix64 wallRayCastLen;
     [SerializeField] private BEPU_LayerDefine whatIsGround = BEPU_LayerDefine.Envirement;
     public Animator Animator => animator;
 
@@ -25,14 +25,14 @@ public class RenderObject_Player : RenderObject {
 
     private void SyncSerialfield2ToLogic() {
         if (_logicPlayer != null) {
-            _logicPlayer.moveSpeedAirRate = (Fix64)moveSpeedAirRate;
-            _logicPlayer.moveSpeed = (Fix64)moveSpeed;
-            _logicPlayer.jumpForce = (Fix64)jumpForce;
-            _logicPlayer.groundRayCastLen = (Fix64)groundRayCastLen;
-            _logicPlayer.wallRayCastLen = (Fix64)wallRayCastLen;
+            _logicPlayer.moveSpeedAirRate = moveSpeedAirRate;
+            _logicPlayer.moveSpeed = moveSpeed;
+            _logicPlayer.jumpForce = jumpForce;
+            _logicPlayer.groundRayCastLen = groundRayCastLen;
+            _logicPlayer.wallRayCastLen = wallRayCastLen;
+            _logicPlayer.capsuleRadiu = capsuleRadiu;
+            _logicPlayer.capsuleLen = capsuleLen;
             _logicPlayer.whatIsGround = whatIsGround;
-            _logicPlayer.capsuleLen = (Fix64)capsuleLen;
-            _logicPlayer.capsuleRadiu = (Fix64)capsuleRadiu;
         }
     }
 
@@ -50,19 +50,19 @@ public class RenderObject_Player : RenderObject {
     private void DrawWallDetectGizmos() {
         var oldColor = Gizmos.color;
         Gizmos.color = Color.yellow;
-        var len = Application.isPlaying ? (float)_logicPlayer.wallRayCastLen : this.wallRayCastLen;
+        Fix64 len = Application.isPlaying ? _logicPlayer.wallRayCastLen : this.wallRayCastLen;
         Fix64 facingDir = Application.isPlaying ? _logicPlayer.facingDir : Fix64.One;
-        var p1 = (baseColliderLogic.entity.Position).ToUnityVector3();
-        Gizmos.DrawLine(p1, p1 + len * Vector3.right * (float)facingDir);
+        FVector3 p1 = baseColliderLogic.entity.Position;
+        Gizmos.DrawLine(p1.ToUnityVector3(), (p1 + len * FVector3.Right * facingDir).ToUnityVector3());
         Gizmos.color = oldColor;
     }
 
     private void DrawGroundDetectGizmos() {
         var oldColor = Gizmos.color;
         Gizmos.color = Color.red;
-        var len = Application.isPlaying ? (float)_logicPlayer.groundRayCastLen : this.groundRayCastLen;
-        var p1 = (baseColliderLogic.entity.Position).ToUnityVector3();
-        Gizmos.DrawLine(p1, p1 + len * Vector3.down);
+        Fix64 len = Application.isPlaying ? _logicPlayer.groundRayCastLen : this.groundRayCastLen;
+        FVector3 p1 = baseColliderLogic.entity.Position;
+        Gizmos.DrawLine(p1.ToUnityVector3(), (p1 + len * FVector3.Down).ToUnityVector3());
         Gizmos.color = oldColor;
     }
 

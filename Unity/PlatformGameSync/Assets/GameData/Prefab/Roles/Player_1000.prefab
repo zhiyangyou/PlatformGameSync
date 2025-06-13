@@ -119,14 +119,21 @@ MonoBehaviour:
       RawValue: 0
     Z:
       RawValue: 0
-  capsuleLen: 1.25
-  capsuleRadiu: 0.56
   animator: {fileID: 3298360874542739958}
-  moveSpeedAirRate: 0.7
-  moveSpeed: 6
-  jumpForce: 12
-  groundRayCastLen: 1.3
-  wallRayCastLen: 0.8
+  capsuleLen:
+    RawValue: 5368709120
+  capsuleRadiu:
+    RawValue: 2405181696
+  moveSpeedAirRate:
+    RawValue: 3006477056
+  moveSpeed:
+    RawValue: 25769803776
+  jumpForce:
+    RawValue: 51539607552
+  groundRayCastLen:
+    RawValue: 5583457280
+  wallRayCastLen:
+    RawValue: 3435973888
   whatIsGround: 3
 --- !u!114 &7560540782520828872
 MonoBehaviour:
