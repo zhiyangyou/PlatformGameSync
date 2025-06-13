@@ -73,4 +73,10 @@ public abstract partial class LogicObject {
             BEPU_PhysicsManagerUnity.Instance.RemoveEntity(BaseColliderLogic);
         }
     }
+
+    public void ForceUpdateRotationNow() {
+        if (BaseColliderLogic != null) {
+            LogicRotation = BaseColliderLogic.entity.Orientation;
+        }
+    }
 }

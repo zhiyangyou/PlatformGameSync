@@ -8,12 +8,13 @@ using UnityEngine;
 /// </summary>
 public partial class RenderObject : MonoBehaviour {
     #region 属性和字段
+
     public LogicObject LogicObject { get; private set; }
 
     /// <summary>
     /// 位置插值速度?
     /// </summary>
-    protected float _smoothPosSpeed => 20f; 
+    protected float _smoothPosSpeed => 20f;
 
     private bool _isUpdatePosAndDir = true;
 
@@ -45,6 +46,12 @@ public partial class RenderObject : MonoBehaviour {
     #endregion
 
     #region public
+
+    public void ForceUpdateRotationNow() {
+        if (LogicObject != null) {
+            UpdateRotation();
+        }
+    }
 
     public void SetIsLocalPlayer(bool v) {
         _isLocalPlayer = v;

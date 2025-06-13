@@ -2,6 +2,7 @@
 using GamePlay.StateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using WorldSpace.GameWorld;
 using UVector2 = UnityEngine.Vector2;
 
 public class Player_State_WallSlide : Player_State_Base {
@@ -17,6 +18,7 @@ public class Player_State_WallSlide : Player_State_Base {
         base.LogicFrameUpdate();
         if (LogicPlayer.groundDetected) {
             _stateMachine.ChangeState(this.LogicPlayer.StateIdle);
+            LogicPlayer.Flip(); 
         }
     }
 

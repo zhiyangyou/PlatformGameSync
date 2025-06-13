@@ -32,12 +32,12 @@ public partial class LogicActor_Player {
         var isRight = xVelocity > Fix64.Zero;
         var isLeft = xVelocity < Fix64.Zero;
         if (isRight) {
-            SetY180(true);
-            facingDir = 1;
+            SetY180(true, true);
+            facingDir = Fix64.One;
         }
         if (isLeft) {
-            SetY180(false);
-            facingDir = -1;
+            SetY180(false, true);
+            facingDir = Fix64.MinusOne;
         }
     }
 
@@ -56,6 +56,17 @@ public partial class LogicActor_Player {
     #endregion
 
     #region public
+
+    public void Flip() {
+        if (facingDir < Fix64.Zero) {
+            SetY180(true, true);
+            facingDir = Fix64.One;
+        }
+        else if (facingDir > Fix64.Zero) {
+            SetY180(false, true);
+            facingDir = Fix64.MinusOne;
+        }
+    }
 
     public void SetXVelocityByXInput() {
         SetXVelocityByXInput(Fix64.One);
