@@ -100,7 +100,7 @@ public abstract partial class BEPU_BaseColliderMono : MonoBehaviour {
     }
 
     private void LateUpdate() {
-        colliderLogic.DoPositionInterpolateUpdate();
+        colliderLogic.DoPositionInterpolateUpdate((Fix64)Time.deltaTime);
     }
 
     #endregion

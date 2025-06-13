@@ -4,9 +4,9 @@
 
 using BEPUphysics.Entities;
 using FixMath.NET;
-using UnityEngine;
+// using UnityEngine;
 using Quaternion = BEPUutilities.Quaternion;
-using Vector3 = BEPUutilities.Vector3; // Or whatever namespace Entity is in
+using FVector3 = BEPUutilities.Vector3; // Or whatever namespace Entity is in
 
 
 /// <summary>
@@ -35,7 +35,7 @@ public class LerpMethod_Interpolate : ILerpMethod {
         _collider = baseCollider;
         PhysicsEntity = entity;
         if (PhysicsEntity == null) {
-            Debug.LogError("PhysicsEntity is null on InitializeStates ");
+            BEPU_Logger.LogError("PhysicsEntity is null on InitializeStates ");
             return;
         }
 
@@ -46,32 +46,31 @@ public class LerpMethod_Interpolate : ILerpMethod {
     }
 
 
-    public void StoreCurState() {
+    public void BeforeWorldUpdate() {
         if (PhysicsEntity == null) return;
         _accumulator = Fix64.Zero;
         _previousPositionFP = _targetPositionFP;
         _previousOrientationFP = _targetOrientationFP;
     }
 
-    public void StoreNextSTate() {
+    public void AfterNextSTate() {
         if (PhysicsEntity == null) return;
         _targetPositionFP = PhysicsEntity.Position;
         _targetOrientationFP = PhysicsEntity.Orientation;
     }
 
-    public (Vector3 interPos, Quaternion interRotation) UpdateLearp() {
-        _accumulator += (Fix64)Time.deltaTime;
-
+    public (FVector3 interPos, Quaternion interRotation) UpdateLearp(Fix64 deltaTime) {
+        _accumulator += deltaTime;
         Fix64 alpha = _accumulator / _physicsTimeStep;
-        var newAlpha = Mathf.Clamp01((float)alpha);
+        var newAlpha = Fix64.Clamp01(alpha);
         alpha = (Fix64)newAlpha;
         return DoLerp(alpha);
     }
 
-    private (BEPUutilities.Vector3 interPos, BEPUutilities.Quaternion interRotation) DoLerp(Fix64 alpha) // alpha is a value from 0 to 1
+    private (FVector3 interPos, BEPUutilities.Quaternion interRotation) DoLerp(Fix64 alpha) // alpha is a value from 0 to 1
     {
         if (PhysicsEntity == null) return (default, default);
-        return (Vector3.Lerp(_previousPositionFP, _targetPositionFP, alpha),
+        return (FVector3.Lerp(_previousPositionFP, _targetPositionFP, alpha),
             UnityEngine.Quaternion.Lerp(_previousOrientationFP.ToUnityQuaternion(), _targetOrientationFP.ToUnityQuaternion(), (float)alpha).ToFixedQuaternion());
     }
 }

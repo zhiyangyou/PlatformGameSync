@@ -11,11 +11,11 @@ public class BEPU_PhysicsUpdater : MonoBehaviour {
 
     public static Fix64 PhysicsTimeStep {
         get {
-            if (Application.isPlaying) {
+            if (!Application.isPlaying) {
                 return (Fix64)Time.fixedDeltaTime;
             }
             else {
-                Fix64 fixedDeltaTime = Fix64.One / Fix64.One * new Fix64((int)15); // 1秒15帧
+                Fix64 fixedDeltaTime = Fix64.One / new Fix64((int)20); // 1秒15帧
                 return fixedDeltaTime;
             }
         }
