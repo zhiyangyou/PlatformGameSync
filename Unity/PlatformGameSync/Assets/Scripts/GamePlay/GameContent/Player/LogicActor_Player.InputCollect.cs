@@ -52,6 +52,7 @@ public class FrameInput<T> : IDisposable where T : struct {
 public partial class LogicActor_Player {
     public FrameInput<bool> jumpPressed;
     public FrameInput<FVector2> xInput;
+    public FrameInput<FVector2> yInput;
 
     private void InitInputSystem() {
         InputSystem = new InputSystem_Player();
@@ -61,6 +62,10 @@ public partial class LogicActor_Player {
         xInput = new(InputSystem.Player.Movement, _nextFrameTimer, NextFrameTimeUniqueKeys.XInputKey);
         xInput.onStart = context => { xInput.Value = context.ReadValue<UVector2>().ToFixedVector2(); };
         xInput.onCancel = _ => { xInput.Value = FVector2.Zero; };
+        
+        yInput = new(InputSystem.Player.Movement, _nextFrameTimer, NextFrameTimeUniqueKeys.XInputKey);
+        yInput.onStart = context => { yInput.Value = context.ReadValue<UVector2>().ToFixedVector2(); };
+        yInput.onCancel = _ => { yInput.Value = FVector2.Zero; };
 
         jumpPressed = new(InputSystem.Player.Jump, _nextFrameTimer, NextFrameTimeUniqueKeys.JumpKey);
         jumpPressed.onStart = _ => jumpPressed.Value = true;

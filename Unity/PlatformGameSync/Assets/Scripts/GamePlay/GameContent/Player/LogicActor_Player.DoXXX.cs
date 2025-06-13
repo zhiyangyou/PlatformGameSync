@@ -7,6 +7,7 @@ public partial class LogicActor_Player {
     #region 人物运动参数
 
     public Fix64 moveSpeedAirRate = (Fix64)0.7f; // 空中移动速度衰减
+    public Fix64 wallSlideSpeedRate = (Fix64)0.2f; // 养着墙体下滑速度衰减
     public Fix64 moveSpeed = (Fix64)7f; // 移动速度
     public Fix64 jumpForce = (Fix64)10f; // 跳跃力
     public Fix64 groundRayCastLen = (Fix64)1.3f; // 地面检测射线长度
@@ -49,7 +50,7 @@ public partial class LogicActor_Player {
 
         // 墙体检测
         {
-            wallDetected = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(PhysicsEntity.Position, FVector3.Right * this.facingDir, this.groundRayCastLen, whatIsGround);
+            wallDetected = BEPU_PhysicsManagerUnity.Instance.RaycastAnyLayer(PhysicsEntity.Position, FVector3.Right * this.facingDir, wallRayCastLen, whatIsGround);
         }
     }
 
@@ -73,10 +74,10 @@ public partial class LogicActor_Player {
     }
 
     public void SetXVelocityByXInput(Fix64 rate) {
-        SetXVelocity(moveSpeed * xInput.Value.X * rate);
+        SetVelocity_X(moveSpeed * xInput.Value.X * rate);
     }
 
-    public void SetXVelocity(Fix64 v) {
+    public void SetVelocity_X(Fix64 v) {
         var oldV = BaseColliderLogic.entity.LinearVelocity;
         oldV.X = v;
         BaseColliderLogic.entity.LinearVelocity = oldV;
@@ -84,11 +85,11 @@ public partial class LogicActor_Player {
     }
 
     public void SetYVelocityByJumpForce() {
-        SetYVelocity(jumpForce);
+        SetVelocity_Y(jumpForce);
     }
 
 
-    public void SetYVelocity(Fix64 v) {
+    public void SetVelocity_Y(Fix64 v) {
         var oldV = BaseColliderLogic.entity.LinearVelocity;
         oldV.Y = v;
         BaseColliderLogic.entity.LinearVelocity = oldV;

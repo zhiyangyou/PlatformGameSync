@@ -10,19 +10,26 @@ public class Player_State_WallSlide : Player_State_Base {
         : base(LogicActor_Player.kStrBool_WallSlide, logicPlayer, renderPlayer, stateMachine) { }
 
 
-    protected override void OnEnter() {
-        base.OnEnter();
-    }
-
     public override void LogicFrameUpdate() {
         base.LogicFrameUpdate();
         if (LogicPlayer.groundDetected) {
             _stateMachine.ChangeState(this.LogicPlayer.StateIdle);
-            LogicPlayer.Flip(); 
+            LogicPlayer.Flip();
         }
+        HandlerWallSlide();
     }
 
-    public override void Exit() {
-        base.Exit();
+    private void HandlerWallSlide() {
+        
+        LogicPlayer.SetVelocity_X(Fix64.Zero); // 沿着墙体下滑, 避免X轴偏移
+        // 用户按住方向: 下
+        if (LogicPlayer.yInput.Value.Y < Fix64.Zero) {
+            var oldV = PhysicsEntity.LinearVelocity.Y;
+            LogicPlayer.SetVelocity_Y(oldV);
+        }
+        else {
+            var oldV = PhysicsEntity.LinearVelocity.Y * LogicPlayer.wallSlideSpeedRate;
+            LogicPlayer.SetVelocity_Y(oldV);
+        }
     }
 }

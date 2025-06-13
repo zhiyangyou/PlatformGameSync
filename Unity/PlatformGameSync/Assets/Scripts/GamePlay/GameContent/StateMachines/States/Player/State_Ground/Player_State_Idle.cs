@@ -13,12 +13,12 @@ public class Player_State_Idle : Player_State_Ground {
     protected override void OnEnter() {
         base.OnEnter();
 
-        LogicPlayer.SetXVelocity(Fix64.Zero);
+        LogicPlayer.SetVelocity_X(Fix64.Zero);
     }
 
     public override void LogicFrameUpdate() {
         base.LogicFrameUpdate();
-        LogicPlayer.SetXVelocity(Fix64.Zero);
+        LogicPlayer.SetVelocity_X(Fix64.Zero);
 
         if (LogicPlayer.xInput.Value.X == LogicPlayer.facingDir && LogicPlayer.wallDetected)
             return;
