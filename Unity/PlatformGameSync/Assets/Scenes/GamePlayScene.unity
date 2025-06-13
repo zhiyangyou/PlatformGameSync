@@ -332,8 +332,8 @@ Transform:
   m_GameObject: {fileID: 211919707}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1935, y: 5.782, z: 0}
-  m_LocalScale: {x: 2.8469324, y: 18.253672, z: 1}
+  m_LocalPosition: {x: -3.9171, y: 5.782, z: 0}
+  m_LocalScale: {x: 3.3335876, y: 18.253672, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 91959856}
@@ -379,7 +379,7 @@ MonoBehaviour:
   autoScaleToColliderSize: 1
   entityInitPos:
     X:
-      RawValue: -21017423872
+      RawValue: -32715194368
     Y:
       RawValue: 6365140992
     Z:
@@ -393,7 +393,7 @@ MonoBehaviour:
       RawValue: 0
   size:
     X:
-      RawValue: 12227481600
+      RawValue: 14317649920
     Y:
       RawValue: 78398922752
     Z:
@@ -1008,8 +1008,8 @@ Transform:
   m_GameObject: {fileID: 992713659}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.09, y: -2.5363, z: 0}
-  m_LocalScale: {x: 8.85276, y: 2.1174915, z: 1}
+  m_LocalPosition: {x: 1.9743, y: -2.5363, z: 0}
+  m_LocalScale: {x: 13.08438, y: 2.1174915, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 91959856}
@@ -1055,7 +1055,7 @@ MonoBehaviour:
   autoScaleToColliderSize: 0
   entityInitPos:
     X:
-      RawValue: 1675037696
+      RawValue: -7411825152
     Y:
       RawValue: -29361684480
     Z:

@@ -16,7 +16,8 @@ public class FrameInput : IDisposable {
         bool onlyKeyOneFrame,
         KeyCode keyCode,
         InputSystem2 inputSystem2,
-        NextFrameTimer nextFrameTimer) {
+        NextFrameTimer nextFrameTimer
+    ) {
         this.onlyKeyOneFrame = onlyKeyOneFrame;
         this.keyCode = keyCode;
         _nextFrameTimer = nextFrameTimer;
@@ -60,12 +61,13 @@ public class FrameInput : IDisposable {
         if (this.keyCode != code) {
             return;
         }
-        if (GameWorld.LogicFrameCount == StartFrameCount) {
-            _nextFrameTimer.CallOnNextFrame(_uniqueKey, () => { onUp.Invoke(); });
-        }
-        else {
-            onUp.Invoke();
-        }
+        // if (GameWorld.LogicFrameCount == StartFrameCount) {
+        //     _nextFrameTimer.CallOnNextFrame(_uniqueKey, () => { onUp.Invoke(); });
+        // }
+        // else {
+        //     onUp.Invoke();
+        // }
+        onUp.Invoke();
     }
 
     public void Dispose() {

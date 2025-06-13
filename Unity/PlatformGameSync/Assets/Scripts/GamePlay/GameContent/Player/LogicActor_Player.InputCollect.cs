@@ -28,17 +28,17 @@ public partial class LogicActor_Player {
         Input_Space = new FrameInput(true, KeyCode.Space, inputSystem2, _nextFrameTimer);
 
 
-        Input_W.onDown = () => { yInput = Fix64.One; };
-        Input_W.onUp = () => { yInput = Fix64.Zero; };
+        Input_W.onDown = () => { yInput += Fix64.One; };
+        Input_W.onUp = () => { yInput -= Fix64.One; };
 
-        Input_S.onDown = () => { yInput = Fix64.MinusOne; };
-        Input_S.onUp = () => { yInput = Fix64.Zero; };
+        Input_S.onDown = () => { yInput -= Fix64.One; };
+        Input_S.onUp = () => { yInput += Fix64.One; };
 
-        Input_A.onDown = () => { xInput = Fix64.MinusOne; };
-        Input_A.onUp = () => { yInput = Fix64.Zero; };
+        Input_A.onDown = () => { xInput -= Fix64.One; };
+        Input_A.onUp = () => { xInput += Fix64.One; };
 
-        Input_D.onDown = () => { xInput = Fix64.One; };
-        Input_D.onUp = () => { yInput = Fix64.Zero; };
+        Input_D.onDown = () => { xInput += Fix64.One; };
+        Input_D.onUp = () => { xInput -= Fix64.One; };
 
         Input_Space.onDown = () => { jumpPressed = true; };
         Input_Space.onUp = () => { jumpPressed = false; };

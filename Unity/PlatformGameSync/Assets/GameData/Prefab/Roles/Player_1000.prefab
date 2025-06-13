@@ -137,9 +137,9 @@ MonoBehaviour:
   whatIsGround: 3
   wallJumpForce:
     X:
-      RawValue: 30064771072
+      RawValue: 38654705664
     Y:
-      RawValue: 47244640256
+      RawValue: 64424509440
 --- !u!114 &7560540782520828872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,15 +153,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeedAirRate: 7
-  moveSpeed: 7
-  jumpForce: 11
+  moveSpeed: 9
+  jumpForce: 15
   groundRayCastLen: 1.3
   whatIsGround: 3
   groundDetected: 0
   wallDetected: 0
   facingDir: 1
-  xInput: {x: 0, y: 0}
-  yInput: {x: 0, y: 0}
+  xInput: 0
+  yInput: 0
   jumpPressed: 0
 --- !u!1 &7843363259959610913
 GameObject:
