@@ -3,6 +3,10 @@ using FixMath.NET;
 using UnityEngine;
 
 public class BEPU_PhysicsUpdater : MonoBehaviour {
+    private Fix64 _accLogicRealTimeS;
+
+    private Fix64 _nextLogicFrameTimeS;
+
     private void Awake() {
         if (Application.isPlaying) {
             this.gameObject.name = "BEPUPhysicsUpdater";
@@ -21,14 +25,11 @@ public class BEPU_PhysicsUpdater : MonoBehaviour {
         }
     }
 
-    private void FixedUpdate() {
-#if UNITY_EDITOR
-        if (
-            Application.isPlaying
-        )
-#endif
-        {
+    private void Update() {
+        _accLogicRealTimeS += (Fix64)Time.deltaTime;
+        while (_accLogicRealTimeS > _nextLogicFrameTimeS) {
             BEPU_PhysicsManagerUnity.Instance.UpdatePhysicsWorld(PhysicsTimeStep);
+            _nextLogicFrameTimeS += PhysicsTimeStep;
         }
     }
 }

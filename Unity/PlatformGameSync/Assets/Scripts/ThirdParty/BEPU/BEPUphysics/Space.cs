@@ -29,6 +29,9 @@ namespace BEPUphysics
         ///<summary>
         /// Gets or sets the time step settings used by the space.
         ///</summary>
+        
+        public Fix64 TotalSimulateTime { get; private set; } = Fix64.Zero;
+        
         public TimeStepSettings TimeStepSettings
         {
             get
@@ -518,7 +521,7 @@ namespace BEPUphysics
 #if PROFILE
             end = Stopwatch.GetTimestamp();
 #endif
-
+            TotalSimulateTime += this.timeStepSettings.TimeStepDuration;
 
         }
 

@@ -53,7 +53,7 @@ public class LerpMethod_Interpolate : ILerpMethod {
         _previousOrientationFP = _targetOrientationFP;
     }
 
-    public void AfterNextSTate() {
+    public void AfterWorldUpdate() {
         if (PhysicsEntity == null) return;
         _targetPositionFP = PhysicsEntity.Position;
         _targetOrientationFP = PhysicsEntity.Orientation;

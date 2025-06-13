@@ -74,7 +74,8 @@ public abstract partial class BEPU_PhysicsManagerLogic<T> : Singleton<T> where T
                 BEPU_Logger.LogException(e);
             }
         }
-        Space.Update(dt);
+        Space.TimeStepSettings.TimeStepDuration = dt;
+        Space.Update();
         foreach (var collider in _setAllColliders) {
             try {
                 collider.OnAfterUpdate();

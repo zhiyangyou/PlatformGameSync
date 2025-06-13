@@ -33,6 +33,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
     private SerializedProperty autoScaleToColliderSize;
     private SerializedProperty entityInitPos;
     private SerializedProperty entityInitRotation;
+    private SerializedProperty lerpMethod;
     private SerializedProperty layer;
 
     private Transform _curTransform = null;
@@ -46,6 +47,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         curTransform = (this.serializedObject.targetObject as MonoBehaviour).transform;
         collider = target as TCollider;
         layer = serializedObject.FindProperty("layer");
+        lerpMethod = serializedObject.FindProperty("lerpMethod");
         centerProp = serializedObject.FindProperty("center");
         isTrigger = serializedObject.FindProperty("isTrigger");
         materialSo = serializedObject.FindProperty("materialSo");
@@ -65,10 +67,11 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         autoScaleToColliderSize = serializedObject.FindProperty("autoScaleToColliderSize");
         entityInitPos = serializedObject.FindProperty("entityInitPos");
         entityInitRotation = serializedObject.FindProperty("entityInitRotation");
+       
 
         _curTransform = collider.transform;
-        _listenerTransformChanged = new ListenerTransformChanged(_curTransform, OnTransformChanged);
-        collider.SyncAllAttrsToEntity();
+        // _listenerTransformChanged = new ListenerTransformChanged(_curTransform, OnTransformChanged);
+        collider.SyncAllAttrsToEntity(true);
     }
 
 
@@ -100,6 +103,7 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
         EditorGUILayout.PropertyField(autoScaleToColliderSize);
         EditorGUILayout.PropertyField(entityInitPos);
         EditorGUILayout.PropertyField(entityInitRotation);
+        EditorGUILayout.PropertyField(lerpMethod);
         EditorGUILayout.PropertyField(layer);
         EditorGUILayout.PropertyField(isTrigger);
         EditorGUILayout.PropertyField(materialSo);
@@ -148,9 +152,9 @@ public class BEPU_BaseColliderEditor<TCollider> : Editor where TCollider : BEPU_
 
     #region private
 
-    private void OnTransformChanged() {
-        collider.SyncAllAttrsToEntity();
-    }
+    // private void OnTransformChanged() {
+    //     collider.SyncAllAttrsToEntity(true);
+    // }
 
     #endregion
 }

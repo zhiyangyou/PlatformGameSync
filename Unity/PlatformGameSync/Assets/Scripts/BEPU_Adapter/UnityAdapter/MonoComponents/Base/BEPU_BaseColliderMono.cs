@@ -25,6 +25,7 @@ public abstract partial class BEPU_BaseColliderMono : MonoBehaviour {
     [SerializeField] protected bool freezeRotation_Y = false;
     [SerializeField] protected bool freezeRotation_Z = false;
     [SerializeField] protected BEPU_LayerDefine layer = BEPU_LayerDefine.Default;
+    [SerializeField] protected BEPU_LerpMethod lerpMethod = BEPU_LerpMethod.Extrapolate;
 
     [SerializeField] protected bool autoScaleToColliderSize = false;
     [SerializeField] protected FVector3 entityInitPos = FVector3.Zero;
@@ -40,7 +41,7 @@ public abstract partial class BEPU_BaseColliderMono : MonoBehaviour {
         }
     }
 
-    protected virtual void SyncRenderPosAndRotationToEntity() {
+    protected virtual void SyncInitPosAndRotToEntity() {
         entity.Position = entityInitPos + center;
         entity.Orientation = entityInitRotation.ToQuaternion();
     }
@@ -52,15 +53,15 @@ public abstract partial class BEPU_BaseColliderMono : MonoBehaviour {
     #region protected
 
     private void Awake() {
-        SyncAllAttrsToEntity();
-        colliderLogic.InitInterpolateState();
+        SyncAllAttrsToEntity(true);
         if (Application.isPlaying) {
             BEPU_PhysicsManagerUnity.Instance.AddEntity(this.colliderLogic);
         }
+        colliderLogic.InitInterpolateState(lerpMethod);
     }
 
 
-    public virtual void SyncAllAttrsToEntity() {
+    public virtual void SyncAllAttrsToEntity(bool needSyncInitPosToEntity) {
         if (materialSo != null) {
             materialSo.Data.SyncToBEPUMat(this.colliderLogic.entity.Material);
         }
@@ -82,13 +83,15 @@ public abstract partial class BEPU_BaseColliderMono : MonoBehaviour {
         entity.Layer = layer;
         entity.CollisionInformation.CollisionRules.Group = BEPU_PhysicsManagerUnity.Instance.GetGroupByLayer(this.layer);
         colliderLogic.SyncAttrsToEntity();
-        SyncRenderPosAndRotationToEntity();
+        if (needSyncInitPosToEntity) {
+            SyncInitPosAndRotToEntity();
+        }
         SyncExtendAttrsToEntity();
     }
 
 
     protected virtual void OnValidate() {
-        SyncAllAttrsToEntity();
+        SyncAllAttrsToEntity(!Application.isPlaying);
     }
 
 
