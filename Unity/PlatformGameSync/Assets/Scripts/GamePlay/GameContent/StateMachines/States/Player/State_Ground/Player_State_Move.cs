@@ -8,6 +8,7 @@ public class Player_State_Move : Player_State_Ground {
 
     protected override void OnEnter() {
         base.OnEnter();
+        LogicFrameUpdate();
     }
 
     public override void LogicFrameUpdate() {

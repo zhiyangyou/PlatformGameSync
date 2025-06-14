@@ -13,7 +13,8 @@ public class Player_State_Idle : Player_State_Ground {
     protected override void OnEnter() {
         base.OnEnter();
 
-        LogicPlayer.SetVelocity_X(Fix64.Zero);
+        // LogicPlayer.SetVelocity_X(Fix64.Zero);
+        LogicFrameUpdate();
     }
 
     public override void LogicFrameUpdate() {
