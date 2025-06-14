@@ -1,14 +1,11 @@
-﻿using System;
-using FixMath.NET;
+﻿using FixMath.NET;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using WorldSpace.GameWorld;
-using UVector2 = UnityEngine.Vector2;
-using FVector2 = BEPUutilities.Vector2;
 
 
 public partial class LogicActor_Player {
     public bool jumpPressed;
+    public bool dashPressed;
     public Fix64 xInput; // 1:前进  0不动  -1:后退
     public Fix64 yInput; // 1:上   0:不动  -1:下
 
@@ -16,6 +13,7 @@ public partial class LogicActor_Player {
     public FrameInput Input_A;
     public FrameInput Input_S;
     public FrameInput Input_D;
+    public FrameInput Input_Shift;
     public FrameInput Input_Space;
 
     private void InitInputSystem() {
@@ -25,6 +23,7 @@ public partial class LogicActor_Player {
         Input_A = new FrameInput(false, KeyCode.A, inputSystem2, _nextFrameTimer);
         Input_S = new FrameInput(false, KeyCode.S, inputSystem2, _nextFrameTimer);
         Input_D = new FrameInput(false, KeyCode.D, inputSystem2, _nextFrameTimer);
+        Input_Shift = new FrameInput(true, KeyCode.LeftShift, inputSystem2, _nextFrameTimer);
         Input_Space = new FrameInput(true, KeyCode.Space, inputSystem2, _nextFrameTimer);
 
 
@@ -39,6 +38,9 @@ public partial class LogicActor_Player {
 
         Input_D.onDown = () => { xInput += Fix64.One; };
         Input_D.onUp = () => { xInput -= Fix64.One; };
+
+        Input_Shift.onDown = () => { dashPressed = true; };
+        Input_Shift.onUp = () => { dashPressed = false; };
 
         Input_Space.onDown = () => { jumpPressed = true; };
         Input_Space.onUp = () => { jumpPressed = false; };

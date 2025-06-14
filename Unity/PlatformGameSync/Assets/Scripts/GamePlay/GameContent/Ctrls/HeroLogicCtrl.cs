@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FixMath.NET;
 using UnityEngine;
 using ZM.ZMAsset;
 
@@ -22,10 +23,10 @@ namespace WorldSpace.GameWorld {
             InitHeros();
         }
 
-        public void OnLogicFrameUpdate() {
+        public void OnLogicFrameUpdate(Fix64 deltaTime) {
             foreach (var logicPlayer in _listLogicPlayers) {
                 try {
-                    logicPlayer.OnLogicFrameUpdate();
+                    logicPlayer.OnLogicFrameUpdate(deltaTime);
                 }
                 catch (Exception e) {
                     Debug.LogError("执行LogicObject.OnLogicFrameUpdate时发生异常");

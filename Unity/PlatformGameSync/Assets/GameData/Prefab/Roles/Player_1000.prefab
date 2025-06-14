@@ -132,9 +132,13 @@ MonoBehaviour:
   jumpForce:
     RawValue: 51539607552
   groundRayCastLen:
-    RawValue: 5583457280
+    RawValue: 5239860224
   wallRayCastLen:
-    RawValue: 3435973888
+    RawValue: 2534030592
+  dashDuration:
+    RawValue: 1073741824
+  dashSpeed:
+    RawValue: 85899345920
   whatIsGround: 3
   wallJumpForce:
     X:

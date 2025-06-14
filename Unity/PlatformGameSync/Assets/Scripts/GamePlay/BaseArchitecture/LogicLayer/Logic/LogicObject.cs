@@ -64,9 +64,7 @@ public abstract partial class LogicObject {
         }
     }
 
-    public virtual void OnLogicFrameUpdate() {
-        // SyncTransform_Entity2Render();
-    }
+    public virtual void OnLogicFrameUpdate(Fix64 deltaTime) { }
 
     public virtual void OnDestory() {
         if (this.BaseColliderLogic != null) {

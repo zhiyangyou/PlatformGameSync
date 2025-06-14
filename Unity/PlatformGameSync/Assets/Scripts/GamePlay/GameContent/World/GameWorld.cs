@@ -14,8 +14,13 @@ namespace WorldSpace.GameWorld {
 
         private Fix64 _lastUpdateTime;
 
+        private Fix64 LogicFrameIntervalS => GameConstConfigs.FrameIntervalS;
+
         public InputSystem2 inputSystem2 { get; private set; }
         public NextFrameTimer nextFrameTimer { get; private set; }
+
+        public LogicTimerManager LogicTimerManager { get; private set; }
+
 
         public static int LogicFrameCount = 0;
 
@@ -24,6 +29,7 @@ namespace WorldSpace.GameWorld {
         #region life-cycle
 
         public override void OnCreate() {
+            LogicTimerManager = new();
             inputSystem2 = new();
             nextFrameTimer = new(() => LogicFrameCount);
             LogicFrameCount = 0;
@@ -41,9 +47,9 @@ namespace WorldSpace.GameWorld {
             // 当前逻辑帧时间大于下一个逻辑帧时间, 需要更新逻辑帧
             // 另外作用: 追帧 && 保证所有设备的逻辑帧的帧数的一致性
             while (_accLogicRealTimeS > _nextLogicFrameTimeS) {
-                OnLigicFrameUpdate();
+                OnLigicFrameUpdate(LogicFrameIntervalS);
                 LogicFrameCount++;
-                _nextLogicFrameTimeS += GameConstConfigs.FrameIntervalS;
+                _nextLogicFrameTimeS += LogicFrameIntervalS;
                 // _logicDeltaTimeS = _accLogicRealTimeS - _lastUpdateTime;
                 _lastUpdateTime = _accLogicRealTimeS;
                 // Debug.LogError($"{LogicFrameCount} : {(Time.realtimeSinceStartup * 1000):F0} {(_logicDeltaTimeS * 1000):F0}");
@@ -51,6 +57,8 @@ namespace WorldSpace.GameWorld {
         }
 
         public override void OnDestroy() {
+            LogicTimerManager.Dispose();
+            LogicTimerManager = null;
             inputSystem2.ClearLisntner();
             inputSystem2 = null;
             nextFrameTimer.Dispose();
@@ -62,13 +70,14 @@ namespace WorldSpace.GameWorld {
             base.OnDestroyPostProcess(args);
         }
 
-        public void OnLigicFrameUpdate() {
+        public void OnLigicFrameUpdate(Fix64 deltaTime) {
             // 更新物理
             nextFrameTimer.LogicFrameUpdate();
+            LogicTimerManager.OnLogicFrameUpdate(deltaTime);
             BEPU_PhysicsManagerUnity.Instance.UpdatePhysicsWorld(GameConstConfigs.FrameIntervalS);
             foreach (var logic in mLogicBehaviourDic.Values) {
                 try {
-                    logic.OnLogicFrameUpdate();
+                    logic.OnLogicFrameUpdate(deltaTime);
                 }
                 catch (Exception e) {
                     Debug.LogError($"{logic.GetType().Name} 执行OnLogicFrameUpdate时报错 ");

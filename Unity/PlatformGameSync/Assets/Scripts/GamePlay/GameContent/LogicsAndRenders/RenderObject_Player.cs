@@ -14,6 +14,8 @@ public class RenderObject_Player : RenderObject {
     [SerializeField] private Fix64 jumpForce;
     [SerializeField] private Fix64 groundRayCastLen;
     [SerializeField] private Fix64 wallRayCastLen;
+    [SerializeField] private Fix64 dashDuration;
+    [SerializeField] private Fix64 dashSpeed;
     [SerializeField] private BEPU_LayerDefine whatIsGround = BEPU_LayerDefine.Envirement;
     [SerializeField] private FVector2 wallJumpForce = new FVector2(Fix64.HalfOne, Fix64.HalfOne); // 跳墙方向
 
@@ -36,6 +38,8 @@ public class RenderObject_Player : RenderObject {
             _logicPlayer.wallRayCastLen = wallRayCastLen;
             _logicPlayer.whatIsGround = whatIsGround;
             _logicPlayer.wallJumpForce = wallJumpForce;
+            _logicPlayer.dashDuration = dashDuration;
+            _logicPlayer.dashSpeed = dashSpeed;
         }
     }
 

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using FixMath.NET;
 using UnityEngine;
 
 namespace GamePlay.StateMachine {
     public class StateMachine {
+        public Fix64 deltaTime { get; private set; }
         public EntityState currentState { get; private set; }
 
         public void Init(EntityState initState) {
@@ -17,7 +19,8 @@ namespace GamePlay.StateMachine {
             currentState.Enter();
         }
 
-        public void UpdateActiveState() {
+        public void Update(Fix64 deltaTime) {
+            this.deltaTime = deltaTime;
             currentState?.LogicFrameUpdate();
         }
     }

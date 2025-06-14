@@ -1,3 +1,4 @@
 {
-	"name": "ZMFrameWork"
+	"name": "ZMFrameWork",
+	"references":[ "GUID:203e4808001323946949b88b3699bd8c" ]
 }

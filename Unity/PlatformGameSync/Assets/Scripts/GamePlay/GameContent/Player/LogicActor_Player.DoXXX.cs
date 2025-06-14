@@ -15,6 +15,8 @@ public partial class LogicActor_Player {
     public Fix64 wallRayCastLen = (Fix64)1.3f; // 爬墙检测射线长度
     public BEPU_LayerDefine whatIsGround = BEPU_LayerDefine.Envirement;
     public FVector2 wallJumpForce = new(Fix64.HalfOne, Fix64.HalfOne); // 跳墙方向和力度
+    public Fix64 dashDuration = Fix64.One; // 冲刺持续时间
+    public Fix64 dashSpeed = Fix64.One; // 冲刺速度
 
     #endregion
 

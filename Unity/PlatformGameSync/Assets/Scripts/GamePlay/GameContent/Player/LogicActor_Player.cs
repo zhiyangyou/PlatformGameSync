@@ -1,4 +1,5 @@
 using BEPUphysics.CollisionShapes.ConvexShapes;
+using FixMath.NET;
 using UnityEngine;
 using WorldSpace.GameWorld;
 
@@ -27,9 +28,10 @@ public partial class LogicActor_Player {
         InitStateMachine();
     }
 
-    public override void OnLogicFrameUpdate() {
-        base.OnLogicFrameUpdate();
-        LogicFrameUpdate_StateMachine();
+    public override void OnLogicFrameUpdate(Fix64 deltaTime) {
+        base.OnLogicFrameUpdate(deltaTime);
+        LogicFrameUpdate_HandleCollisionDetection();
+        LogicFrameUpdate_StateMachine(deltaTime);
     }
 
     public override void OnDestory() {

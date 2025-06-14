@@ -1,16 +1,13 @@
-﻿using UnityEngine;
+﻿using FixMath.NET;
+using UnityEngine;
 
 namespace WorldSpace.GameWorld {
     public class MonsterLogicCtrl : ILogicBehaviour {
-        public void OnCreate() {
-            
-        }
+        public void OnCreate() { }
 
-        public void OnLogicFrameUpdate() {
-        }
+        public void OnLogicFrameUpdate(Fix64 deltaTime) { }
 
-        public void OnDestroy() {
-          
-        }
+
+        public void OnDestroy() { }
     }
 }
