@@ -15,8 +15,7 @@ public partial class RenderObject : MonoBehaviour {
     /// 位置插值速度?
     /// </summary>
     // protected float _smoothPosSpeed => 20f;
-
-    private bool _isUpdatePosAndDir = true;
+    // private bool _isUpdatePosAndDir = true;
 
     /// <summary>
     /// 是本地玩家吗?
@@ -39,7 +38,8 @@ public partial class RenderObject : MonoBehaviour {
 
     protected virtual void Update() {
         if (LogicObject != null) {
-            UpdatePosRotation();
+            UpdateLerper();
+            UpdateTransform();
         }
     }
 
@@ -47,29 +47,24 @@ public partial class RenderObject : MonoBehaviour {
 
     #region public
 
-    public void ForceUpdateRotationNow() {
-        if (LogicObject != null) {
-            UpdateRotation();
-        }
-    }
-
     public void SetIsLocalPlayer(bool v) {
         _isLocalPlayer = v;
     }
 
-    public void SetLogicObject(LogicObject logicObject, bool isUpdatePosAndDir = true) {
+    public void SetLogicObject(LogicObject logicObject) {
         this.LogicObject = logicObject;
-        this._isUpdatePosAndDir = isUpdatePosAndDir;
+        // this._isUpdatePosAndDir = isUpdatePosAndDir;
         // 初始化位置
         transform.position = logicObject.LogicPos.ToUnityVector3();
-        if (!isUpdatePosAndDir) {
-            transform.localPosition = Vector3.zero;
-        }
-        UpdatePosRotation();
+        // if (!isUpdatePosAndDir) {
+        //     transform.localPosition = Vector3.zero;
+        // }
+        UpdateTransform();
     }
 
     public virtual void OnCreate() {
-        SyncAllAttrsToEntity();
+        SyncAllAttrsToEntity(true);
+        InitLerpper();
     }
 
     /// <summary>
@@ -83,42 +78,43 @@ public partial class RenderObject : MonoBehaviour {
     /// 通用逻辑:更新位置
     /// </summary>
     public virtual void UpdatePosition() {
-        // 本地预测和回滚
-        // Debug.LogError($"_isLocalPlayer : {_isLocalPlayer}");
-        if (_isLocalPlayer) {
-            // if (LogicObject.hasNewLogicPos) {
-            //     _preTargetPos = LogicObject.LogicPos.ToUnityVector3();
-            //     LogicObject.hasNewLogicPos = false;
-            //     _curPreMoveCount = 0; // 真正的逻辑位置从网络到达, 
-            //     // Debug.LogError($"后端逻辑位置抵达:{LogicObject.LogicPos.ToUnityVector3()}");
-            // }
-            // else {
-            //     // 进行预测
-            //     if (_curPreMoveCount >= GameConstConfigs.MaxPreMoveCount) {
-            //         return; // 超出预测最大限度, 不执行预测逻辑了
-            //     }
-            //     // 计算预测位置的增量
-            //     Vector3 deltaPos = LogicObject.LogicRotation.ToUnityQuaternion().eulerAngles * ((float)LogicObject.LogicMoveSpeed * Time.deltaTime);
-            //     _preTargetPos += deltaPos;
-            //     _curPreMoveCount++;
-            //     // Debug.LogError($"预测位置:{_preTargetPos}");
-            // }
-            // transform.position = Vector3.Lerp(transform.position, _preTargetPos, Time.deltaTime * _smoothPosSpeed);
-        }
-        else {
-            // transform.position = Vector3.Lerp(transform.position, LogicObject.LogicPos.ToUnityVector3(), Time.deltaTime * _smoothPosSpeed);
-            transform.position = LogicObject.LogicPos.ToUnityVector3();
-        }
+        transform.position = LogicObject.LogicPos.ToUnityVector3();
+
+        // // 本地预测和回滚
+        // // Debug.LogError($"_isLocalPlayer : {_isLocalPlayer}");
+        // if (_isLocalPlayer) {
+        //     if (LogicObject.hasNewLogicPos) {
+        //         _preTargetPos = LogicObject.LogicPos.ToUnityVector3();
+        //         LogicObject.hasNewLogicPos = false;
+        //         _curPreMoveCount = 0; // 真正的逻辑位置从网络到达, 
+        //         // Debug.LogError($"后端逻辑位置抵达:{LogicObject.LogicPos.ToUnityVector3()}");
+        //     }
+        //     else {
+        //         // 进行预测
+        //         if (_curPreMoveCount >= GameConstConfigs.MaxPreMoveCount) {
+        //             return; // 超出预测最大限度, 不执行预测逻辑了
+        //         }
+        //         // 计算预测位置的增量
+        //         Vector3 deltaPos = LogicObject.LogicRotation.ToUnityQuaternion().eulerAngles * ((float)LogicObject.LogicMoveSpeed * Time.deltaTime);
+        //         _preTargetPos += deltaPos;
+        //         _curPreMoveCount++;
+        //         // Debug.LogError($"预测位置:{_preTargetPos}");
+        //     }
+        //     transform.position = Vector3.Lerp(transform.position, _preTargetPos, Time.deltaTime * _smoothPosSpeed);
+        // }
+        // else {
+        //      transform.position = Vector3.Lerp(transform.position, LogicObject.LogicPos.ToUnityVector3(), Time.deltaTime * _smoothPosSpeed);
+        // }
     }
 
     #endregion
 
     #region private
 
-    private void UpdatePosRotation() {
-        if (!_isUpdatePosAndDir) {
-            return;
-        }
+    private void UpdateTransform() {
+        // if (!_isUpdatePosAndDir) {
+        //     return;
+        // }
         UpdateRotation();
         UpdatePosition();
     }

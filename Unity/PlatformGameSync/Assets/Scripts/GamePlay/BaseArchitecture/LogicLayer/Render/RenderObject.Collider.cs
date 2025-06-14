@@ -79,6 +79,7 @@ public partial class RenderObject {
     [SerializeField] protected bool freezeRotation_Y = false;
     [SerializeField] protected bool freezeRotation_Z = false;
     [SerializeField] protected BEPU_LayerDefine layer = BEPU_LayerDefine.Default;
+    [SerializeField] protected BEPU_LerpMethod lerpMethod = BEPU_LerpMethod.Extrapolate;
 
 
     [SerializeField] protected FVector3 entityInitPos = FVector3.Zero;
@@ -91,7 +92,11 @@ public partial class RenderObject {
 
     public virtual void SyncExtendAttrsToEntity() { }
 
-    public virtual void SyncAllAttrsToEntity() {
+    public virtual void InitLerpper() {
+        baseColliderLogic.InitInterpolateState(lerpMethod);
+    }
+
+    public virtual void SyncAllAttrsToEntity(bool needSyncInitPosToEntity) {
         if (baseColliderLogic == null) {
             return;
         }
@@ -120,14 +125,30 @@ public partial class RenderObject {
             LogicObject.PhysicsEntryCenter = center;
         }
         baseColliderLogic.SyncAttrsToEntity();
+        if (needSyncInitPosToEntity) {
+            SyncInitPosAndRotToEntity();
+        }
+        // Debug.LogError(entityInitPos);
         ProcessEditorCollider();
         SyncExtendAttrsToEntity();
     }
 
 
+    protected virtual void SyncInitPosAndRotToEntity() {
+        if (baseColliderLogic == null) {
+            return;
+        }
+        baseColliderLogic.entity.Position = entityInitPos + center;
+        baseColliderLogic.entity.Orientation = entityInitRotation.ToQuaternion();
+    }
+
+    private void UpdateLerper() {
+        baseColliderLogic.DoPositionInterpolateUpdate((Fix64)Time.deltaTime);
+    }
+
     private void ProcessEditorCollider() {
 #if UNITY_EDITOR
-        if (!Application.isPlaying) {
+        if (!Application.isPlaying && _baseColliderLogicForEditor == null) {
             switch (ColliderTypeForEditorTest) {
                 case BEPU_ColliderType.None:
                     break;

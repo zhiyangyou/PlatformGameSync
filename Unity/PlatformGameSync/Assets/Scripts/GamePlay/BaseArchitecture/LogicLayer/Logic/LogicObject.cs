@@ -65,7 +65,7 @@ public abstract partial class LogicObject {
     }
 
     public virtual void OnLogicFrameUpdate() {
-        TrySyncPhysicsPosAndRot2Logic();
+        // SyncTransform_Entity2Render();
     }
 
     public virtual void OnDestory() {

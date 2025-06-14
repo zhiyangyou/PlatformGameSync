@@ -13,6 +13,7 @@ public partial class BEPU_CapsuleColliderMono {
 
     public static void DrawGizmos(BEPU_BaseColliderLogic baseCollider) {
         var center = baseCollider.entity.Position.ToUnityVector3();
+        // Debug.LogError($"DrawGizmos  {baseCollider.entity.Position.ToUnityVector3()}");
         var capsuleShape = baseCollider.entityShape as CapsuleShape;
         DrawWireCapsule(center, baseCollider.entity.Orientation.ToUnityQuaternion(), (float)capsuleShape.Radius, (float)(capsuleShape.Length + capsuleShape.Radius + capsuleShape.Radius), Color.green);
     }

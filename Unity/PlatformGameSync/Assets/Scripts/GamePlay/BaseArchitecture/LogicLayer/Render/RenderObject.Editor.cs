@@ -2,6 +2,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using FVector3 = BEPUutilities.Vector3;
 
 public partial class RenderObject {
     private Mesh _gizmosBoxMesh = null;
@@ -16,7 +17,7 @@ public partial class RenderObject {
     }
 
     private SerializedObject _serializedMono;
-
+    
     private SerializedObject serializedMono {
         get {
             if (_serializedMono == null) {
@@ -26,19 +27,10 @@ public partial class RenderObject {
         }
     }
 
-    protected virtual void SyncRenderPosAndRotationToEntity() {
-        if (baseColliderLogic == null) {
-            return;
-        }
-        baseColliderLogic.entity.Position = entityInitPos + center;
-        baseColliderLogic.entity.Orientation = entityInitRotation.ToQuaternion();
-    }
+
 
     protected virtual void OnValidate() {
-        SyncAllAttrsToEntity();
-        if (!Application.isPlaying) {
-            SyncRenderPosAndRotationToEntity();
-        }
+        SyncAllAttrsToEntity(!Application.isPlaying);
     }
 
     protected virtual void OnDrawGizmos() {
@@ -60,7 +52,7 @@ public partial class RenderObject {
             }
         }
 
-        // SyncInitPosAndRot();
+        SyncInitPosAndRot();
     }
 
 
