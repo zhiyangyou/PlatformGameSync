@@ -1,7 +1,9 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.Runtime.CompilerServices;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using UnityEngine;
+using FVector3 = BEPUutilities.Vector3;
 
 public partial class BEPU_BoxColliderMono {
     private Mesh _gizmosMesh = null;
@@ -27,7 +29,7 @@ public partial class BEPU_BoxColliderMono {
     public static void DrawGizmos(BEPU_BaseColliderLogic baseCollider, Mesh mesh) {
         var oldColor = Gizmos.color;
         Gizmos.color = Color.green;
-        var center = baseCollider.entity.Position.ToUnityVector3();
+        var center = baseCollider.entity.Position.ToUnityVector3() ;
         var boxShape = baseCollider.entityShape as BoxShape;
 
         UpdateGizmosMesh(mesh, (float)boxShape.Width, (float)boxShape.Height, (float)boxShape.Length);

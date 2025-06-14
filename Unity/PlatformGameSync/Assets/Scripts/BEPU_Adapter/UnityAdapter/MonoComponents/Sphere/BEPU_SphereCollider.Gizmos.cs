@@ -2,6 +2,7 @@ using BEPUphysics.CollisionShapes.ConvexShapes;
 using FixMath.NET;
 using UnityEditor;
 using UnityEngine;
+using FVector3 = BEPUutilities.Vector3;
 
 public partial class BEPU_SphereColliderMono {
     private void OnDrawGizmos() {

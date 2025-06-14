@@ -4,6 +4,7 @@
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using UnityEditor;
 using UnityEngine;
+using FVector3 = BEPUutilities.Vector3;
 
 public partial class BEPU_CapsuleColliderMono {
     private void OnDrawGizmos() {

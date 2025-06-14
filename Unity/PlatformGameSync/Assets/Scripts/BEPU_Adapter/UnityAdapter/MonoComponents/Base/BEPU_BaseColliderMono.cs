@@ -7,7 +7,7 @@ using FVector3 = BEPUutilities.Vector3;
 public abstract partial class BEPU_BaseColliderMono : MonoBehaviour {
     #region 属性和字段
 
-    [SerializeField] private FVector3 center = FVector3.Zero;
+    [SerializeField] protected FVector3 center = FVector3.Zero;
     [SerializeField] protected bool isTrigger;
     [SerializeField] protected BEPU_PhysicMaterialSO materialSo;
 
